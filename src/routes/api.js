@@ -3,7 +3,7 @@ import {
     getUsers, 
     getUserById,
     createUser
-} from '../controllers/userController.js';
+} from '../controllers/api/userController.api.js';
 
 const router = Router();
 

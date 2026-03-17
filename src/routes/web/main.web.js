@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { 
     homePage,
-} from '../../controllers/pageController.js';
+} from '../../controllers/web/mainController.web.js';
 
 const router = Router();
 
