@@ -1,0 +1,2 @@
+Command to create new migrations:
+npm run migrate:create -- create-office-item-table --sql-file

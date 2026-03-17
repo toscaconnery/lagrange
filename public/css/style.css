@@ -1,0 +1,209 @@
+@font-face {
+    font-family: 'Geist';
+    src: url('/fonts/geist-mono/Geist-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('/fonts/geist-mono/Geist-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('/fonts/geist-mono/Geist-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist';
+    src: url('/fonts/geist-mono/Geist-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #ffffff;
+    --bg-subtle: #f9f9f9;
+    --border: #e5e5e5;
+    --text: #111111;
+    --text-muted: #888888;
+    --accent: #111111;
+    --radius: 6px;
+    --font: 'Geist', 'SF Mono', ui-monospace, monospace;
+    --max-width: 860px;
+}
+
+html {
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Nav */
+nav {
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    transition: color 0.15s;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--text);
+}
+
+/* Layout */
+main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+/* Typography */
+h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; }
+h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+
+p {
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Cards */
+.card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    background: var(--bg);
+    transition: border-color 0.15s;
+}
+
+.card:hover {
+    border-color: #ccc;
+}
+
+/* Lists */
+ul, ol {
+    padding-left: 20px;
+    color: var(--text-muted);
+}
+
+li { margin-bottom: 6px; }
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* Buttons */
+button, .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+}
+
+button:hover, .btn:hover {
+    background: var(--bg-subtle);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    opacity: 0.85;
+}
+
+/* Inputs */
+input, select, textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #aaa;
+}
+
+/* Utilities */
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: 0.875rem; }
+.mt-4 { margin-top: 16px; }
+.mt-8 { margin-top: 32px; }
+.mb-4 { margin-bottom: 16px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
