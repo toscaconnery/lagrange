@@ -21,7 +21,9 @@ export const getUserById = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
     try {
+        console.log('--- creating user')
         const { name, email } = req.body;
+        console.log('--- name, email', name, email)
 
         if (!name || !email) {
             return res.status(400).json({ success: false, message: 'Name and email are required.' });

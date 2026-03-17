@@ -12,10 +12,10 @@ export const findUserById = async (id) => {
     return rows[0] ?? null;
 };
 
-export const createUser = async ({ name, email, passwordHash }) => {
+export const createUser = async ({ name, email }) => {
     const [result] = await pool.query(
-        'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
-        [name, email, passwordHash]
+        'INSERT INTO users (name, email) VALUES (?, ?)',
+        [name, email]
     );
     return result.insertId;
 };

@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import { 
-    homePage,
-    addUser
- } from '../controllers/pageController.js';
+
+import mainWebRoutes from './web/main.web.js'
+import userWebRoutes from './web/users.web.js'
 
 const router = Router();
 
-router.get('/', homePage);
+router.use('/', mainWebRoutes)
 
-router.get('/users/add', addUser)
+router.use('/users', userWebRoutes)
 
 export default router;
