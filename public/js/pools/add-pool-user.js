@@ -9,7 +9,6 @@ document.getElementById('add-form').addEventListener('submit', async (e) => {
 
     const body = {
         name: document.getElementById('name').value.trim(),
-        // email: document.getElementById('email').value.trim(),
     };
 
     try {
@@ -27,7 +26,7 @@ document.getElementById('add-form').addEventListener('submit', async (e) => {
             return;
         }
 
-        window.location.href = '/pools/user-list';
+        window.location.href = '/pools/list-user';
     } catch (err) {
         errorEl.textContent = 'Network error. Please try again.';
         errorEl.style.display = 'block';

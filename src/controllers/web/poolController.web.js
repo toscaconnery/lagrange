@@ -29,7 +29,7 @@ export const listPoolUser = async (req, res, next) => {
         const poolUsers = await PoolUserModel.findAllPoolUsers()
         res.render('pools/list-pool-user', {
             title: 'List Pool Users',
-            pool_users: poolUsers
+            users: poolUsers
         })
     } catch (error) {
         next(error)

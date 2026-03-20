@@ -11,6 +11,6 @@ router.get('/list', getPools)
 
 // router.get('/list-pool-user')
 
-router.get('/add-user', addPoolUser)
+router.post('/add-user', addPoolUser)
 
 export default router;
