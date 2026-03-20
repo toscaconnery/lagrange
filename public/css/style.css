@@ -215,3 +215,32 @@ textarea:disabled {
 .items-center { align-items: center; }
 .gap-2 { gap: 8px; }
 .gap-4 { gap: 16px; }
+
+/* Table container */
+.table-wrapper {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+/* Striped rows */
+tbody tr:nth-child(even) {
+    background: var(--bg-subtle);
+}
+
+/* Row hover */
+tbody tr {
+    transition: background 0.15s;
+}
+
+tbody tr:hover {
+    background: var(--border);
+}
+
+th, td {
+    border-right: 1px solid var(--border);
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
