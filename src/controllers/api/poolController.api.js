@@ -38,3 +38,25 @@ export const addPoolUser = async (req, res, next) => {
         next(error)
     }
 }
+
+export const exportPoolUserCSV = async (req, res, next) => {
+    try {
+        const date = new Date();
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const filename = `User-${day}-${month}-${year}.csv`;
+
+        const users = await PoolUserModel.findAllPoolUsers();
+
+        const headers = ['id', 'name'];
+        const lines = users.map(u => `${u.id},${u.name}`);
+        const csv = [headers.join(','), ...lines].join('\n');
+
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        res.send(csv);
+    } catch (err) {
+        next(err);
+    }
+};
