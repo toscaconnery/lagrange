@@ -90,8 +90,8 @@ export const exportPoolCSV = async (req, res, next) => {
 
         const pools = await PoolModel.findAllPools();
 
-        const headers = ['id', 'label', 'status', 'fish_species'];
-        const lines = pools.map(p => `${p.id},${p.label},${p.status},${p.fish_species}`);
+        const headers = ['id', 'label', 'status', 'manager', 'owner', 'fish species', 'fish count', 'fill date'];
+        const lines = pools.map(p => `${p.id},${p.label},${p.status},${p.manager},${p.owner},${p.fish_species},${p.fish_count},${p.fill_date}`);
         const csv = [headers.join(','), ...lines].join('\n');
 
         res.setHeader('Content-Type', 'text/csv');
