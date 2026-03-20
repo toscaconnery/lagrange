@@ -1,0 +1,8 @@
+<h1>List Pools</h1>
+<ul>
+  {{#each users}}
+    <li>{{this.id}} — {{this.label}}</li>
+  {{else}}
+    <li>No pools found.</li>
+  {{/each}}
+</ul>

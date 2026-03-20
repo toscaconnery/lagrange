@@ -1,11 +1,5 @@
 import { Router } from 'express';
 
-// import {
-//     homePage,
-//     listUser, 
-//     addUser 
-// } from '../../controllers/pageController.js';
-
 import {
     listUser,
     addUser
