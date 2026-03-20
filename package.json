@@ -20,6 +20,7 @@
     "db-migrate": "^0.11.14",
     "db-migrate-mysql": "^3.0.0",
     "dotenv": "^17.3.1",
+    "exceljs": "^4.4.0",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.1",
     "helmet": "^8.1.0",
@@ -31,7 +32,7 @@
   },
   "overrides": {
     "db-migrate": {
-        "type": "commonjs"
+      "type": "commonjs"
     }
   }
 }

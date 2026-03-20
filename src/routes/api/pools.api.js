@@ -4,8 +4,8 @@ import {
     getPools,
     addPool,
     addPoolUser,
-    exportPoolCSV,
-    exportPoolUserCSV
+    exportPoolXLSX,
+    exportPoolUserXLSX
 } from '../../controllers/api/poolController.api.js'
 
 const router = Router();
@@ -16,8 +16,8 @@ router.post('/add-user', addPoolUser)
 
 router.post('/add-pool', addPool)
 
-router.get('/export-pools', exportPoolCSV)
+router.get('/export-pools', exportPoolXLSX)
 
-router.get('/export-pool-users', exportPoolUserCSV)
+router.get('/export-pool-users', exportPoolUserXLSX)
 
 export default router;

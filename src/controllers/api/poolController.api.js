@@ -1,3 +1,4 @@
+import ExcelJS from 'exceljs';
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
 
@@ -64,43 +65,89 @@ export const addPoolUser = async (req, res, next) => {
     }
 }
 
-export const exportPoolUserCSV = async (req, res, next) => {
+export const exportPoolUserXLSX = async (req, res, next) => {
     try {
-        const dateFileName = generateFormattedDateForFileName()
-        const filename = `User-${dateFileName}.csv`;
-
         const users = await PoolUserModel.findAllPoolUsers();
 
-        const headers = ['id', 'name'];
-        const lines = users.map(u => `${u.id},${u.name}`);
-        const csv = [headers.join(','), ...lines].join('\n');
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('Pool Users');
 
-        res.setHeader('Content-Type', 'text/csv');
+        sheet.columns = [
+            { header: 'ID',   key: 'id',   width: 10 },
+            { header: 'Name', key: 'name', width: 25 },
+        ];
+
+        sheet.getRow(1).eachCell((cell) => {
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FF111111' },
+            };
+            cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        });
+
+        users.forEach(u => sheet.addRow(u));
+
+        const dateFileName = generateFormattedDateForFileName();
+        const filename = `User-${dateFileName}.xlsx`;
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-        res.send(csv);
+
+        await workbook.xlsx.write(res);
+        res.end();
     } catch (err) {
         next(err);
     }
 };
 
-export const exportPoolCSV = async (req, res, next) => {
+export const exportPoolXLSX = async (req, res, next) => {
     try {
-        const dateFileName = generateFormattedDateForFileName()
-        const filename = `Pool-${dateFileName}.csv`;
-
         const pools = await PoolModel.findAllPools();
 
-        const headers = ['id', 'label', 'status', 'manager', 'owner', 'fish species', 'fish count', 'fill date'];
-        const lines = pools.map(p => `${p.id},${p.label},${p.status},${p.manager},${p.owner},${p.fish_species},${p.fish_count},${p.fill_date}`);
-        const csv = [headers.join(','), ...lines].join('\n');
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('Pools');
 
-        res.setHeader('Content-Type', 'text/csv');
+        // Define columns with widths
+        sheet.columns = [
+            { header: 'ID',           key: 'id',           width: 5 },
+            { header: 'Label',        key: 'label',        width: 25 },
+            { header: 'Status',       key: 'status',       width: 10 },
+            { header: 'Manager',      key: 'manager',      width: 20 },
+            { header: 'Owner',        key: 'owner',        width: 20 },
+            { header: 'Fish Species', key: 'fish_species', width: 20 },
+            { header: 'Fish Count',   key: 'fish_count',   width: 10 },
+            { header: 'Fill Date',    key: 'fill_date',    width: 20 },
+        ];
+
+        // Style header row
+        sheet.getRow(1).eachCell((cell) => {
+            cell.font = { bold: true };
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FF111111' },
+            };
+            cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        });
+
+        // Add rows
+        pools.forEach(p => sheet.addRow(p));
+
+        // Stream to response
+        const dateFileName = generateFormattedDateForFileName();
+        const filename = `Pool-${dateFileName}.xlsx`;
+
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-        res.send(csv);
-    } catch (err) {
-        next(err);
+
+        await workbook.xlsx.write(res);
+        res.end();
+
+    } catch (error) {
+        next(error)
     }
-};
+}
 
 const generateFormattedDateForFileName = () => {
     const date = new Date();
