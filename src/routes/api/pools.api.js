@@ -2,7 +2,9 @@ import { Router } from "express";
 
 import {
     getPools,
+    addPool,
     addPoolUser,
+    exportPoolCSV,
     exportPoolUserCSV
 } from '../../controllers/api/poolController.api.js'
 
@@ -12,6 +14,10 @@ router.get('/list', getPools)
 
 router.post('/add-user', addPoolUser)
 
-router.get('/export-pool-user', exportPoolUserCSV)
+router.post('/add-pool', addPool)
+
+router.get('/export-pools', exportPoolCSV)
+
+router.get('/export-pool-users', exportPoolUserCSV)
 
 export default router;

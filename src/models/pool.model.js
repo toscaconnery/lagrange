@@ -1,26 +1,18 @@
 import pool from '../config/db.js';
 
 export const findAllPools = async () => {
-    const [rows] = await pool.query('SELECT id, label FROM pools')
+    const [rows] = await pool.query('SELECT id, label, status, fish_species, fish_count, notes, manager, owner, fill_date FROM pools')
     return rows;
 }
 
-// export const findAllUsers = async () => {
-//     const [rows] = await pool.query('SELECT id, name FROM users');
-//     return rows;
-// };
-
-// export const findUserById = async (id) => {
-//     const [rows] = await pool.query(
-//         'SELECT id, name, email FROM users WHERE id = ?', [id]
-//     );
-//     return rows[0] ?? null;
-// };
-
-// export const createUser = async ({ name, email }) => {
-//     const [result] = await pool.query(
-//         'INSERT INTO users (name, email) VALUES (?, ?)',
-//         [name, email]
-//     );
-//     return result.insertId;
-// };
+export const createPool = async ({ label, fish_species, owner }) => {
+    const status = 'inactive'
+    const notes = ''
+    const manager = 1
+    const fill_date = null
+    const [result] = await pool.query(
+        'INSERT INTO pools (label, status, fish_species, notes, manager, owner, fill_date) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [label, status, fish_species, notes, manager, owner, fill_date]
+    );
+    return result.insertId;
+};
