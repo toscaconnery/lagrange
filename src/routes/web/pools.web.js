@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import {
+    poolHome,
     listPool,
     addPool,
     listPoolUser,
@@ -8,6 +9,8 @@ import {
 } from '../../controllers/web/poolController.web.js'
 
 const router = Router();
+
+router.get('/', poolHome);
 
 router.get('/list', listPool);
 

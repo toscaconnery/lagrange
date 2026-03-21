@@ -1,6 +1,15 @@
-// import * as UserModel from '../../models/user.model.js'
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
+
+export const poolHome = async (req, res, next) => {
+    try {
+        res.render('pools/pool-home', {
+            title: 'Pools'
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 export const listPool = async (req, res, next) => {
     try {
