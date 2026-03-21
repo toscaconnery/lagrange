@@ -9,6 +9,7 @@ import 'dotenv/config';
 import apiRoutes from './routes/api.js';
 import webRoutes from './routes/web.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { detectSection } from './middlewares/section.js';
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use(cookieParser());
 
 // --- Static Files ---
 app.use(express.static('public'));
+
+app.use(detectSection);
 
 // --- Handlebars Setup ---
 app.engine('hbs', engine({
