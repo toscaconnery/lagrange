@@ -20,9 +20,9 @@
         <div class="mb-4">
             <label class="text-sm" for="owner">Owner</label>
             <select id="owner" name="owner">
-                <option value="1" selected>Person 1</option>
-                <option value="2">Person 2</option>
-                <option value="3">Person 3</option>
+                {{#each users}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
             </select>
         </div>
 

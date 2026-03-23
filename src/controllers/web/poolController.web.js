@@ -25,8 +25,11 @@ export const listPool = async (req, res, next) => {
 
 export const addPool = async (req, res, next) => {
     try {
+        const users = await PoolUserModel.findAllPoolUsers()
+
         res.render('pools/add-pool', {
             title: 'Add Pool',
+            users
         });
     } catch (error) {
         next(error)
