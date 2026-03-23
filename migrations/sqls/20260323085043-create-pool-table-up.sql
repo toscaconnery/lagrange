@@ -2,7 +2,7 @@ CREATE TABLE pools (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     label VARCHAR(100) NOT NULL,
     status ENUM('active', 'inactive') NOT NULL DEFAULT 'inactive',
-    fish_species VARCHAR(20) NOT NULL,
+    fish_species VARCHAR(20),
     fish_count INT NOT NULL DEFAULT 0,
     notes VARCHAR(100),
     manager INT UNSIGNED,

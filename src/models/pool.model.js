@@ -13,9 +13,10 @@ export const findAllPools = async () => {
     return rows;
 }
 
-export const createPool = async ({ label, fish_species, owner }) => {
+export const createPool = async ({ label, owner }) => {
     const status = 'inactive'
     const notes = ''
+    const fish_species = null
     const manager = 1
     const fill_date = null
     const [result] = await pool.query(

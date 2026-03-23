@@ -9,7 +9,6 @@ document.getElementById('add-form').addEventListener('submit', async (e) => {
 
     const body = {
         label: document.getElementById('label').value.trim(),
-        fish_species: document.getElementById('fish_species').value.trim(),
         owner: document.getElementById('owner').value.trim()
     };
 
@@ -20,14 +19,6 @@ document.getElementById('add-form').addEventListener('submit', async (e) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         });
-
-        // const data = await res.json();
-
-        // if (!res.ok) {
-        //     errorEl.textContent = data.message ?? 'Something went wrong.';
-        //     errorEl.style.display = 'block';
-        //     return;
-        // }
 
         window.location.href = '/pools/list';
     } catch (err) {

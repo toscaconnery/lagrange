@@ -25,24 +25,19 @@ export const addPool = async (req, res, next) => {
     try {
         const { 
             label,
-            fish_species,
             owner
         } = req.body
-        console.log('--- add pool params :', label, fish_species, owner)
+        console.log('--- add pool params :', label, owner)
 
         if (!label) {
             return res.status(400).json({ success: false, message: 'Label required.' });
-        }
-
-        if (!fish_species) {
-            return res.status(400).json({ success: false, message: 'Fish species required.' });
         }
 
         if (!owner) {
             return res.status(400).json({ success: false, message: 'Owner required.' });
         }
 
-        const id = await PoolModel.createPool({ label, fish_species, owner})
+        const id = await PoolModel.createPool({ label, owner})
 
         res.json({ success: true, data: {}})
     } catch (error) {
