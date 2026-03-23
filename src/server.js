@@ -10,6 +10,7 @@ import apiRoutes from './routes/api.js';
 import webRoutes from './routes/web.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { detectSection } from './middlewares/section.js';
+import { helpers } from './helpers/hbs.js';
 
 const app = express();
 
@@ -34,10 +35,7 @@ app.engine('hbs', engine({
     defaultLayout: 'main',
     layoutsDir: 'src/views/layouts',
     partialsDir: 'src/views/partials',
-    helpers: {
-        formatDate: (date) => new Date(date).toLocaleDateString(),
-        eq: (a, b) => a === b,
-    },
+    helpers
 }));
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');

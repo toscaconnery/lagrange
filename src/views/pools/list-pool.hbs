@@ -15,6 +15,7 @@
         <th>manager</th>
         <th>owner</th>
         <th>fill date</th>
+        <th>action</th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
         <td>{{this.manager}}</td>
         <td>{{this.owner}}</td>
         <td>{{this.fill_date}}</td>
+        <td><a href="/pools/manage/{{this.id}}" class="btn">Manage</a></td>
       </tr>
       {{else}}
       <tr>

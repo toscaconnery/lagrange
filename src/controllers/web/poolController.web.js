@@ -45,13 +45,33 @@ export const listPoolUser = async (req, res, next) => {
     }
 }
 
-
-
-
 export const addPoolUser = async (req, res, next) => {
     try {
         res.render('pools/add-pool-user', {
             title: 'Add Pool User'
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const managePool = async (req, res, next) => {
+    try {
+        const poolId = req.params.id
+
+        const pool = await PoolModel.findPoolById(poolId)
+        
+        res.render('pools/manage-pool', {
+            title: 'Manage Pool',
+            poolId: poolId,
+            pool
+            // pool: {
+            //     ...pool,
+            //     status: pool.status
+            //         ? pool.status.charAt(0).toUpperCase() + pool.status.slice(1).toLowerCase()
+            //         : '-',
+            //     fish_species
+            // },
         })
     } catch (error) {
         next(error)

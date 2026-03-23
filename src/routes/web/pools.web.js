@@ -5,7 +5,8 @@ import {
     listPool,
     addPool,
     listPoolUser,
-    addPoolUser
+    addPoolUser,
+    managePool
 } from '../../controllers/web/poolController.web.js'
 
 const router = Router();
@@ -19,5 +20,7 @@ router.get('/add', addPool)
 router.get('/list-user', listPoolUser)
 
 router.get('/add-user', addPoolUser)
+
+router.get('/manage/:id', managePool)
 
 export default router;
