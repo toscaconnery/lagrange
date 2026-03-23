@@ -4,9 +4,11 @@ import {
     homePage,
 } from '../../controllers/web/mainController.web.js';
 
+import { requireAuth } from '../../middlewares/auth.js';
+
 const router = Router();
 
-router.get('/', homePage)
+router.get('/', requireAuth, homePage)
 
 
 export default router;

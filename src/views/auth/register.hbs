@@ -1,0 +1,31 @@
+<div class="auth-wrapper">
+    <div class="card" style="width: 360px;">
+        <div class="mb-4">
+            <div class="text-lg text-bold">Register</div>
+            <div class="text-sm text-muted">Lagrange Management System</div>
+        </div>
+
+        {{#if error}}
+            <div class="text-sm mb-4" style="color: red;">{{error}}</div>
+        {{/if}}
+
+        <form id="login-form" method="POST" action="/auth/register">
+            <div class="mb-4">
+                <label class="text-sm" for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required style="margin-top: 6px;">
+            </div>
+            <div class="mb-4">
+                <label class="text-sm" for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@email.com" required style="margin-top: 6px;">
+            </div>
+            <div class="mb-4">
+                <label class="text-sm" for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required style="margin-top: 6px;">
+            </div>
+            <div class="mb-4 text-sm auth-text-button">
+                <a href="/auth/login">Go to login page.</a>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">Register</button>
+        </form>
+    </div>
+</div>

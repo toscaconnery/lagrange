@@ -11,22 +11,24 @@ import {
     addFishType
 } from '../../controllers/web/poolController.web.js'
 
+import { requireAuth } from '../../middlewares/auth.js';
+
 const router = Router();
 
-router.get('/', poolHome);
+router.get('/', requireAuth, poolHome);
 
-router.get('/list', listPool);
+router.get('/list', requireAuth, listPool);
 
-router.get('/add', addPool)
+router.get('/add', requireAuth, addPool)
 
-router.get('/list-user', listPoolUser)
+router.get('/list-user', requireAuth, listPoolUser)
 
-router.get('/add-user', addPoolUser)
+router.get('/add-user', requireAuth, addPoolUser)
 
-router.get('/manage/:id', managePool)
+router.get('/manage/:id', requireAuth, managePool)
 
-router.get('/list-fish-type', listPoolFishType)
+router.get('/list-fish-type', requireAuth, listPoolFishType)
 
-router.get('/add-fish-type', addFishType)
+router.get('/add-fish-type', requireAuth, addFishType)
 
 export default router;

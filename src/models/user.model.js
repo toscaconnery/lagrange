@@ -12,10 +12,18 @@ export const findUserById = async (id) => {
     return rows[0] ?? null;
 };
 
-export const createUser = async ({ name, email }) => {
+export const create = async ({ name, email, password }) => {
     const [result] = await pool.query(
-        'INSERT INTO users (name, email) VALUES (?, ?)',
-        [name, email]
+        'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+        [name, email, password]
     );
-    return result.insertId;
+    return { id: result.insertId, name, email };
 };
+
+export const findByEmail = async (email) => {
+    const [rows] = await pool.query(
+        'SELECT id, name, email, password FROM users WHERE email = ?', [email]
+    );
+
+    return rows[0] ?? null;
+}

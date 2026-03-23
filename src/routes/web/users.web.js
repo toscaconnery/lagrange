@@ -1,14 +1,13 @@
 import { Router } from 'express';
 
 import {
-    listUser,
-    addUser
+    listUser
 } from '../../controllers/web/userController.web.js'
+
+import { requireAuth } from '../../middlewares/auth.js';
 
 const router = Router();
 
-router.get('/list', listUser);
-
-router.get('/add', addUser)
+router.get('/list', requireAuth, listUser);
 
 export default router;

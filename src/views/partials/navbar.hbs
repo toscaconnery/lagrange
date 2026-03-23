@@ -1,16 +1,26 @@
 <nav>
-    {{#if isPoolSection}}
-        <a href="/pools">Home</a>
-        <a href="/pools/list">List Pool</a>
-        <a href="/pools/add">Add Pool</a>
-        <a href="/pools/list-user">List Pool User</a>
-        <a href="/pools/add-user">Add Pool User</a>
-        <a href="/pools/list-fish-type">List Fish Types</a>
-        <a href="/pools/add-fish-type">Add Fish Types</a>
-    {{else if isUserSection}}
-        <a href="/users/list">List User</a>
-        <a href="/users/add">Add User</a>
-    {{else}}
-        <a href="/">Home</a>
+    <div class="nav-links">
+        {{#if isPoolSection}}
+            <a href="/pools">Home</a>
+            <a href="/pools/list">List Pool</a>
+            <a href="/pools/add">Add Pool</a>
+            <a href="/pools/list-user">List Pool User</a>
+            <a href="/pools/add-user">Add Pool User</a>
+            <a href="/pools/list-fish-type">List Fish Types</a>
+            <a href="/pools/add-fish-type">Add Fish Types</a>
+        {{else if isUserSection}}
+            <a href="/users/list">List User</a>
+        {{else}}
+            <a href="/">Home</a>
+        {{/if}}
+    </div>
+
+    {{#if user}}
+        <div class="nav-user">
+            <span class="text-sm">{{user.email}}</span>
+            <form method="POST" action="/auth/logout">
+                <button type="submit" class="text-sm text-muted">Logout</button>
+            </form>
+        </div>
     {{/if}}
 </nav>

@@ -69,6 +69,19 @@ nav {
     top: 0;
     background: var(--bg);
     z-index: 10;
+    justify-content: space-between;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 nav a {
@@ -234,6 +247,7 @@ select {
 .gap-4 { gap: 16px; }
 .text-bold { font-weight: 700; }
 .italic { font-style: italic; }
+.underline { text-decoration: underline; }
 
 /* Table container */
 .table-wrapper {
@@ -275,4 +289,23 @@ th:last-child, td:last-child {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     grid-auto-rows: minmax(70px, auto);
+}
+
+/* Auth Layout */
+.auth-container {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+}
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 360px;
+    padding: 1rem;
+}
+
+.auth-text-button {
+    cursor: pointer;
 }
