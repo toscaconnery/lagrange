@@ -4,6 +4,7 @@ import {
     getPools,
     addPool,
     addPoolUser,
+    addPoolFishType,
     exportPoolXLSX,
     exportPoolUserXLSX
 } from '../../controllers/api/poolController.api.js'
@@ -15,6 +16,8 @@ router.get('/list', getPools)
 router.post('/add-user', addPoolUser)
 
 router.post('/add-pool', addPool)
+
+router.post('/add-fish-type', addPoolFishType)
 
 router.get('/export-pools', exportPoolXLSX)
 

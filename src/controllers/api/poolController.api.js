@@ -1,6 +1,7 @@
 import ExcelJS from 'exceljs';
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
+import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
 
 export const getPools = async (req, res, next) => {
     try {
@@ -58,6 +59,22 @@ export const addPoolUser = async (req, res, next) => {
         }
 
         const id = await PoolUserModel.createPoolUser({ name });
+        res.status(201).json({ success: true, data: { id, name } });
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const addPoolFishType = async (req, res, next) => {
+    try {
+        const { name } = req.body;
+
+        if (!name) {
+            return res.status(400).json({ success: false, message: 'Name required.' });
+        }
+
+        const id = await PoolFishTypeModel.createPoolFishType({ name });
         res.status(201).json({ success: true, data: { id, name } });
 
     } catch (error) {

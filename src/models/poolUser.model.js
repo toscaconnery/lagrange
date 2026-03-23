@@ -13,12 +13,3 @@ export const createPoolUser = async ({name}) => {
     )
     return result.insertId
 }
-
-
-export const createUser = async ({ name, email }) => {
-    const [result] = await pool.query(
-        'INSERT INTO users (name, email) VALUES (?, ?)',
-        [name, email]
-    );
-    return result.insertId;
-};

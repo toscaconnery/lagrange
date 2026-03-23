@@ -1,5 +1,6 @@
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
+import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
 
 export const poolHome = async (req, res, next) => {
     try {
@@ -68,13 +69,29 @@ export const managePool = async (req, res, next) => {
             title: 'Manage Pool',
             poolId: poolId,
             pool
-            // pool: {
-            //     ...pool,
-            //     status: pool.status
-            //         ? pool.status.charAt(0).toUpperCase() + pool.status.slice(1).toLowerCase()
-            //         : '-',
-            //     fish_species
-            // },
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const listPoolFishType = async (req, res, next) => {
+    try {
+        // const poolUsers = await PoolUserModel.findAllPoolUsers()
+        const fishTypes = await PoolFishTypeModel.findAllFishTypes()
+        res.render('pools/list-fish-type', {
+            title: 'List Fish Type',
+            fishTypes
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const addFishType = async (req, res, next) => {
+    try {
+        res.render('pools/add-fish-type', {
+            title: 'Add Fish Type'
         })
     } catch (error) {
         next(error)

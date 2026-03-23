@@ -1,0 +1,26 @@
+<div class="flex-between">
+  <h1>List Fish Types</h1>
+</div>
+
+<div class="table-wrapper mt-8">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fish</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each fishTypes}}
+      <tr>
+        <td style="width: 60px;">{{this.id}}</td>
+        <td>{{this.name}}</td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="3" class="text-muted">No fish found.</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
