@@ -103,6 +103,10 @@ main {
     padding: 48px 24px;
 }
 
+.wide-max-width {
+    max-width: 1080px;
+}
+
 /* Typography */
 h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
 h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; }
@@ -191,6 +195,18 @@ button:hover, .btn:hover {
 
 .btn-primary:hover {
     opacity: 0.85;
+}
+
+.btn-red {
+    background: #ecb8b8;
+    color: #a01717;
+    border-color: #a01717;
+}
+
+.btn-red:hover {
+    opacity: 0.85;
+    background: #ef2727;
+    color: #ffffff;
 }
 
 /* Inputs */

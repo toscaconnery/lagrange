@@ -1,6 +1,7 @@
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
 import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
+import { formatDate } from '../../utils/formatter.js'
 
 export const poolHome = async (req, res, next) => {
     try {
@@ -17,6 +18,7 @@ export const listPool = async (req, res, next) => {
         const pools = await PoolModel.findAllPools()
         res.render('pools/list-pool', {
             title: 'List Pools',
+            layout: 'main-wide',
             pools
         })
     } catch (error) {
@@ -40,9 +42,15 @@ export const addPool = async (req, res, next) => {
 export const listPoolUser = async (req, res, next) => {
     try {
         const poolUsers = await PoolUserModel.findAllPoolUsers()
+        const formattedPoolUsers = poolUsers.map((p) => {
+            return {
+                ...p,
+                created: formatDate(p.created_at)
+            }
+        })
         res.render('pools/list-pool-user', {
             title: 'List Pool Users',
-            users: poolUsers
+            users: formattedPoolUsers
         })
     } catch (error) {
         next(error)
@@ -53,6 +61,22 @@ export const addPoolUser = async (req, res, next) => {
     try {
         res.render('pools/add-pool-user', {
             title: 'Add Pool User'
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const poolDetails = async (req, res, next) => {
+    try {
+        const poolId = req.params.id
+
+        const pool = await PoolModel.findPoolById(poolId)
+        
+        res.render('pools/pool-details', {
+            title: 'Pool Details',
+            poolId: poolId,
+            pool
         })
     } catch (error) {
         next(error)

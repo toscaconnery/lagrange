@@ -9,11 +9,11 @@
         <div class="pool-detail-wrapper">
             <div class="">
                 <div class="text-sm">Owner</div>
-                <div class="text-bold">{{pool.owner}}Tony Stark</div>
+                <div class="text-bold">{{pool.owner_name}}</div>
             </div>
             <div class="">
                 <div class="text-sm">Manager</div>
-                <div class="text-bold">{{pool.manager}}Tony Stark</div>
+                <div class="text-bold">{{pool.manager}}</div>
             </div>
             <div></div>
             <div class="text-bold italic">{{pool.status}}</div>
@@ -33,9 +33,8 @@
         <div id="form-error" class="text-sm" style="color: red; display: none;"></div>
         <div class="flex items-center gap-4 mt-4">
             <button type="submit" class="btn-primary" id="submit-btn">Manage Pool</button>
+            <button type="button" class="btn-red" id="submit-btn">Delete Pool</button>
             <a href="/pools" class="text-sm text-muted">Cancel</a>
         </div>
     </form>
 </div>
-
-{{!-- <script src="/js/pools/add-pool.js"></script> --}}

@@ -1,8 +1,12 @@
 import pool from '../config/db.js';
 
 export const findPoolById = async (id) => {
-    const [rows] = await pool.query(
-        'SELECT id, label, status, fish_species, fish_count, notes, manager, owner, fill_date FROM pools WHERE id = ?',
+    const [rows] = await pool.query(`
+        SELECT p.id, p.label, p.status, p.fish_species, p.fish_count, p.notes, p.manager, p.owner, p.fill_date ,
+        pu.name AS owner_name
+        FROM pools p
+        LEFT JOIN pool_users pu ON p.owner = pu.id
+        WHERE p.id = ?`,
         [id]
     );
     return rows[0] ?? null;

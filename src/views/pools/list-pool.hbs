@@ -29,7 +29,10 @@
         <td>{{this.manager}}</td>
         <td>{{this.owner_name}}</td>
         <td>{{this.fill_date}}</td>
-        <td><a href="/pools/manage/{{this.id}}" class="btn">Manage</a></td>
+        <td>
+          <a href="/pools/details/{{this.id}}" class="btn">Details</a>
+          <a href="/pools/manage/{{this.id}}" class="btn">Manage</a>
+        </td>
       </tr>
       {{else}}
       <tr>

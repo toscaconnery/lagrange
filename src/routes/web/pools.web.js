@@ -8,7 +8,8 @@ import {
     addPoolUser,
     managePool,
     listPoolFishType,
-    addFishType
+    addFishType,
+    poolDetails
 } from '../../controllers/web/poolController.web.js'
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -24,6 +25,8 @@ router.get('/add', requireAuth, addPool)
 router.get('/list-user', requireAuth, listPoolUser)
 
 router.get('/add-user', requireAuth, addPoolUser)
+
+router.get('/details/:id', requireAuth, poolDetails)
 
 router.get('/manage/:id', requireAuth, managePool)
 
