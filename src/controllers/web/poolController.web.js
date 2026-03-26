@@ -16,10 +16,16 @@ export const poolHome = async (req, res, next) => {
 export const listPool = async (req, res, next) => {
     try {
         const pools = await PoolModel.findAllPools()
+        const formattedPools = pools.map((p) => {
+            return {
+                ...p,
+                fish_count: p.fish_count > 0 ? p.fish_count : ''
+            }
+        })
         res.render('pools/list-pool', {
             title: 'List Pools',
             layout: 'main-wide',
-            pools
+            pools: formattedPools
         })
     } catch (error) {
         next(error)
