@@ -29,6 +29,8 @@ export const addPool = async (req, res, next) => {
         } = req.body
         console.log('--- add pool params :', label, owner)
 
+        // const userId = res.locals.user.id;
+
         if (!label) {
             return res.status(400).json({ success: false, message: 'Label required.' });
         }

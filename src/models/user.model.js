@@ -1,7 +1,7 @@
 import pool from '../config/db.js';
 
 export const findAllUsers = async () => {
-    const [rows] = await pool.query('SELECT id, name FROM users');
+    const [rows] = await pool.query('SELECT id, name, email, created_at FROM users');
     return rows;
 };
 

@@ -1,8 +1,30 @@
-<h1>List Users</h1>
-<ul>
-  {{#each users}}
-    <li>{{this.id}} — {{this.name}}</li>
-  {{else}}
-    <li>No users found.</li>
-  {{/each}}
-</ul>
+<div class="flex-between">
+  <h1>List Users</h1>
+</div>
+
+<div class="table-wrapper mt-8">
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 60px;">ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created at</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.created}}</td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="3" class="text-muted">No users found.</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

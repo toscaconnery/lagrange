@@ -9,13 +9,15 @@ import {
     exportPoolUserXLSX
 } from '../../controllers/api/poolController.api.js'
 
+import { requireAuth } from '../../middlewares/auth.js';
+
 const router = Router();
 
 router.get('/list', getPools)
 
 router.post('/add-user', addPoolUser)
 
-router.post('/add-pool', addPool)
+router.post('/add-pool', requireAuth, addPool)
 
 router.post('/add-fish-type', addPoolFishType)
 
