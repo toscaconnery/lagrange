@@ -2,14 +2,35 @@
     <div class="nav-links">
         {{#if isPoolSection}}
             <a href="/pools">Home</a>
-            <a href="/pools/list">List Pool</a>
-            <a href="/pools/add">Add Pool</a>
-            <a href="/pools/list-user">List Pool User</a>
-            <a href="/pools/add-user">Add Pool User</a>
-            <a href="/pools/list-fish-type">List Fish Types</a>
-            <a href="/pools/add-fish-type">Add Fish Types</a>
-            <a href="#">Feed</a>
-            <a href="#">Expenditure</a>
+            <li class="dropdown">
+                <span class="dropdown-trigger">Pools ▾</span>
+                <div class="dropdown-menu">
+                    <a href="/pools/list">List Pool</a>
+                    <a href="/pools/add">Add Pool</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <span class="dropdown-trigger">Users ▾</span>
+                <div class="dropdown-menu">
+                    <a href="/pools/list-user">List Pool User</a>
+                    <a href="/pools/add-user">Add Pool User</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <span class="dropdown-trigger">Fish Types ▾</span>
+                <div class="dropdown-menu">
+                    <a href="/pools/list-fish-type">List Fish Types</a>
+                    <a href="/pools/add-fish-type">Add Fish Types</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <span class="dropdown-trigger">More ▾</span>
+                <div class="dropdown-menu">
+                    <a href="/pools/feed">Feed</a>
+                    <a href="/pools/expenditure">Expenditure</a>
+                    <a href="/pools/reports">Reports</a>
+                </div>
+            </li>
         {{else if isUserSection}}
             <a href="/users/list">List User</a>
         {{else}}

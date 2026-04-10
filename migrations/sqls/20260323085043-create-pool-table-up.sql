@@ -10,6 +10,7 @@ CREATE TABLE pools (
     fill_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL,
     CONSTRAINT fk_pool_manager FOREIGN KEY (manager) REFERENCES pool_users(id),
     CONSTRAINT fk_pool_owner FOREIGN KEY (owner) REFERENCES pool_users(id)
 );

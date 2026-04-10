@@ -127,3 +127,13 @@ export const addFishType = async (req, res, next) => {
         next(error)
     }
 }
+
+export const deletePool = async (req, res, next) => {
+    try {
+        const poolId = req.params.id
+        const pool = await PoolModel.deletePool({poolId})
+        res.redirect('/pools/list'); //
+    } catch (error) {
+        next(error)
+    }
+}

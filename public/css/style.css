@@ -325,3 +325,56 @@ th:last-child, td:last-child {
 .auth-text-button {
     cursor: pointer;
 }
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    list-style: none;
+}
+
+li.dropdown {
+    margin-bottom: 0;
+}
+
+.dropdown-trigger {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px 4px;
+}
+
+.dropdown-trigger:hover {
+    color: var(--text);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    min-width: 180px;
+    display: none;
+    flex-direction: column;
+    padding: 6px 0;
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+    background: var(--bg-subtle);
+    color: var(--text);
+}
+
+/* Show on hover (desktop) */
+.dropdown:hover .dropdown-menu {
+    display: flex;
+}

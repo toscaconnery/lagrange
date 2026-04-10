@@ -20,6 +20,7 @@ export const findAllPools = async () => {
             pu.name AS owner_name
         FROM pools p
         LEFT JOIN pool_users pu ON p.owner = pu.id
+        WHERE deleted_at IS NULL;
     `)
     return rows;
 }
@@ -36,3 +37,11 @@ export const createPool = async ({ label, owner }) => {
     );
     return result.insertId;
 };
+
+export const deletePool = async ({ poolId }) => {
+    const [result] = await pool.query(
+        'UPDATE pools SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?',
+        [poolId]
+    )
+    return result;
+}

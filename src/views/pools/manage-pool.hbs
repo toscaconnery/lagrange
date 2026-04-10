@@ -43,8 +43,11 @@
         <div id="form-error" class="text-sm" style="color: red; display: none;"></div>
         <div class="flex items-center gap-4 mt-4">
             <button type="submit" class="btn-primary" id="submit-btn">Manage Pool</button>
-            <button type="button" class="btn-red" id="submit-btn">Delete Pool</button>
-            <a href="/pools" class="text-sm text-muted">Cancel</a>
+            <a href="/pools/delete/{{pool.id}}">
+                <button type="button" class="btn-red" id="submit-btn">Delete Pool</button>
+            </a>
+
+            <a href="/pools/list" class="text-sm text-muted">Cancel</a>
         </div>
     </form>
 </div>
