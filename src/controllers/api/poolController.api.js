@@ -185,6 +185,22 @@ export const managePool = async (req, res, next) => {
     }
 }
 
+export const deletePool = async (req, res, next) => {
+    try {
+        const { pool_id } = req.body;
+
+        if (!pool_id) {
+            return res.status(400).json({ success: false, message: 'Invalid request.' });
+        }
+
+        const poolUpdate = await PoolModel.deletePool({poolId: pool_id})
+
+        res.status(200).json({ success: true, data: { pool_id, status: poolUpdate } });
+    } catch (error) {
+        next(error)
+    }
+}
+
 const generateFormattedDateForFileName = () => {
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');

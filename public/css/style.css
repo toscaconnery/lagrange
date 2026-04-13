@@ -378,3 +378,32 @@ li.dropdown {
 .dropdown:hover .dropdown-menu {
     display: flex;
 }
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-danger {
+    background: #cc0000;
+    color: #fff;
+    border-color: #cc0000;
+}
+
+.btn-danger:hover {
+    opacity: 0.85;
+}
