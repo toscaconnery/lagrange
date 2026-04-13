@@ -3,6 +3,19 @@ import pool from '../config/db.js';
 export const findPoolById = async (id) => {
     const [rows] = await pool.query(`
         SELECT p.id, p.label, p.status, p.fish_species, p.fish_count, p.notes, p.manager, p.owner, p.fill_date ,
+        pu.name AS owner_name, pm.name AS manager_name
+        FROM pools p
+        LEFT JOIN pool_users pu ON p.owner = pu.id
+        LEFT JOIN pool_users pm ON p.manager = pm.id
+        WHERE p.id = ?`,
+        [id]
+    );
+    return rows[0] ?? null;
+}
+
+export const findPoolByIdx = async (id) => {
+    const [rows] = await pool.query(`
+        SELECT p.id, p.label, p.status, p.fish_species, p.fish_count, p.notes, p.manager, p.owner, p.fill_date ,
         pu.name AS owner_name
         FROM pools p
         LEFT JOIN pool_users pu ON p.owner = pu.id
@@ -12,14 +25,16 @@ export const findPoolById = async (id) => {
     return rows[0] ?? null;
 }
 
+
 export const findAllPools = async () => {
     const [rows] = await pool.query(`
         SELECT 
             p.id, p.label, p.status, p.fish_species, p.fish_count, 
             p.notes, p.manager, p.owner, p.fill_date,
-            pu.name AS owner_name
+            pu.name AS owner_name, pm.name AS manager_name
         FROM pools p
         LEFT JOIN pool_users pu ON p.owner = pu.id
+        LEFT JOIN pool_users pm ON p.manager = pm.id
         WHERE deleted_at IS NULL;
     `)
     return rows;
@@ -45,3 +60,11 @@ export const deletePool = async ({ poolId }) => {
     )
     return result;
 }
+
+export const managePool = async ({ poolId, manager }) => {
+    const [result] = await pool.query(
+        'UPDATE pools SET manager = ? WHERE id = ? AND deleted_at IS NULL',
+        [manager, poolId]
+    );
+    return result;
+};

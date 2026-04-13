@@ -6,7 +6,8 @@ import {
     addPoolUser,
     addPoolFishType,
     exportPoolXLSX,
-    exportPoolUserXLSX
+    exportPoolUserXLSX,
+    managePool
 } from '../../controllers/api/poolController.api.js'
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -24,5 +25,7 @@ router.post('/add-fish-type', addPoolFishType)
 router.get('/export-pools', exportPoolXLSX)
 
 router.get('/export-pool-users', exportPoolUserXLSX)
+
+router.post('/manage-pool', managePool)
 
 export default router;

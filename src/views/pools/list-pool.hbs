@@ -1,6 +1,9 @@
 <div class="flex-between">
   <h1>List Pool</h1>
-  <a href="/api/v1/pools/export-pools" class="btn">Download CSV</a>
+  <div>
+    <a href="/pools/add" class="btn">Add Pool</a>
+    <a href="/api/v1/pools/export-pools" class="btn">Download CSV</a>
+  </div>
 </div>
 
 <div class="table-wrapper mt-8">
@@ -26,7 +29,7 @@
         <td>{{this.status}}</td>
         <td>{{this.fish_species}}</td>
         <td>{{this.fish_count}}</td>
-        <td>{{this.manager}}</td>
+        <td>{{this.manager_name}}</td>
         <td>{{this.owner_name}}</td>
         <td>{{this.fill_date}}</td>
         <td>

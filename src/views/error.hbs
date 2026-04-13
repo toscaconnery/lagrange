@@ -1,3 +1,7 @@
 <h1>{{status}} Error</h1>
+<p>{{error.code}}</p>
+{{#if isConnRefused}}
+  <p>Cannot connect to the server. Please try again later.</p>
+{{/if}}
 <p>{{message}}</p>
 <a href="/">Go back home</a>

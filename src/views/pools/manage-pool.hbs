@@ -1,53 +1,37 @@
 <h1>Manage Pool</h1>
 
 <div class="card mt-8" style="">
-    <form id="add-form">
+    <form id="manage-pool-form">
         <div class="mb-2">
             <div class="text-lg text-bold">{{pool.label}}</div>
         </div>
 
-        <div class="pool-detail-wrapper">
-            <div class="">
-                <div class="text-sm">Owner</div>
-                <div class="text-bold">{{pool.owner_name}}</div>
-            </div>
-            <div class="">
-                <div class="text-sm">Manager</div>
-                <div class="text-bold">{{pool.manager}}</div>
-            </div>
-            <div></div>
-            <div class="text-bold italic">{{pool.status}}</div>
-        </div>
-
-        <div class="pool-detail-wrapper">
-            <div class="">
-                <div class="text-sm">Fish Species</div>
-                <div class="text-bold">{{capitalize pool.fish_species}}</div>
-            </div>
-            <div class="">
-                <div class="text-sm">Fish Count</div>
-                <div class="text-bold">{{poolFishCountFormatter pool.fish_count}}</div>
-            </div>
-        </div>
-
         <div class="mb-4">
             <label class="text-sm" for="owner">Owner</label>
-            <input type="text" id="owner" name="owner" disabled placeholder="Your name" style="margin-top: 6px;">
+            <input type="text" id="owner" name="owner" disabled placeholder="" style="margin-top: 6px;" value="{{pool.owner_name}}">
         </div>
 
         <div class="mb-4">
             <label class="text-sm" for="owner">Manager</label>
-            <input type="text" id="owner" name="owner" disabled placeholder="Your name" style="margin-top: 6px;">
+            <select id="manager" name="manager">
+                {{#each managers}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
         </div>
+
+        <input type="hidden" value="{{pool.id}}" id="pool_id">
 
         <div id="form-error" class="text-sm" style="color: red; display: none;"></div>
         <div class="flex items-center gap-4 mt-4">
-            <button type="submit" class="btn-primary" id="submit-btn">Manage Pool</button>
+            <button type="submit" class="btn-primary" id="submit-btn">Save</button>
             <a href="/pools/delete/{{pool.id}}">
-                <button type="button" class="btn-red" id="submit-btn">Delete Pool</button>
+                <button type="button" class="btn-red" id="delete-btn">Delete Pool</button>
             </a>
 
             <a href="/pools/list" class="text-sm text-muted">Cancel</a>
         </div>
     </form>
 </div>
+
+<script src="/js/pools/manage-pool.js"></script>

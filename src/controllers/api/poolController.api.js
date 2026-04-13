@@ -2,6 +2,7 @@ import ExcelJS from 'exceljs';
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
 import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
+import pool from '../../config/db.js';
 
 export const getPools = async (req, res, next) => {
     try {
@@ -158,6 +159,27 @@ export const exportPoolXLSX = async (req, res, next) => {
         await workbook.xlsx.write(res);
         res.end();
 
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const managePool = async (req, res, next) => {
+    try {
+        const { pool_id, manager } = req.body;
+        console.log('🔥 ', pool_id, manager)
+
+        if (!pool_id) {
+            return res.status(400).json({ success: false, message: 'Invalid form.' });
+        }
+
+        if (!manager) {
+            return res.status(400).json({ success: false, message: 'Manager required' });
+        }
+
+        const poolUpdate = await PoolModel.managePool({poolId: pool_id, manager: manager})
+
+        res.status(200).json({ success: true, data: { pool_id, manager, status: poolUpdate } });
     } catch (error) {
         next(error)
     }

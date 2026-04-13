@@ -94,11 +94,14 @@ export const managePool = async (req, res, next) => {
         const poolId = req.params.id
 
         const pool = await PoolModel.findPoolById(poolId)
+
+        const managers = await PoolUserModel.findAllPoolUsers()
         
         res.render('pools/manage-pool', {
             title: 'Manage Pool',
             poolId: poolId,
-            pool
+            pool,
+            managers
         })
     } catch (error) {
         next(error)

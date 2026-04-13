@@ -12,11 +12,14 @@ export const errorHandler = (err, req, res, next) => {
     }
 
     // Fallback: if the error view itself is missing, send plain HTML
+    console.log('🔥 error: ', err.code)
     try {
         res.status(status).render('error', {
             title: 'Error',
             status,
             message: err.message ?? 'Something went wrong',
+            error: err,
+            isConnRefused: err.code === 'ECONNREFUSED'
         });
     } catch (_) {
         res.status(status).send(`<h1>Error ${status}</h1><p>${err.message}</p>`);
