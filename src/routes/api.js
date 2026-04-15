@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import poolApiRoutes from './api/pools.api.js'
-import userApiRoutes from './api/users.api.js'
-import authApiRoutes from './api/auth.api.js'
+import poolApiRoutes from './api/pools.api.route.js'
+import userApiRoutes from './api/users.api.route.js'
+import authApiRoutes from './api/auth.api.route.js'
 
 const router = Router();
 

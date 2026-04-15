@@ -2,14 +2,23 @@ import ExcelJS from 'exceljs';
 import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
 import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
-import pool from '../../config/db.js';
+import * as PoolCycleModel from '../../models/poolCycle.model.js'
 
 export const getPools = async (req, res, next) => {
     try {
-        const pools = await PoolModel.findAllPools()
-        res.json({ success: true, data: pools })
+        res.json({ success: true })
     } catch (error) {
         next(error);
+    }
+}
+
+export const getPoolList = async (req, res, next) => {
+    try {
+        const pools = await PoolModel.listPools()
+
+        res.json({ success: true, data: pools })
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -53,7 +62,7 @@ export const addPoolUser = async (req, res, next) => {
         const { name } = req.body;
 
         if (!name) {
-            return res.status(400).json({ success: false, message: 'Name required.' });
+            return res.status(400).json({ success: false, message: 'Name is required.' });
         }
 
         const id = await PoolUserModel.createPoolUser({ name });
@@ -118,7 +127,7 @@ export const exportPoolUserXLSX = async (req, res, next) => {
 
 export const exportPoolXLSX = async (req, res, next) => {
     try {
-        const pools = await PoolModel.findAllPools();
+        const pools = await PoolModel.listPools();
 
         const workbook = new ExcelJS.Workbook();
         const sheet = workbook.addWorksheet('Pools');
@@ -128,9 +137,9 @@ export const exportPoolXLSX = async (req, res, next) => {
             { header: 'ID',           key: 'id',           width: 5 },
             { header: 'Label',        key: 'label',        width: 25 },
             { header: 'Status',       key: 'status',       width: 10 },
-            { header: 'Manager',      key: 'manager',      width: 20 },
-            { header: 'Owner',        key: 'owner',        width: 20 },
-            { header: 'Fish Species', key: 'fish_species', width: 20 },
+            { header: 'Manager',      key: 'manager_name',      width: 20 },
+            { header: 'Owner',        key: 'owner_name',        width: 20 },
+            { header: 'Fish Species', key: 'fish_type_name', width: 20 },
             { header: 'Fish Count',   key: 'fish_count',   width: 10 },
             { header: 'Fill Date',    key: 'fill_date',    width: 20 },
         ];
@@ -196,6 +205,60 @@ export const deletePool = async (req, res, next) => {
         const poolUpdate = await PoolModel.deletePool({poolId: pool_id})
 
         res.status(200).json({ success: true, data: { pool_id, status: poolUpdate } });
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const startPool = async (req, res, next) => {
+    try {
+        const { pool_id, fish_count, fish_type } = req.body;
+
+        console.log('✅✅✅✅ ', pool_id, fish_count, fish_type)
+
+        if (!pool_id) {
+            return res.status(400).json({ success: false, message: 'Pool id is required' });
+        }
+
+        if (!fish_count) {
+            return res.status(400).json({ success: false, message: 'Fish count could not be empty' });
+        }
+
+        if (!fish_type) {
+            return res.status(400).json({ success: false, message: 'Fish type could not be empty' });
+        }
+
+        const pool = await PoolModel.findPoolById(pool_id)
+
+        console.log('---- poool query result : ', pool)
+        if (!pool) {
+            return res.status(400).json({ success: false, message: 'Pool not found' });
+        }
+
+        if (!pool.manager) {
+            return res.status(400).json({ success: false, message: 'Pool does not have a manager' });
+        }
+
+        const manager_id = pool.manager
+
+        // check if pool still active
+        const existingPoolCycle = await PoolCycleModel.findActivePoolCycleByPoolId({pool_id})
+
+        console.log('------ existing pool cycle: ', existingPoolCycle)
+
+        if (existingPoolCycle) {
+            return res.status(400).json({ success: false, message: 'Pool is already active' });
+        }
+
+        const start_date = new Date();
+
+        const poolCycleCreate = await PoolCycleModel.createPoolCycle({ pool_id, manager_id, fish_count, fish_type, start_date })
+
+        console.log('CHECKING CHECKING ', poolCycleCreate)
+
+        const updatePool = await PoolModel.updatePoolStatus({pool_id, status: 'active', cycle_id: poolCycleCreate})
+
+        res.status(200).json({ success: true, data: { created: poolCycleCreate } });
     } catch (error) {
         next(error)
     }

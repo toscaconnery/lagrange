@@ -15,17 +15,9 @@ export const poolHome = async (req, res, next) => {
 
 export const listPool = async (req, res, next) => {
     try {
-        const pools = await PoolModel.findAllPools()
-        const formattedPools = pools.map((p) => {
-            return {
-                ...p,
-                fish_count: p.fish_count > 0 ? p.fish_count : ''
-            }
-        })
         res.render('pools/list-pool', {
             title: 'List Pools',
             layout: 'main-wide',
-            pools: formattedPools
         })
     } catch (error) {
         next(error)
@@ -96,12 +88,17 @@ export const managePool = async (req, res, next) => {
         const pool = await PoolModel.findPoolById(poolId)
 
         const managers = await PoolUserModel.findAllPoolUsers()
+
+        const managersWithSelected = managers.map(m => ({
+            ...m,
+            selected: m.id === pool.manager
+        }));
         
         res.render('pools/manage-pool', {
             title: 'Manage Pool',
             poolId: poolId,
             pool,
-            managers
+            managers: managersWithSelected
         })
     } catch (error) {
         next(error)
@@ -110,7 +107,6 @@ export const managePool = async (req, res, next) => {
 
 export const listPoolFishType = async (req, res, next) => {
     try {
-        // const poolUsers = await PoolUserModel.findAllPoolUsers()
         const fishTypes = await PoolFishTypeModel.findAllFishTypes()
         res.render('pools/list-fish-type', {
             title: 'List Fish Type',
@@ -131,11 +127,19 @@ export const addFishType = async (req, res, next) => {
     }
 }
 
-export const deletePool = async (req, res, next) => {
+export const startPool = async (req, res, next) => {
     try {
         const poolId = req.params.id
-        const pool = await PoolModel.deletePool({poolId})
-        res.redirect('/pools/list'); //
+
+        const pool = await PoolModel.findPoolById(poolId)
+
+        const fishTypes = await PoolFishTypeModel.findAllFishTypes()
+
+        res.render('pools/start-pool', {
+            title: 'Start Pool',
+            pool,
+            fishTypes
+        })
     } catch (error) {
         next(error)
     }

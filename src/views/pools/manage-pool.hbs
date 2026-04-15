@@ -14,8 +14,11 @@
         <div class="mb-4">
             <label class="text-sm" for="owner">Manager</label>
             <select id="manager" name="manager">
+                <option value=""></option>
                 {{#each managers}}
-                    <option value="{{this.id}}">{{this.name}}</option>
+                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>
+                        {{this.name}}
+                    </option>
                 {{/each}}
             </select>
         </div>
@@ -25,6 +28,10 @@
         <div id="form-error" class="text-sm" style="color: red; display: none;"></div>
         <div class="flex items-center gap-4 mt-4">
             <button type="submit" class="btn-primary" id="submit-btn">Save</button>
+
+            <a href="/pools/start/{{pool.id}}">
+                <button type="button" class="btn-primary">Start</button>
+            </a>
 
             <button type="button" class="btn-danger btn-delete" data-id="{{pool.id}}">Delete</button>
 
