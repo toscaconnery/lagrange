@@ -1,0 +1,33 @@
+<h1>Add Feed</h1>
+<p>Create new feed.</p>
+
+<div class="card mt-8" style="max-width: 480px;">
+    <form id="add-feed-form">
+        <div class="mb-4">
+            <label class="text-sm" for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Name" required style="margin-top: 6px;">
+        </div>
+
+        <div class="mb-4">
+            <label class="text-sm" for="type">Type</label>
+            <select id="type" name="type">
+                <option value="float">Float</option>
+                <option value="sink">Sink</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="text-sm" for="weight">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" placeholder="Weight" required style="margin-top: 6px;">
+        </div>
+
+
+        <div id="form-error" class="text-sm" style="color: red; display: none;"></div>
+        <div class="flex items-center gap-4 mt-4">
+            <button type="submit" class="btn-primary" id="submit-btn">Add Fish Type</button>
+            <a href="/pools/list-fish-type" class="text-sm text-muted">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script src="/js/pools/add-feed.js"></script>

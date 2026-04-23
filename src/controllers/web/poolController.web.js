@@ -144,3 +144,23 @@ export const startPool = async (req, res, next) => {
         next(error)
     }
 }
+
+export const listFeed = async (req, res, next) => {
+    try {
+        res.render('pools/list-feed', {
+            title: 'List Feed',
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const addFeed = async (req, res, next) => {
+    try {
+        res.render('pools/add-feed', {
+            title: 'Add Feed',
+        })
+    } catch (error) {
+        next(error)
+    }
+}

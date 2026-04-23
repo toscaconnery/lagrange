@@ -10,7 +10,9 @@ import {
     listPoolFishType,
     addFishType,
     poolDetails,
-    startPool
+    startPool,
+    listFeed,
+    addFeed
 } from '../../controllers/web/poolController.web.js'
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -36,5 +38,9 @@ router.get('/list-fish-type', requireAuth, listPoolFishType)
 router.get('/add-fish-type', requireAuth, addFishType)
 
 router.get('/start/:id', requireAuth, startPool)
+
+router.get('/list-feed', requireAuth, listFeed)
+
+router.get('/add-feed', requireAuth, addFeed)
 
 export default router;

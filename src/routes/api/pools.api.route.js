@@ -10,7 +10,8 @@ import {
     managePool,
     deletePool,
     startPool,
-    getFeedList
+    getFeedList,
+    addFeed
 } from '../../controllers/api/poolController.api.js'
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -36,5 +37,7 @@ router.post('/delete-pool', deletePool)
 router.post('/start-pool', startPool)
 
 router.get('/list-feed', getFeedList)
+
+router.post('/add-feed', addFeed)
 
 export default router;

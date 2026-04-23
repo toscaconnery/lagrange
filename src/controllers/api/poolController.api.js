@@ -3,7 +3,8 @@ import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
 import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
 import * as PoolCycleModel from '../../models/poolCycle.model.js'
-import { capitalize } from '../../utils/formatter.js';
+import * as PoolFeedModel from '../../models/poolFeed.model.js'
+import { capitalize, formatDate } from '../../utils/formatter.js';
 
 export const getPoolList = async (req, res, next) => {
     try {
@@ -16,15 +17,6 @@ export const getPoolList = async (req, res, next) => {
         })
 
         res.json({ success: true, data: formatted })
-    } catch (error) {
-        next(error)
-    }
-}
-
-export const getFeedList = async (req, res, next) => {
-    try {
-        // const feeds = await 
-        res.json({ success: true, data: {text: 'from getFeedList function'} })
     } catch (error) {
         next(error)
     }
@@ -267,6 +259,47 @@ export const startPool = async (req, res, next) => {
         const updatePool = await PoolModel.updatePoolStatus({pool_id, status: 'active', cycle_id: poolCycleCreate})
 
         res.status(200).json({ success: true, data: { created: poolCycleCreate } });
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getFeedList = async (req, res, next) => {
+    try {
+        const feeds = await PoolFeedModel.findAllFeeds()
+        const formattedFeeds = feeds.map((p) => {
+            return {
+                ...p,
+                created: formatDate(p.created_at)
+            }
+        })
+        res.json({ success: true, data: formattedFeeds })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const addFeed = async (req, res, next) => {
+    try {
+        const { name, type, weight } = req.body;
+
+        console.log('🔥add-feed:', name, type, weight)
+
+        if (!name) {
+            return res.status(400).json({ success: false, message: 'Name is required.' });
+        }
+
+        if (!type) {
+            return res.status(400).json({ success: false, message: 'Type is required.' });
+        }
+
+        if (!weight) {
+            return res.status(400).json({ success: false, message: 'Weight is required.' });
+        }
+
+        const id = await PoolFeedModel.createPoolFeed({ name, type, weight });
+        res.status(201).json({ success: true, data: { id, name, type, weight } });
+
     } catch (error) {
         next(error)
     }

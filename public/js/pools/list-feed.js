@@ -4,7 +4,7 @@ async function loadPools() {
     const data = await res.json();
     console.log('❇️ list feeds', data.data)
 
-    const tbody = document.getElementById('pools-table-body');
+    const tbody = document.getElementById('feeds-table-body');
 
     if (!data || data.length === 0) {
       tbody.innerHTML = `
@@ -15,20 +15,13 @@ async function loadPools() {
       return;
     }
 
-    tbody.innerHTML = data.data.map(pool => `
+    tbody.innerHTML = data.data.map(feed => `
       <tr>
-        <td>${pool.id}</td>
-        <td>${pool.label}</td>
-        <td>${pool.status}</td>
-        <td>${pool.fish_type_name || ''}</td>
-        <td>${pool.fish_count || ''}</td>
-        <td>${pool.manager_name || ''}</td>
-        <td>${pool.owner_name}</td>
-        <td>${pool.fill_date || ''}</td>
-        <td>
-          <a href="/pools/details/${pool.id}" class="btn">Details</a>
-          <a href="/pools/manage/${pool.id}" class="btn">Manage</a>
-        </td>
+        <td>${feed.id}</td>
+        <td>${feed.name}</td>
+        <td>${feed.type}</td>
+        <td>${feed.weight || ''}</td>
+        <td>${feed.created || ''}</td>
       </tr>
     `).join('');
 
