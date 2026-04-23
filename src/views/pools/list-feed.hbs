@@ -1,0 +1,32 @@
+<div class="flex-between">
+  <h1>List Feed</h1>
+  <div>
+    <a href="/pools/add" class="btn">Add Feed</a>
+    <a href="/api/v1/pools/export-pools" class="btn">Download CSV</a>
+  </div>
+</div>
+
+<div class="table-wrapper mt-8">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>label</th>
+        <th>status</th>
+        <th>fish species</th>
+        <th>fish count</th>
+        <th>manager</th>
+        <th>owner</th>
+        <th>fill date</th>
+        <th>action</th>
+      </tr>
+    </thead>
+    <tbody id="feeds-table-body">
+      <tr>
+        <td colspan="9">Loading...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="/js/pools/list-feed.js"></script>

@@ -3,20 +3,28 @@ import * as PoolModel from '../../models/pool.model.js'
 import * as PoolUserModel from '../../models/poolUser.model.js'
 import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
 import * as PoolCycleModel from '../../models/poolCycle.model.js'
-
-export const getPools = async (req, res, next) => {
-    try {
-        res.json({ success: true })
-    } catch (error) {
-        next(error);
-    }
-}
+import { capitalize } from '../../utils/formatter.js';
 
 export const getPoolList = async (req, res, next) => {
     try {
         const pools = await PoolModel.listPools()
+        const formatted = pools.map((p) => {
+            return ({
+                ...p,
+                status: capitalize(p.status),
+            })
+        })
 
-        res.json({ success: true, data: pools })
+        res.json({ success: true, data: formatted })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getFeedList = async (req, res, next) => {
+    try {
+        // const feeds = await 
+        res.json({ success: true, data: {text: 'from getFeedList function'} })
     } catch (error) {
         next(error)
     }

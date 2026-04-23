@@ -1,7 +1,6 @@
 import { Router } from "express";
 
 import {
-    getPools,
     getPoolList,
     addPool,
     addPoolUser,
@@ -10,7 +9,8 @@ import {
     exportPoolUserXLSX,
     managePool,
     deletePool,
-    startPool
+    startPool,
+    getFeedList
 } from '../../controllers/api/poolController.api.js'
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -34,5 +34,7 @@ router.post('/manage-pool', managePool)
 router.post('/delete-pool', deletePool)
 
 router.post('/start-pool', startPool)
+
+router.get('/list-feed', getFeedList)
 
 export default router;
