@@ -5,13 +5,15 @@ import {
     addPool,
     addPoolUser,
     addPoolFishType,
+    getPoolFishTypeList,
     exportPoolXLSX,
     exportPoolUserXLSX,
     managePool,
     deletePool,
     startPool,
-    getFeedList,
-    addFeed
+    getPoolFeedList,
+    addPoolFeed,
+    getPoolDetail,
 } from '../../controllers/api/poolController.api.js'
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -24,7 +26,11 @@ router.post('/add-user', addPoolUser)
 
 router.post('/add-pool', requireAuth, addPool)
 
+router.get('/pool-detail/:pool_id', getPoolDetail)
+
 router.post('/add-fish-type', addPoolFishType)
+
+router.get('/list-fish-type', getPoolFishTypeList)
 
 router.get('/export-pools', exportPoolXLSX)
 
@@ -36,8 +42,8 @@ router.post('/delete-pool', deletePool)
 
 router.post('/start-pool', startPool)
 
-router.get('/list-feed', getFeedList)
+router.get('/list-feed', getPoolFeedList)
 
-router.post('/add-feed', addFeed)
+router.post('/add-feed', addPoolFeed)
 
 export default router;

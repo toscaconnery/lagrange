@@ -69,12 +69,12 @@ export const poolDetails = async (req, res, next) => {
     try {
         const poolId = req.params.id
 
-        const pool = await PoolModel.findPoolById(poolId)
+        // const pool = await PoolModel.findPoolById(poolId)
         
         res.render('pools/pool-details', {
             title: 'Pool Details',
             poolId: poolId,
-            pool
+            // pool
         })
     } catch (error) {
         next(error)
@@ -107,10 +107,8 @@ export const managePool = async (req, res, next) => {
 
 export const listPoolFishType = async (req, res, next) => {
     try {
-        const fishTypes = await PoolFishTypeModel.findAllFishTypes()
         res.render('pools/list-fish-type', {
             title: 'List Fish Type',
-            fishTypes
         })
     } catch (error) {
         next(error)

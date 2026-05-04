@@ -4,6 +4,10 @@ export function capitalize(str) {
 }
 
 export const formatDate = (date) => {
+    if (date === null) {
+        return '-'
+    }
+
     const dateObj = new Date(date)
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Intl.DateTimeFormat('en-US', options).format(dateObj);

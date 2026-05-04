@@ -8,14 +8,15 @@
     <div class="pool-detail-wrapper">
         <div class="">
             <div class="text-sm">Owner</div>
-            <div class="text-bold">{{pool.owner_name}}</div>
+            <div class="text-bold" id="pool_owner_name"></div>
         </div>
         <div class="">
             <div class="text-sm">Manager</div>
-            <div class="text-bold">{{pool.manager_name}}</div>
+            <div class="text-bold" id="pool_manager_name"></div>
         </div>
         <div></div>
-        <div class="text-bold italic">{{capitalize pool.status}}</div>
+        <div class="text-bold italic" id="pool_status">{{pool.status}}</div>
+        {{!-- <div class="text-bold italic">{{capitalize pool.status}}</div> --}}
     </div>
 
     <div class="pool-detail-wrapper">
@@ -36,3 +37,5 @@
         </a>
     </div>
 </div>
+
+<script type="module" src="/js/pools/get-pool-detail.js"></script>

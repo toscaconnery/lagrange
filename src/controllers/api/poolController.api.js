@@ -13,10 +13,28 @@ export const getPoolList = async (req, res, next) => {
             return ({
                 ...p,
                 status: capitalize(p.status),
+                fill_date: formatDate(p.fill_date)
             })
         })
 
         res.json({ success: true, data: formatted })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getPoolDetail = async (req, res, next) => {
+    try {
+        const pool_id = req.params.pool_id
+
+        const pool = await PoolModel.findPoolById(pool_id)
+
+        const data = {
+            pool_id: pool_id,
+            pool: pool
+        }
+
+        res.json({ success: true, data: data })
     } catch (error) {
         next(error)
     }
@@ -84,6 +102,21 @@ export const addPoolFishType = async (req, res, next) => {
         const id = await PoolFishTypeModel.createPoolFishType({ name });
         res.status(201).json({ success: true, data: { id, name } });
 
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getPoolFishTypeList = async (req, res, next) => {
+    try {
+        const fishTypes = await PoolFishTypeModel.findAllFishTypes()
+        const formatted = fishTypes.map((p) => {
+            return {
+                ...p
+            }
+        })
+
+        res.json({ success: true, data: formatted })
     } catch (error) {
         next(error)
     }
@@ -264,7 +297,7 @@ export const startPool = async (req, res, next) => {
     }
 }
 
-export const getFeedList = async (req, res, next) => {
+export const getPoolFeedList = async (req, res, next) => {
     try {
         const feeds = await PoolFeedModel.findAllFeeds()
         const formattedFeeds = feeds.map((p) => {
@@ -279,7 +312,7 @@ export const getFeedList = async (req, res, next) => {
     }
 }
 
-export const addFeed = async (req, res, next) => {
+export const addPoolFeed = async (req, res, next) => {
     try {
         const { name, type, weight } = req.body;
 

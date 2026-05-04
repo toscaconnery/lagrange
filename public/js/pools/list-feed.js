@@ -15,9 +15,9 @@ async function loadPools() {
       return;
     }
 
-    tbody.innerHTML = data.data.map(feed => `
+    tbody.innerHTML = data.data.map((feed, idx) => `
       <tr>
-        <td>${feed.id}</td>
+        <td>${idx+1}</td>
         <td>${feed.name}</td>
         <td>${feed.type}</td>
         <td>${feed.weight || ''}</td>

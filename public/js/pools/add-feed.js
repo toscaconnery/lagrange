@@ -34,6 +34,6 @@ document.getElementById('add-feed-form').addEventListener('submit', async (e) =>
         errorEl.style.display = 'block';
     } finally {
         btn.disabled = false;
-        btn.textContent = 'Add Fish Type';
+        btn.textContent = 'Add Feed';
     }
 });
