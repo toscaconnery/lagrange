@@ -7,8 +7,12 @@
   "scripts": {
     "dev:api": "npm run dev --workspace=lagrangeapi",
     "dev:web": "npm run dev --workspace=lagrangeweb",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
     "build:web": "npm run build --workspace=lagrangeweb",
     "build:api": "npm run build --workspace=lagrangeapi",
     "build": "npm run build:web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
