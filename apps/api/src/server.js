@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { engine } from 'express-handlebars';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -7,12 +9,24 @@ import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 
 import apiRoutes from './routes/api.js';
-import webRoutes from './routes/web.js';
+// import webRoutes from './routes/web.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { detectSection } from './middlewares/section.js';
 import { helpers } from './helpers/hbs.js';
 
 const app = express();
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+const distPath = path.join(process.cwd(), 'public');
+
+console.log('xxxx', distPath);
+
+// const distPath = path.resolve(
+//   __dirname,
+//   '../../web/dist'
+// );
 
 // --- Security & Perf Middleware ---
 app.use(helmet());           // Sets secure HTTP headers
@@ -25,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // --- Static Files ---
+app.use(express.static(distPath));
 app.use(express.static('public'));
 
 app.use(detectSection);
@@ -42,8 +57,17 @@ app.set('views', 'src/views');
 
 // --- Routes ---
 app.use('/api/v1', apiRoutes);
-app.use('/', webRoutes);
+// app.use('/', webRoutes);
 
+// app.get('*', (req, res) => {
+//   res.sendFile(
+//     path.join(distPath, 'index.html')
+//   );
+// });
+
+app.use((req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
 // --- Error Handler (must be last) ---
 app.use(errorHandler);
 

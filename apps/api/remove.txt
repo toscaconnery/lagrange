@@ -1,0 +1,3 @@
+apps/api/src/helpers
+apps/api/src/views
+apps/api/public

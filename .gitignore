@@ -1,14 +1,9 @@
-# Dependencies
+.vscode/
+
+# Node
 node_modules/
 
-# Environment
-.env
-
-# macOS
-.DS_Store
-
 # Logs
-logs/
 *.log
 npm-debug.log*
 
@@ -17,4 +12,23 @@ pids/
 *.pid
 *.seed
 
+# Environment
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Build output
+apps/api/public/
+apps/web/dist/
+
+# Coverage
+coverage/
+
+# Vite
+.vite/
+
+# IDE
 .vscode/
+.idea/
