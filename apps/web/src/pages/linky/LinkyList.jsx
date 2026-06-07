@@ -3,6 +3,7 @@ import '../../css/linkpage.css'
 import { useEffect, useState } from 'react';
 import { formatRelativeDate } from '../../utils/formatter';
 import { toast } from 'sonner';
+import { ExternalLink } from 'lucide-react';
 
 export default function LinksPage() {
 
@@ -45,6 +46,10 @@ export default function LinksPage() {
   const copy = async (url) => {
     await navigator.clipboard.writeText(url);
     toast.success('URL copied to clipboard');
+  }
+
+  const goToURL = (url) => {
+    window.location.replace(url);
   }
 
   useEffect(() => {
@@ -124,8 +129,11 @@ export default function LinksPage() {
                   {formatRelativeDate(link.created_at)}
                 </div>
 
-                <button className="menu-btn">
-                  ⋯
+                <button 
+                  className="menu-btn"
+                  onClick={() => goToURL(link.original_url)}
+                >
+                  <ExternalLink size={14}/>
                 </button>
               </div>
             ))}
