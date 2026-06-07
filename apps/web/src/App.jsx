@@ -4,10 +4,16 @@ import About from './pages/About'
 import LinkyLinkShortener from './pages/linky/LinkyLinkShortener';
 import LinkyAccess from './pages/linky/LinkyAccess';
 import LinkyList from './pages/linky/LinkyList';
+import { Toaster } from 'sonner';
 
 export default function App() {
   return (
     <BrowserRouter>
+      <Toaster
+        position="top-right"
+        richColors
+        closeButton
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -18,5 +24,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-// export default App

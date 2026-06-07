@@ -2,6 +2,7 @@ import '../../css/linkpage.css'
 
 import { useEffect, useState } from 'react';
 import { formatRelativeDate } from '../../utils/formatter';
+import { toast } from 'sonner';
 
 export default function LinksPage() {
 
@@ -43,6 +44,7 @@ export default function LinksPage() {
 
   const copy = async (url) => {
     await navigator.clipboard.writeText(url);
+    toast.success('URL copied to clipboard');
   }
 
   useEffect(() => {
