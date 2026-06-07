@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import '../../css/app.css'
 import '../../css/linkshortener.css'
+import { toast } from 'sonner';
 
 function LinkyLinkShortener() {
   const defaultShortenedPath = 'ls'
@@ -43,6 +44,11 @@ function LinkyLinkShortener() {
       console.log('---> data result : ', data)
 
       // setShortenedLink(data.shortCode);
+      toast.success('URL copied to clipboard');
+
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      window.location.replace('/linky/list');
     } catch (error) {
       console.error(error);
       alert('Unable to create short link');
@@ -123,7 +129,7 @@ function LinkyLinkShortener() {
             </div>
 
             <div className="result-link">
-              {host}{shortenedLink}
+              {host}/{shortenedLink}
             </div>
           </div>
 
