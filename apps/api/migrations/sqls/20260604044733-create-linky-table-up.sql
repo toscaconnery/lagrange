@@ -1,0 +1,10 @@
+CREATE TABLE linky_urls (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    short_code VARCHAR(50) NOT NULL UNIQUE,
+    original_url TEXT NOT NULL,
+
+    title VARCHAR(50),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

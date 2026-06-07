@@ -1,15 +1,14 @@
 import { useState } from 'react'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '../assets/vite.svg'
-import heroImg from '../assets/hero.png'
-import '../css/app.css'
-import '../css/linkshortener.css'
+import '../../css/app.css'
+import '../../css/linkshortener.css'
 
-function LinkShortener() {
+function LinkyLinkShortener() {
+  const defaultShortenedPath = 'ls'
+
   const [originalLink, setOriginalLink] =  useState('');
   const [shortenedLink, setShortenedLink] = useState('');
   const [title, setTitle] = useState('');
-  const [host, setHost] = useState(window.location.origin)
+  const [host, setHost] = useState(`${window.location.origin}/${defaultShortenedPath}`)
 
   const editShortenedLink = (link) => {
     console.log('link : ', link)
@@ -124,9 +123,19 @@ function LinkShortener() {
             </div>
 
             <div className="result-link">
-              {host}/{shortenedLink}
+              {host}{shortenedLink}
             </div>
           </div>
+
+          <div className="bottom-navigation-link">
+            <a href="/linky/list" className="no-text-decoration">
+              <span>
+                Go to shortened link list
+              </span>
+            </a>
+
+          </div>
+
         </div>
 
         <div className="footer-note">
@@ -137,4 +146,4 @@ function LinkShortener() {
   )
 }
 
-export default LinkShortener
+export default LinkyLinkShortener

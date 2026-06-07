@@ -16,17 +16,7 @@ import { helpers } from './helpers/hbs.js';
 
 const app = express();
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
 const distPath = path.join(process.cwd(), 'public');
-
-console.log('xxxx', distPath);
-
-// const distPath = path.resolve(
-//   __dirname,
-//   '../../web/dist'
-// );
 
 // --- Security & Perf Middleware ---
 app.use(helmet());           // Sets secure HTTP headers
@@ -59,11 +49,6 @@ app.set('views', 'src/views');
 app.use('/api/v1', apiRoutes);
 // app.use('/', webRoutes);
 
-// app.get('*', (req, res) => {
-//   res.sendFile(
-//     path.join(distPath, 'index.html')
-//   );
-// });
 
 app.use((req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));

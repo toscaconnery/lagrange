@@ -1,15 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { useState } from 'react'
 import Home from './pages/Home'
 import About from './pages/About'
-import LinkShortener from './pages/LinkShortener'
-// import LinkShorten from './pages/LinkShorten'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-// import './App.css'
-// import './Pool.css'
-// import Header from './components/header'
+import LinkyLinkShortener from './pages/linky/LinkyLinkShortener';
+import LinkyAccess from './pages/linky/LinkyAccess';
+import LinkyList from './pages/linky/LinkyList';
 
 export default function App() {
   return (
@@ -17,7 +11,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/linkshortener" element={<LinkShortener />} />
+        <Route path="/linky/shorten" element={<LinkyLinkShortener />} />
+        <Route path="/linky/list" element={<LinkyList />} />
+        <Route path="/ls/:shortCode" element={<LinkyAccess />} />
       </Routes>
     </BrowserRouter>
   );
