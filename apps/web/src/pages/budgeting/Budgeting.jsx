@@ -100,11 +100,11 @@ export default function Budgeting() {
 
     setExpenses((prev) => [newExpense, ...prev]);
     setForm({
-      person: 'You',
+      person: '',
       productName: '',
       price: '',
       quantity: 1,
-      discount: 0,
+      discount: '',
       date: new Date().toISOString().split('T')[0],
     });
     setShowForm(false);
