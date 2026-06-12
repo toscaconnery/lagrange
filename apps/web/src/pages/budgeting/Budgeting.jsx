@@ -1,4 +1,7 @@
 import { useState, useMemo } from 'react';
+import { jsPDF } from 'jspdf';
+import { applyPlugin } from 'jspdf-autotable';
+applyPlugin(jsPDF);
 import '../../css/budgeting.css';
 
 const initialExpenses = [
@@ -164,6 +167,117 @@ export default function Budgeting() {
     return Array.from(set).sort();
   }, [expenses]);
 
+  /** Export a receipt PDF for the given person (or all filtered). */
+  const handleExportReceiptPDF = (person) => {
+    const targetPerson = person || personFilter;
+    const items = targetPerson === 'All'
+      ? expenses
+      : expenses.filter((e) => e.person === targetPerson);
+
+    if (items.length === 0) {
+      alert('No expenses to export.');
+      return;
+    }
+
+    const total = items.reduce((s, e) => s + (e.price * e.quantity - e.discount), 0);
+
+    // Mobile-optimised PDF: narrow like a phone screen (80mm width)
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: [80, 297], // 80mm wide receipt, tall enough
+    });
+
+    const pageWidth = 80;
+    const marginX = 5;
+    const contentWidth = pageWidth - marginX * 2;
+
+    // Header
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text('RECEIPT', pageWidth / 2, 10, { align: 'center' });
+
+    doc.setFontSize(7);
+    doc.setFont(undefined, 'normal');
+    const dateStr = new Date().toLocaleDateString('id-ID', {
+      year: 'numeric', month: 'long', day: 'numeric',
+    });
+    doc.text(`Date: ${dateStr}`, pageWidth / 2, 16, { align: 'center' });
+
+    doc.setFontSize(8);
+    doc.setFont(undefined, 'bold');
+    doc.text(`Person: ${targetPerson === 'All' ? 'All' : targetPerson}`, pageWidth / 2, 22, { align: 'center' });
+
+    // Divider
+    doc.setDrawColor(180);
+    doc.line(marginX, 25, pageWidth - marginX, 25);
+
+    // Table
+    const tableRows = items.map((e) => {
+      const subtotal = e.price * e.quantity - e.discount;
+      return [
+        e.productName,
+        e.quantity,
+        Number(e.price).toLocaleString('id-ID'),
+        e.discount > 0 ? Number(e.discount).toLocaleString('id-ID') : '-',
+        Number(subtotal).toLocaleString('id-ID'),
+      ];
+    });
+
+    doc.autoTable({
+      startY: 28,
+      margin: { left: marginX, right: marginX },
+      tableWidth: contentWidth,
+      styles: {
+        fontSize: 6,
+        cellPadding: { top: 1.5, right: 1, bottom: 1.5, left: 1 },
+        lineColor: [180, 180, 180],
+        lineWidth: 0.2,
+      },
+      headStyles: {
+        fontSize: 6,
+        fontStyle: 'bold',
+        fillColor: [30, 41, 59],
+        textColor: [226, 232, 240],
+        halign: 'center',
+      },
+      bodyStyles: {
+        textColor: [30, 41, 59],
+      },
+      columnStyles: {
+        0: { cellWidth: contentWidth * 0.32, halign: 'left' },
+        1: { cellWidth: contentWidth * 0.12, halign: 'center' },
+        2: { cellWidth: contentWidth * 0.2, halign: 'right' },
+        3: { cellWidth: contentWidth * 0.16, halign: 'right' },
+        4: { cellWidth: contentWidth * 0.2, halign: 'right' },
+      },
+      head: [['Item', 'Qty', 'Price', 'Disc', 'Subtotal']],
+      body: tableRows,
+      didDrawPage: () => {},
+    });
+
+    // Total
+    const finalY = doc.lastAutoTable.finalY + 4;
+    doc.setDrawColor(180);
+    doc.line(marginX, finalY - 2, pageWidth - marginX, finalY - 2);
+    doc.setFontSize(8);
+    doc.setFont(undefined, 'bold');
+    doc.text('TOTAL:', pageWidth / 2 - 10, finalY + 4);
+    doc.text(`Rp ${Number(total).toLocaleString('id-ID')}`, pageWidth / 2 + 12, finalY + 4, { align: 'right' });
+
+    // Footer
+    doc.setFontSize(6);
+    doc.setFont(undefined, 'normal');
+    doc.setTextColor(150);
+    doc.text('Thank you!', pageWidth / 2, finalY + 14, { align: 'center' });
+
+    const filename = targetPerson === 'All'
+      ? `receipt-all-${new Date().toISOString().split('T')[0]}.pdf`
+      : `receipt-${targetPerson.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
+
+    doc.save(filename);
+  };
+
   return (
     <div className="budgeting-page">
       <div className="budgeting-container">
@@ -215,6 +329,21 @@ export default function Budgeting() {
             </div>
 
             <div className="action-right">
+              {personFilter !== 'All' && (
+                <button
+                  className="btn-receipt"
+                  onClick={() => handleExportReceiptPDF(personFilter)}
+                  title="Export receipt PDF"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z" />
+                    <path d="M8 7h8" />
+                    <path d="M8 11h8" />
+                    <path d="M8 15h5" />
+                  </svg>
+                  Print Receipt
+                </button>
+              )}
               <button
                 className="btn-export"
                 onClick={handleExportJSON}

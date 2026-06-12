@@ -232,6 +232,27 @@
   color: #e2e8f0;
 }
 
+.btn-receipt {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #34d399;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-receipt:hover {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #6ee7b7;
+}
+
 .btn-add {
   padding: 10px 24px;
   background: linear-gradient(135deg, #6366f1, #4f46e5);
