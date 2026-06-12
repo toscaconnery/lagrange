@@ -32,3 +32,5 @@ coverage/
 # IDE
 .vscode/
 .idea/
+
+.continue/
