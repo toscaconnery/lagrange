@@ -1,7 +1,5 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import '../../css/budgeting.css';
-
-const PERSONS = ['You', 'Friend', 'Family', 'Other'];
 
 const initialExpenses = [
   { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
@@ -10,6 +8,24 @@ const initialExpenses = [
   { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
   { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
 ];
+
+/* Deterministic color from a person's name */
+function stringToColor(str) {
+    // FNV-1a hash — better bit avalanche than simple charCode shifting
+    let hash = 2166136261;
+    for (let i = 0; i < str.length; i++) {
+        hash ^= str.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+        hash = hash >>> 0; // keep unsigned 32-bit
+    }
+
+    // Golden ratio conjugate (≈0.618) — maps any integer
+    // to a hue that's always ~137.5° away from the previous one
+    const GOLDEN_RATIO = 0.6180339887;
+    const hue = Math.round((hash * GOLDEN_RATIO % 1) * 360);
+
+    return `hsl(${hue}, 55%, 50%)`;
+}
 
 const formatCurrency = (amount) => {
   return new Intl.NumberFormat('id-ID', {
@@ -51,13 +67,17 @@ export default function Budgeting() {
   }, 0);
 
   // Per-person totals (always from all expenses, not filtered)
-  const personTotals = PERSONS.map((p) => {
-    const total = expenses
-      .filter((e) => e.person === p)
-      .reduce((sum, e) => sum + (e.price * e.quantity - e.discount), 0);
-    const count = expenses.filter((e) => e.person === p).length;
-    return { person: p, total, count };
-  }).filter((p) => p.count > 0);
+  const personTotals = useMemo(() => {
+    const map = {};
+    expenses.forEach((e) => {
+      if (!map[e.person]) {
+        map[e.person] = { person: e.person, total: 0, count: 0 };
+      }
+      map[e.person].total += e.price * e.quantity - e.discount;
+      map[e.person].count += 1;
+    });
+    return Object.values(map);
+  }, [expenses]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -138,15 +158,11 @@ export default function Budgeting() {
     e.target.value = '';
   };
 
-  const personBadgeClass = (person) => {
-    const colors = {
-      'You': 'badge-you',
-      'Friend': 'badge-friend',
-      'Family': 'badge-family',
-      'Other': 'badge-other',
-    };
-    return colors[person] || 'badge-other';
-  };
+  // Derive unique person names from expenses for dynamic filter / input
+  const knownPersons = useMemo(() => {
+    const set = new Set(expenses.map((e) => e.person));
+    return Array.from(set).sort();
+  }, [expenses]);
 
   return (
     <div className="budgeting-page">
@@ -176,9 +192,10 @@ export default function Budgeting() {
             {personTotals.map((p) => (
               <div
                 key={p.person}
-                className={`person-stat-card ${personBadgeClass(p.person)}`}
+                className="person-stat-card"
+                style={{ '--person-color': stringToColor(p.person) }}
               >
-                <span className="person-name">{p.person}</span>
+                <span className="person-name" style={{ color: stringToColor(p.person) }}>{p.person}</span>
                 <strong className="person-total">{formatCurrency(p.total)}</strong>
                 <span className="person-count">{p.count} item{p.count > 1 ? 's' : ''}</span>
               </div>
@@ -193,7 +210,7 @@ export default function Budgeting() {
                 className="btn-add"
                 onClick={() => setShowForm(!showForm)}
               >
-                {showForm ? 'Cancel' : '+ Add Expense'}
+                + Add Expense
               </button>
             </div>
 
@@ -235,7 +252,7 @@ export default function Budgeting() {
                   onChange={(e) => setPersonFilter(e.target.value)}
                 >
                   <option value="All">All</option>
-                  {PERSONS.map((p) => (
+                  {knownPersons.map((p) => (
                     <option key={p} value={p}>{p}</option>
                   ))}
                 </select>
@@ -244,80 +261,94 @@ export default function Budgeting() {
           </div>
         </section>
 
+        {/* ---- Modal overlay for add expense ---- */}
         {showForm && (
-          <form className="expense-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <label>
-                Person
-                <select
-                  name="person"
-                  value={form.person}
-                  onChange={handleChange}
+          <div className="modal-overlay" onClick={() => setShowForm(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <h2>Add Expense</h2>
+                <button
+                  type="button"
+                  className="modal-close"
+                  onClick={() => setShowForm(false)}
                 >
-                  {PERSONS.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Product Name
-                <input
-                  type="text"
-                  name="productName"
-                  value={form.productName}
-                  onChange={handleChange}
-                  placeholder="e.g. Indomie Goreng"
-                  required
-                />
-              </label>
-              <label>
-                Price
-                <input
-                  type="number"
-                  name="price"
-                  value={form.price}
-                  onChange={handleChange}
-                  placeholder="e.g. 3500"
-                  min="0"
-                  required
-                />
-              </label>
+                  &times;
+                </button>
+              </div>
+              <form className="expense-form" onSubmit={handleSubmit}>
+                <div className="form-row">
+                  <label>
+                    Person
+                    <input
+                      type="text"
+                      name="person"
+                      value={form.person}
+                      onChange={handleChange}
+                      placeholder="e.g. You"
+                      required
+                    />
+                  </label>
+                  <label>
+                    Product Name
+                    <input
+                      type="text"
+                      name="productName"
+                      value={form.productName}
+                      onChange={handleChange}
+                      placeholder="e.g. Indomie Goreng"
+                      required
+                    />
+                  </label>
+                  <label>
+                    Price
+                    <input
+                      type="number"
+                      name="price"
+                      value={form.price}
+                      onChange={handleChange}
+                      placeholder="e.g. 3500"
+                      min="0"
+                      required
+                    />
+                  </label>
+                </div>
+                <div className="form-row">
+                  <label>
+                    Quantity
+                    <input
+                      type="number"
+                      name="quantity"
+                      value={form.quantity}
+                      onChange={handleChange}
+                      min="1"
+                    />
+                  </label>
+                  <label>
+                    Discount
+                    <input
+                      type="number"
+                      name="discount"
+                      value={form.discount}
+                      onChange={handleChange}
+                      placeholder="0"
+                      min="0"
+                    />
+                  </label>
+                  <label>
+                    Date
+                    <input
+                      type="date"
+                      name="date"
+                      value={form.date}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <button type="submit" className="btn-submit">Save</button>
+              </form>
             </div>
-            <div className="form-row">
-              <label>
-                Quantity
-                <input
-                  type="number"
-                  name="quantity"
-                  value={form.quantity}
-                  onChange={handleChange}
-                  min="1"
-                />
-              </label>
-              <label>
-                Discount
-                <input
-                  type="number"
-                  name="discount"
-                  value={form.discount}
-                  onChange={handleChange}
-                  placeholder="0"
-                  min="0"
-                />
-              </label>
-              <label>
-                Date
-                <input
-                  type="date"
-                  name="date"
-                  value={form.date}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-            </div>
-            <button type="submit" className="btn-submit">Save</button>
-          </form>
+          </div>
         )}
 
         <section className="expenses-section">
@@ -349,7 +380,14 @@ export default function Budgeting() {
                 return (
                   <div key={expense.id} className="expense-row">
                     <div className="expense-person">
-                      <span className={`person-badge ${personBadgeClass(expense.person)}`}>
+                      <span
+                        className="person-badge"
+                        style={{
+                          backgroundColor: stringToColor(expense.person).replace('hsl', 'hsla').replace(')', ', 0.12)'),
+                          color: stringToColor(expense.person),
+                          borderColor: stringToColor(expense.person).replace('hsl', 'hsla').replace(')', ', 0.25)'),
+                        }}
+                      >
                         {expense.person}
                       </span>
                     </div>

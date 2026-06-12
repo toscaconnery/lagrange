@@ -131,12 +131,9 @@
   left: 0;
   right: 0;
   height: 3px;
+  background: linear-gradient(90deg, var(--person-color), var(--person-color));
+  opacity: 0.7;
 }
-
-.person-stat-card.badge-you::before    { background: linear-gradient(90deg, #6366f1, #818cf8); }
-.person-stat-card.badge-friend::before  { background: linear-gradient(90deg, #10b981, #34d399); }
-.person-stat-card.badge-family::before  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-.person-stat-card.badge-other::before   { background: linear-gradient(90deg, #ef4444, #f87171); }
 
 .person-stat-card .person-name {
   font-size: 0.75rem;
@@ -144,11 +141,6 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-
-.person-stat-card.badge-you .person-name    { color: #818cf8; }
-.person-stat-card.badge-friend .person-name  { color: #34d399; }
-.person-stat-card.badge-family .person-name  { color: #fbbf24; }
-.person-stat-card.badge-other .person-name   { color: #f87171; }
 
 .person-stat-card .person-total {
   font-size: 1.15rem;
@@ -297,28 +289,92 @@
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-/* ---- Form ---- */
+/* ---- Modal overlay ---- */
 
-.expense-form {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(100, 116, 139, 0.25);
-  border-radius: 16px;
-  padding: 28px;
-  margin-bottom: 28px;
-  animation: fadeSlideIn 0.25s ease-out;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease-out;
 }
 
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-content {
+  background: #1e293b;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 18px;
+  padding: 32px;
+  width: 90%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: rgba(100, 116, 139, 0.15);
+  border: none;
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* ---- Form (inside modal) ---- */
+
+.expense-form {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  animation: none;
 }
 
 .form-row {
@@ -460,30 +516,6 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   border: 1px solid transparent;
-}
-
-.badge-you {
-  background: rgba(99, 102, 241, 0.12);
-  color: #818cf8;
-  border-color: rgba(99, 102, 241, 0.25);
-}
-
-.badge-friend {
-  background: rgba(16, 185, 129, 0.12);
-  color: #34d399;
-  border-color: rgba(16, 185, 129, 0.25);
-}
-
-.badge-family {
-  background: rgba(245, 158, 11, 0.12);
-  color: #fbbf24;
-  border-color: rgba(245, 158, 11, 0.25);
-}
-
-.badge-other {
-  background: rgba(239, 68, 68, 0.12);
-  color: #f87171;
-  border-color: rgba(239, 68, 68, 0.25);
 }
 
 /* ---- Table columns ---- */
