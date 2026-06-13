@@ -181,102 +181,143 @@ export default function Budgeting() {
 
     const total = items.reduce((s, e) => s + (e.price * e.quantity - e.discount), 0);
 
-    // Mobile-optimised PDF: narrow like a phone screen (80mm width)
+    // Calculate the total content height so the PDF trims exactly to fit
+    const lineHeight = 4.5;
+    let contentHeight = 8; // start y
+
+    // header
+    contentHeight += lineHeight + (lineHeight - 0.5) + (targetPerson !== 'All' ? lineHeight - 0.5 : 0) + 1 + 3.5;
+    // column header + dash
+    contentHeight += 1.5 + 3.5;
+    // items
+    items.forEach((e) => {
+      contentHeight += lineHeight;
+      if (e.discount > 0) contentHeight += lineHeight;
+    });
+    // dashes + total + discount line + footer
+    contentHeight += 1 + 4 + lineHeight + 1;
+    if (items.reduce((s, e) => s + e.discount, 0) > 0) contentHeight += lineHeight;
+    contentHeight += 5 + 5;
+
+    contentHeight = Math.max(contentHeight, 50);
+
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: [80, 297], // 80mm wide receipt, tall enough
+      format: [80, Math.ceil(contentHeight)],
     });
 
     const pageWidth = 80;
     const marginX = 5;
-    const contentWidth = pageWidth - marginX * 2;
+    let y = 8;
 
-    // Header
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text('RECEIPT', pageWidth / 2, 10, { align: 'center' });
+    const dash = (yPos) => {
+      doc.setDrawColor(80);
+      doc.setLineWidth(0.2);
+      doc.line(marginX, yPos, pageWidth - marginX, yPos);
+    };
 
+    const text = (str, xPos, yPos, opts = {}) => {
+      doc.text(str, xPos, yPos, opts);
+    };
+
+    // ── Header ──────────────────────────────────────────
+    doc.setFont('courier', 'bold');
+    doc.setFontSize(11);
+    text('BUDGETING', pageWidth / 2, y, { align: 'center' });
+    y += lineHeight;
+
+    doc.setFont('courier', 'normal');
     doc.setFontSize(7);
-    doc.setFont(undefined, 'normal');
     const dateStr = new Date().toLocaleDateString('id-ID', {
-      year: 'numeric', month: 'long', day: 'numeric',
+      day: '2-digit', month: '2-digit', year: 'numeric',
     });
-    doc.text(`Date: ${dateStr}`, pageWidth / 2, 16, { align: 'center' });
+    const timeStr = new Date().toLocaleTimeString('id-ID', {
+      hour: '2-digit', minute: '2-digit',
+    });
+    text(`${dateStr}  ${timeStr}`, pageWidth / 2, y, { align: 'center' });
+    y += lineHeight - 0.5;
 
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'bold');
-    doc.text(`Person: ${targetPerson === 'All' ? 'All' : targetPerson}`, pageWidth / 2, 22, { align: 'center' });
+    if (targetPerson !== 'All') {
+      text(`For: ${targetPerson}`, pageWidth / 2, y, { align: 'center' });
+      y += lineHeight - 0.5;
+    }
 
-    // Divider
-    doc.setDrawColor(180);
-    doc.line(marginX, 25, pageWidth - marginX, 25);
+    y += 1;
+    dash(y);
+    y += 3.5;
 
-    // Table
-    const tableRows = items.map((e) => {
+    // ── Column header ────────────────────────────────────
+    doc.setFont('courier', 'bold');
+    doc.setFontSize(6.5);
+    text('ITEM', marginX, y);
+    text('QTY', marginX + 35, y, { align: 'right' });
+    text('HARGA', marginX + 50, y, { align: 'right' });
+    text('SUBTOTAL', pageWidth - marginX, y, { align: 'right' });
+    y += 1.5;
+    dash(y);
+    y += 3.5;
+
+    // ── Items ────────────────────────────────────────────
+    doc.setFont('courier', 'normal');
+    doc.setFontSize(6.5);
+
+    items.forEach((e) => {
       const subtotal = e.price * e.quantity - e.discount;
-      return [
-        e.productName,
-        e.quantity,
-        Number(e.price).toLocaleString('id-ID'),
-        e.discount > 0 ? Number(e.discount).toLocaleString('id-ID') : '-',
-        Number(subtotal).toLocaleString('id-ID'),
-      ];
+      const nameMaxChars = 22;
+      const displayName = e.productName.length > nameMaxChars
+        ? e.productName.substring(0, nameMaxChars - 1) + '…'
+        : e.productName;
+
+      text(displayName.toUpperCase(), marginX, y);
+      text(String(e.quantity), marginX + 35, y, { align: 'right' });
+      text(Number(e.price).toLocaleString('id-ID'), marginX + 50, y, { align: 'right' });
+      text(Number(subtotal).toLocaleString('id-ID'), pageWidth - marginX, y, { align: 'right' });
+      y += lineHeight;
+
+      if (e.discount > 0) {
+        doc.setTextColor(120);
+        text(`  DISCOUNT : (${Number(e.discount).toLocaleString('id-ID')})`, marginX, y);
+        doc.setTextColor(0);
+        y += lineHeight;
+      }
     });
 
-    doc.autoTable({
-      startY: 28,
-      margin: { left: marginX, right: marginX },
-      tableWidth: contentWidth,
-      styles: {
-        fontSize: 6,
-        cellPadding: { top: 1.5, right: 1, bottom: 1.5, left: 1 },
-        lineColor: [180, 180, 180],
-        lineWidth: 0.2,
-      },
-      headStyles: {
-        fontSize: 6,
-        fontStyle: 'bold',
-        fillColor: [30, 41, 59],
-        textColor: [226, 232, 240],
-        halign: 'center',
-      },
-      bodyStyles: {
-        textColor: [30, 41, 59],
-      },
-      columnStyles: {
-        0: { cellWidth: contentWidth * 0.32, halign: 'left' },
-        1: { cellWidth: contentWidth * 0.12, halign: 'center' },
-        2: { cellWidth: contentWidth * 0.2, halign: 'right' },
-        3: { cellWidth: contentWidth * 0.16, halign: 'right' },
-        4: { cellWidth: contentWidth * 0.2, halign: 'right' },
-      },
-      head: [['Item', 'Qty', 'Price', 'Disc', 'Subtotal']],
-      body: tableRows,
-      didDrawPage: () => {},
-    });
+    y += 1;
+    dash(y);
+    y += 4;
 
-    // Total
-    const finalY = doc.lastAutoTable.finalY + 4;
-    doc.setDrawColor(180);
-    doc.line(marginX, finalY - 2, pageWidth - marginX, finalY - 2);
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'bold');
-    doc.text('TOTAL:', pageWidth / 2 - 10, finalY + 4);
-    doc.text(`Rp ${Number(total).toLocaleString('id-ID')}`, pageWidth / 2 + 12, finalY + 4, { align: 'right' });
+    // ── Total ─────────────────────────────────────────────
+    doc.setFont('courier', 'bold');
+    doc.setFontSize(7.5);
+    text('TOTAL BELANJA :', marginX, y);
+    text(Number(total).toLocaleString('id-ID'), pageWidth - marginX, y, { align: 'right' });
+    y += lineHeight + 1;
 
-    // Footer
+    const totalDiscount = items.reduce((s, e) => s + e.discount, 0);
+    if (totalDiscount > 0) {
+      doc.setFont('courier', 'normal');
+      doc.setFontSize(6.5);
+      text('ANDA HEMAT :', marginX, y);
+      text(Number(totalDiscount).toLocaleString('id-ID'), pageWidth - marginX, y, { align: 'right' });
+      y += lineHeight;
+    }
+
+    dash(y);
+    y += 5;
+
+    // ── Footer ────────────────────────────────────────────
+    doc.setFont('courier', 'normal');
     doc.setFontSize(6);
-    doc.setFont(undefined, 'normal');
-    doc.setTextColor(150);
-    doc.text('Thank you!', pageWidth / 2, finalY + 14, { align: 'center' });
+    doc.setTextColor(130);
+    text('Terima kasih sudah berbelanja!', pageWidth / 2, y, { align: 'center' });
 
     const filename = targetPerson === 'All'
-      ? `receipt-all-${new Date().toISOString().split('T')[0]}.pdf`
-      : `receipt-${targetPerson.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
+      ? `struk-all-${new Date().toISOString().split('T')[0]}.pdf`
+      : `struk-${targetPerson.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
 
     doc.save(filename);
-  };
+};
 
   return (
     <div className="budgeting-page">
