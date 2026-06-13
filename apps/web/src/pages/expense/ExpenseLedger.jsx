@@ -2,14 +2,14 @@ import { useState, useMemo } from 'react';
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
 applyPlugin(jsPDF);
-import '../../css/budgeting.css';
+import '../../css/expenseledger.css';
 
 const initialExpenses = [
-  { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
-  { id: 2, person: 'You', productName: 'Kopi Kapal Api', price: 12000, quantity: 1, discount: 1000, date: '2026-06-02' },
-  { id: 3, person: 'Friend', productName: 'Telur (1 kg)', price: 28000, quantity: 1, discount: 0, date: '2026-06-03' },
-  { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
-  { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
+  // { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
+  // { id: 2, person: 'You', productName: 'Kopi Kapal Api', price: 12000, quantity: 1, discount: 1000, date: '2026-06-02' },
+  // { id: 3, person: 'Friend', productName: 'Telur (1 kg)', price: 28000, quantity: 1, discount: 0, date: '2026-06-03' },
+  // { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
+  // { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
 ];
 
 /* Deterministic color from a person's name */
@@ -48,7 +48,7 @@ const TrashIcon = () => (
   </svg>
 );
 
-export default function Budgeting() {
+export default function ExpenseLedger () {
   const [expenses, setExpenses] = useState(initialExpenses);
   const [showForm, setShowForm] = useState(false);
   const [personFilter, setPersonFilter] = useState('All');
@@ -224,7 +224,7 @@ export default function Budgeting() {
     // ── Header ──────────────────────────────────────────
     doc.setFont('courier', 'bold');
     doc.setFontSize(11);
-    text('BUDGETING', pageWidth / 2, y, { align: 'center' });
+    text('Expense Ledger', pageWidth / 2, y, { align: 'center' });
     y += lineHeight;
 
     doc.setFont('courier', 'normal');
@@ -310,7 +310,7 @@ export default function Budgeting() {
     doc.setFont('courier', 'normal');
     doc.setFontSize(6);
     doc.setTextColor(130);
-    text('Terima kasih sudah berbelanja!', pageWidth / 2, y, { align: 'center' });
+    text('Terima kasih!', pageWidth / 2, y, { align: 'center' });
 
     const filename = targetPerson === 'All'
       ? `struk-all-${new Date().toISOString().split('T')[0]}.pdf`
@@ -323,7 +323,7 @@ export default function Budgeting() {
     <div className="budgeting-page">
       <div className="budgeting-container">
         <header className="budgeting-hero">
-          <h1>Budgeting</h1>
+          <h1>Expense Ledger</h1>
           <p>Record and track your expenses.</p>
         </header>
 
@@ -382,6 +382,11 @@ export default function Budgeting() {
                     <path d="M8 11h8" />
                     <path d="M8 15h5" />
                   </svg>
+                  {/* <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg> */}
                   Print Receipt
                 </button>
               )}
@@ -392,8 +397,8 @@ export default function Budgeting() {
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
                 </svg>
                 Export JSON
               </button>
@@ -408,8 +413,8 @@ export default function Budgeting() {
                 <span className="btn-import" title="Import from JSON">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" y1="3" x2="12" y2="15" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
                   Import JSON
                 </span>
