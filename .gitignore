@@ -31,8 +31,6 @@ coverage/
 
 # IDE
 .vscode/
-.idea/
+*.idea
 
 .continue/
-
-*.idea
