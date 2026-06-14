@@ -1,0 +1,203 @@
+/* =========== 404 Not Found Page =========== */
+
+.notfound-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #e2e8f0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.notfound-container {
+  max-width: 520px;
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+}
+
+.notfound-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: cardFloat 0.6s ease-out;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes cardFloat {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.notfound-icon {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.notfound-icon svg {
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.25));
+}
+
+.notfound-code {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #c7d2fe 0%, #818cf8 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.notfound-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  color: #f1f5f9;
+}
+
+.notfound-desc {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin: 0 0 2rem;
+  line-height: 1.6;
+}
+
+.notfound-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.notfound-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.notfound-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.notfound-btn-primary:active {
+  transform: translateY(0);
+}
+
+.notfound-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.notfound-btn-secondary:hover {
+  background: rgba(30, 41, 59, 1);
+  border-color: #6366f1;
+  color: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+.notfound-btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ---- Floating particles ---- */
+
+.notfound-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.2);
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+.p1 { top: 15%; left: 10%; animation-delay: 0s; width: 8px; height: 8px; background: rgba(99, 102, 241, 0.15); }
+.p2 { top: 25%; right: 12%; animation-delay: 1.5s; width: 5px; height: 5px; background: rgba(129, 140, 248, 0.2); }
+.p3 { bottom: 20%; left: 8%; animation-delay: 3s; width: 7px; height: 7px; background: rgba(165, 180, 252, 0.15); }
+.p4 { bottom: 30%; right: 15%; animation-delay: 4.5s; width: 4px; height: 4px; background: rgba(99, 102, 241, 0.25); }
+.p5 { top: 50%; left: 50%; animation-delay: 2s; width: 10px; height: 10px; background: rgba(129, 140, 248, 0.1); }
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.5);
+    opacity: 0.8;
+  }
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 540px) {
+  .notfound-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .notfound-code {
+    font-size: 3.5rem;
+  }
+
+  .notfound-icon svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  .notfound-title {
+    font-size: 1.3rem;
+  }
+
+  .notfound-actions {
+    flex-direction: column;
+  }
+}
