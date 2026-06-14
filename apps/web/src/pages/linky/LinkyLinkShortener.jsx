@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import '../../css/app.css'
 import '../../css/linkshortener.css'
 import { toast } from 'sonner';
 
@@ -43,7 +42,6 @@ function LinkyLinkShortener() {
 
       console.log('---> data result : ', data)
 
-      // setShortenedLink(data.shortCode);
       toast.success('URL copied to clipboard');
 
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -56,99 +54,85 @@ function LinkyLinkShortener() {
   };
 
   return (
-    <>
-      <div className="container">
-        <div className="hero">
+    <div className="shortener-page">
+      <div className="shortener-container">
+        <header className="shortener-hero">
           <h1>Shorten your long links</h1>
           <p>
             Create memorable short URLs for your website,
             marketing campaigns, and social media.
           </p>
-        </div>
+        </header>
 
-        <div className="card">
-          <div className="form-group">
-            <label htmlFor="url">
+        <div className="shortener-card">
+          <div className="form-row">
+            <label>
               Destination URL
-            </label>
-
-            <input
-              id="url"
-              type="url"
-              placeholder="https://example.com/very/long/link"
-              value={originalLink}
-              onChange={(e) => setOriginalLink(e.target.value)}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="slug">
-              Custom Back-Half (Optional)
-            </label>
-
-            <div className="inline-input">
-              <div className="short-url-prefix">
-                {host}
-              </div>
-
               <input
-                className="short-url-prefix-input"
-                id="slug"
-                type="text"
-                placeholder="my-link"
-                value={shortenedLink}
-                onChange={(e) => editShortenedLink(e.target.value)}
+                type="url"
+                placeholder="https://example.com/very/long/link"
+                value={originalLink}
+                onChange={(e) => setOriginalLink(e.target.value)}
+                required
               />
-            </div>
+            </label>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="url">
-              Title
+          <div className="form-row">
+            <label>
+              Custom Back-Half (Optional)
+              <div className="inline-input-group">
+                <span className="url-prefix">{host}</span>
+                <input
+                  type="text"
+                  placeholder="my-link"
+                  value={shortenedLink}
+                  onChange={(e) => editShortenedLink(e.target.value)}
+                />
+              </div>
             </label>
+          </div>
 
-            <input
-              id="url"
-              type="url"
-              placeholder="Link title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+          <div className="form-row">
+            <label>
+              Title
+              <input
+                type="text"
+                placeholder="Link title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </label>
           </div>
 
           <button 
-            className="button"
+            className="btn-submit"
             onClick={submitShortenedLink}
           >
             Create Short Link
           </button>
 
-          <div className="result">
-            <div className="result-label">
+          <div className="shortener-result">
+            <div className="shortener-result-label">
               Your shortened URL
             </div>
-
-            <div className="result-link">
+            <div className="shortener-result-link">
               {host}/{shortenedLink}
             </div>
           </div>
 
-          <div className="bottom-navigation-link">
-            <a href="/linky/list" className="no-text-decoration">
-              <span>
-                Go to shortened link list
-              </span>
+          <div className="shortener-nav-link">
+            <a href="/linky/list">
+              <span>Go to shortened link list &rarr;</span>
             </a>
-
           </div>
-
         </div>
 
-        <div className="footer-note">
+        <p className="shortener-footer-note">
           Fast, simple, and reliable URL shortening.
-        </div>
+        </p>
       </div>
-    </>
+    </div>
   )
 }
 
