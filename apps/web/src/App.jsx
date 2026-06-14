@@ -7,6 +7,7 @@ import LinkyList from './pages/linky/LinkyList';
 import ExpenseLedger from './pages/expense/ExpenseLedger';
 import AuthLogin from './pages/auth/AuthLogin';
 import AuthRegister from './pages/auth/AuthRegister';
+import NotFound from './pages/NotFound';
 import { Toaster } from 'sonner';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/expense-ledger" element={<ExpenseLedger />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/register" element={<AuthRegister />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
