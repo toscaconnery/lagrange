@@ -3,10 +3,10 @@ import { getLogin, postLogin, postLogout, getRegister, postRegister } from '../.
 
 const router = Router();
 
-router.get('/login', getLogin);
-router.post('/login', postLogin);
-router.post('/logout', postLogout);
-router.get('/register', getRegister);
-router.post('/register', postRegister)
+// router.get('/login', getLogin);
+// router.post('/login', postLogin);
+// router.post('/logout', postLogout);
+// router.get('/register', getRegister);
+// router.post('/register', postRegister)
 
 export default router;

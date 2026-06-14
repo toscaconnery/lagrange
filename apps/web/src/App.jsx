@@ -5,6 +5,8 @@ import LinkyLinkShortener from './pages/linky/LinkyLinkShortener';
 import LinkyAccess from './pages/linky/LinkyAccess';
 import LinkyList from './pages/linky/LinkyList';
 import ExpenseLedger from './pages/expense/ExpenseLedger';
+import AuthLogin from './pages/auth/AuthLogin';
+import AuthRegister from './pages/auth/AuthRegister';
 import { Toaster } from 'sonner';
 
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/linky/list" element={<LinkyList />} />
         <Route path="/ls/:shortCode" element={<LinkyAccess />} />
         <Route path="/expense-ledger" element={<ExpenseLedger />} />
+        <Route path="/auth/login" element={<AuthLogin />} />
+        <Route path="/auth/register" element={<AuthRegister />} />
       </Routes>
     </BrowserRouter>
   );
