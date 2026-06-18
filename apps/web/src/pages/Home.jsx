@@ -37,6 +37,19 @@ export default function Home() {
             >
               Expense Ledger
             </a>
+            <a
+              href="/farm"
+              style={{
+                padding: '12px 24px',
+                borderRadius: '8px',
+                border: '1px solid var(--border)',
+                color: 'var(--text-h)',
+                textDecoration: 'none',
+                fontWeight: 500,
+              }}
+            >
+              My Plantations
+            </a>
           </div>
         </section>
       </div>

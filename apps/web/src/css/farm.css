@@ -1,0 +1,304 @@
+.farm-page {
+  padding: 32px 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.farm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.farm-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: -0.5px;
+}
+
+.farm-header p {
+  color: #9ca3af;
+  font-size: 14px;
+  margin: 2px 0 0;
+}
+
+.farm-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.farm-add-btn:hover {
+  background: #059669;
+}
+
+.farm-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.farm-stat-card {
+  flex: 1;
+  min-width: 120px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.farm-stat-card .stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.farm-stat-card .stat-label {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.farm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.farm-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.farm-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.farm-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.farm-card-area {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.farm-back-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.farm-back-btn:hover {
+  color: #111827;
+}
+
+.farm-select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  appearance: auto;
+}
+
+.farm-select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.farm-form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.farm-form-row .farm-form-group {
+  flex: 1;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -40px;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 1;
+}
+
+.timeline-content {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.timeline-type {
+  font-weight: 600;
+  font-size: 15px;
+  color: #111827;
+}
+
+.timeline-date {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.timeline-desc {
+  font-size: 14px;
+  color: #374151;
+  margin: 4px 0 0;
+}
+
+.timeline-amount {
+  font-size: 14px;
+  color: #10b981;
+  font-weight: 500;
+  margin: 4px 0 0;
+}
+
+.farm-form {
+  max-width: 480px;
+}
+
+.farm-form-group {
+  margin-bottom: 20px;
+}
+
+.farm-form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.farm-form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.farm-form-group input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.farm-form-group input::placeholder {
+  color: #9ca3af;
+}
+
+.farm-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.farm-btn-secondary {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.farm-btn-secondary:hover {
+  background: #f9fafb;
+}
+
+@media (max-width: 640px) {
+  .farm-page {
+    padding: 20px 16px;
+  }
+  .farm-header h1 {
+    font-size: 22px;
+  }
+  .farm-grid {
+    grid-template-columns: 1fr;
+  }
+}
