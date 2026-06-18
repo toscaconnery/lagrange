@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/farm.css';
-import Header from '../../components/Header';
+import FarmHeader from '../../components/FarmHeader';
 
 export default function FarmAdd() {
   const navigate = useNavigate();
@@ -41,53 +41,52 @@ export default function FarmAdd() {
 
   return (
     <>
-      <Header />
-      <div className="limit-wide">
-        <div className="farm-page">
-          <div className="farm-header">
-            <div>
-              <h1>Add Plantation</h1>
-              <p>Register a new oil palm estate</p>
-            </div>
+      <FarmHeader />
+      <div className="farm-page">
+        <div className="farm-header">
+          <div>
+            <button className="farm-back-btn" onClick={() => navigate('/farm')}>
+              ← Back
+            </button>
+            <h1 style={{ marginTop: '8px' }}>Add Plantation</h1>
+            <p>Register a new oil palm estate</p>
           </div>
-
-          <form className="farm-form" onSubmit={handleSubmit}>
-            {error && (
-              <p style={{ color: '#ef4444', fontSize: '14px', marginBottom: '16px' }}>{error}</p>
-            )}
-            <div className="farm-form-group">
-              <label htmlFor="name">Plantation Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="e.g. Green Valley Estate"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="farm-form-group">
-              <label htmlFor="area">Area (Hectares)</label>
-              <input
-                id="area"
-                type="number"
-                min="1"
-                placeholder="e.g. 150"
-                value={area}
-                onChange={e => setArea(e.target.value)}
-                required
-              />
-            </div>
-            <div className="farm-form-actions">
-              <button type="button" className="farm-btn-secondary" onClick={() => navigate('/farm')} disabled={saving}>
-                Cancel
-              </button>
-              <button type="submit" className="farm-add-btn" disabled={saving}>
-                {saving ? 'Saving...' : 'Save Plantation'}
-              </button>
-            </div>
-          </form>
         </div>
+
+        <form className="farm-form" onSubmit={handleSubmit}>
+          {error && <p className="farm-error">{error}</p>}
+          <div className="farm-form-group">
+            <label htmlFor="name">Plantation Name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="e.g. Green Valley Estate"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="farm-form-group">
+            <label htmlFor="area">Area (Hectares)</label>
+            <input
+              id="area"
+              type="number"
+              min="1"
+              placeholder="e.g. 150"
+              value={area}
+              onChange={e => setArea(e.target.value)}
+              required
+            />
+          </div>
+          <div className="farm-form-actions">
+            <button type="button" className="farm-btn-secondary" onClick={() => navigate('/farm')} disabled={saving}>
+              Cancel
+            </button>
+            <button type="submit" className="farm-add-btn" disabled={saving}>
+              {saving ? 'Saving...' : 'Save Plantation'}
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

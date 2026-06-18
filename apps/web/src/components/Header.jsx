@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Link Shortener', path: '/linky/shorten' },
   { label: 'Linky List', path: '/linky/list' },
   { label: 'Expense Ledger', path: '/expense-ledger' },
+  { label: 'My Plantations', path: '/farm' },
 ];
 
 function getUserName() {
@@ -22,6 +23,7 @@ function getUserName() {
 
 export default function Header() {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState(getUserName());
 
@@ -42,101 +44,61 @@ export default function Header() {
     navigate('/');
   };
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '12px 24px',
-      borderBottom: '1px solid var(--border)',
-      background: 'var(--bg)',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-        <Link to="/" style={{
-          fontWeight: 600,
-          fontSize: '20px',
-          textDecoration: 'none',
-          color: 'var(--text-h)',
-        }}>
+    <nav className="navbar">
+      <div className="navbar-inner">
+        <Link to="/" className="navbar-brand" onClick={closeMenu}>
           Lagrange
         </Link>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              style={{
-                textDecoration: 'none',
-                color: 'var(--text)',
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '15px',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'var(--text-h)')}
-              onMouseLeave={(e) => (e.target.style.color = 'var(--text)')}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </div>
 
-      <div>
-        {loggedIn ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{
-              fontSize: '14px',
-              color: 'var(--text)',
-              fontWeight: 500,
-            }}>
-              {userName}
-            </span>
-            <button
-              onClick={handleLogout}
-              style={{
-                padding: '6px 14px',
-                borderRadius: '6px',
-                border: '1px solid var(--border)',
-                background: 'transparent',
-                color: 'var(--text)',
-                cursor: 'pointer',
-                fontSize: '14px',
-              }}
-            >
-              Logout
-            </button>
+        {/* Hamburger toggle */}
+        <button
+          className={`navbar-toggle ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        {/* Nav links + auth */}
+        <div className={`navbar-right ${menuOpen ? 'open' : ''}`}>
+          <div className="navbar-links">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="navbar-link"
+                onClick={closeMenu}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
-        ) : (
-          <>
-            <Link
-              to="/auth/register"
-              style={{
-                padding: '6px 14px',
-                borderRadius: '6px',
-                textDecoration: 'none',
-                color: 'var(--text)',
-                fontSize: '14px',
-                marginRight: '8px',
-              }}
-            >
-              Register
-            </Link>
-            <Link
-              to="/auth/login"
-              style={{
-                padding: '6px 14px',
-                borderRadius: '6px',
-                textDecoration: 'none',
-                background: 'var(--accent)',
-                color: '#fff',
-                fontSize: '14px',
-              }}
-            >
-              Login
-            </Link>
-          </>
-        )}
+
+          <div className="navbar-auth">
+            {loggedIn ? (
+              <div className="navbar-user">
+                <span className="navbar-username">{userName}</span>
+                <button onClick={() => { handleLogout(); closeMenu(); }} className="navbar-logout">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="navbar-auth-links">
+                <Link to="/auth/register" className="navbar-register" onClick={closeMenu}>
+                  Register
+                </Link>
+                <Link to="/auth/login" className="navbar-login" onClick={closeMenu}>
+                  Login
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </nav>
   );

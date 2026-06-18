@@ -1,10 +1,63 @@
+/* ---------- Standard Container ---------- */
 .farm-page {
-  padding: 40px 28px;
-  max-width: 720px;
+  max-width: 480px;
   margin: 0 auto;
+  padding: 40px 28px;
   text-align: left;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* ---------- Navbar ---------- */
+.farm-navbar {
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.farm-navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 12px 28px;
+}
+
+.farm-navbar-brand {
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.farm-navbar-links {
+  display: flex;
+  gap: 4px;
+}
+
+.farm-navbar-link {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.farm-navbar-link:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* ---------- Page Header ---------- */
 .farm-header {
   display: flex;
   justify-content: space-between;
@@ -30,10 +83,11 @@
   font-weight: 400;
 }
 
-/* --- Buttons --- */
+/* ---------- Buttons ---------- */
 .farm-add-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 10px 20px;
   background: linear-gradient(135deg, #10b981, #059669);
@@ -46,6 +100,7 @@
   transition: all 0.2s ease;
   text-decoration: none;
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  white-space: nowrap;
 }
 
 .farm-add-btn:hover {
@@ -55,6 +110,35 @@
 
 .farm-add-btn:active {
   transform: translateY(0);
+}
+
+.farm-add-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.farm-btn-secondary {
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.farm-btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.farm-btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .farm-back-btn {
@@ -76,7 +160,7 @@
   color: #0f172a;
 }
 
-/* --- Stats --- */
+/* ---------- Stats Grid ---------- */
 .farm-stats {
   display: flex;
   gap: 14px;
@@ -114,7 +198,7 @@
   letter-spacing: 0.4px;
 }
 
-/* --- Grid --- */
+/* ---------- List Grid ---------- */
 .farm-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -162,7 +246,69 @@
   border-radius: 6px;
 }
 
-/* --- Form elements --- */
+/* ---------- Empty / Loading State ---------- */
+.farm-empty {
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 15px;
+}
+
+/* ---------- Form Elements ---------- */
+.farm-form {
+  width: 100%;
+  max-width: 600px;
+}
+
+.farm-form-group {
+  margin-bottom: 20px;
+}
+
+.farm-form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+
+.farm-form-group input,
+.farm-form-group select,
+.farm-form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #0f172a;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.farm-form-group input:focus,
+.farm-form-group select:focus,
+.farm-form-group textarea:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.farm-form-group input::placeholder {
+  color: #94a3b8;
+}
+
+.farm-form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.farm-form-row .farm-form-group {
+  flex: 1;
+}
+
 .farm-select {
   width: 100%;
   padding: 11px 14px;
@@ -183,16 +329,19 @@
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
 }
 
-.farm-form-row {
+.farm-form-actions {
   display: flex;
-  gap: 14px;
+  gap: 12px;
+  margin-top: 28px;
 }
 
-.farm-form-row .farm-form-group {
-  flex: 1;
+.farm-error {
+  color: #ef4444;
+  font-size: 14px;
+  margin-bottom: 16px;
 }
 
-/* --- Timeline --- */
+/* ---------- Timeline ---------- */
 .timeline {
   position: relative;
   padding-left: 44px;
@@ -299,70 +448,7 @@
   border-radius: 6px;
 }
 
-/* --- Forms --- */
-.farm-form {
-  width: 100%;
-}
-
-.farm-form-group {
-  margin-bottom: 20px;
-}
-
-.farm-form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 6px;
-  letter-spacing: -0.2px;
-}
-
-.farm-form-group input {
-  width: 100%;
-  padding: 11px 14px;
-  font-size: 15px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: #fff;
-  color: #0f172a;
-  outline: none;
-  box-sizing: border-box;
-  transition: all 0.2s;
-}
-
-.farm-form-group input:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12), 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
-.farm-form-group input::placeholder {
-  color: #94a3b8;
-}
-
-.farm-form-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-.farm-btn-secondary {
-  padding: 11px 22px;
-  font-size: 14px;
-  font-weight: 600;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #475569;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.farm-btn-secondary:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-}
-
-/* --- Responsive --- */
+/* ---------- Responsive ---------- */
 @media (max-width: 640px) {
   .farm-page {
     padding: 24px 18px;
@@ -383,5 +469,11 @@
   .farm-form-row {
     flex-direction: column;
     gap: 0;
+  }
+  .farm-form {
+    max-width: 100%;
+  }
+  .farm-navbar-inner {
+    padding: 12px 18px;
   }
 }
