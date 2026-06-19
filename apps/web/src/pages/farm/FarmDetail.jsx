@@ -172,7 +172,7 @@ export default function FarmDetail() {
     setAmount('');
     setUnit('kg');
     setDescription('');
-    setActivityDate('');
+    setActivityDate(new Date().toISOString().split('T')[0]);
     setSchedules([{ start_date: '', end_date: '' }]);
     setError('');
     setShowModal(true);

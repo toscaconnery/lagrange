@@ -1,4 +1,4 @@
-CREATE TABLE activity_schedules (
+CREATE TABLE plantation_activity_schedules (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     activity_id INT UNSIGNED NOT NULL,
     start_date DATE NOT NULL,
