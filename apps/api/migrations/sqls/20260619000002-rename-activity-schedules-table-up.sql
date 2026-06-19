@@ -1,0 +1,1 @@
+RENAME TABLE activity_schedules TO plantation_activity_schedules;
