@@ -1,0 +1,25 @@
+{
+  "name": "My Plantations",
+  "short_name": "Plantations",
+  "description": "Manage your oil palm estates and plantation activities",
+  "start_url": "/farm",
+  "scope": "/farm",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/plantation_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
