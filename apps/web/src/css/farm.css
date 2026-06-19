@@ -20,10 +20,11 @@
 .farm-navbar-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: 480px;
   margin: 0 auto;
   padding: 12px 28px;
+  gap: 0;
 }
 
 .farm-navbar-brand {
@@ -54,6 +55,26 @@
 
 .farm-navbar-link:hover {
   background: #f1f5f9;
+  color: #0f172a;
+}
+
+.farm-navbar-back {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 6px 6px 0;
+  font-family: inherit;
+  transition: color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: 4px;
+}
+
+.farm-navbar-back:hover {
   color: #0f172a;
 }
 

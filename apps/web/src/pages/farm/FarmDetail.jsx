@@ -369,13 +369,10 @@ export default function FarmDetail() {
 
   return (
     <>
-      <FarmHeader />
+      <FarmHeader backTo="/farm" />
       <div className="farm-page">
         <div className="farm-header">
           <div>
-            <button className="farm-back-btn" onClick={() => navigate('/farm')}>
-              ← Back
-            </button>
             <h1 style={{ marginTop: '8px' }}>{plantation?.name}</h1>
             <p>{plantation?.area_ha} Ha</p>
           </div>

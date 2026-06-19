@@ -41,13 +41,10 @@ export default function FarmAdd() {
 
   return (
     <>
-      <FarmHeader />
+      <FarmHeader backTo="/farm" />
       <div className="farm-page">
         <div className="farm-header">
           <div>
-            <button className="farm-back-btn" onClick={() => navigate('/farm')}>
-              ← Back
-            </button>
             <h1 style={{ marginTop: '8px' }}>Add Plantation</h1>
             <p>Register a new oil palm estate</p>
           </div>
