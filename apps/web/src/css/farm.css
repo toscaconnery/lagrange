@@ -795,6 +795,187 @@
   color: #0f172a;
 }
 
+/* ---------- Calendar Modal ---------- */
+.farm-calendar-modal {
+  max-width: 520px;
+}
+
+.farm-calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.farm-calendar-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  line-height: 1;
+  padding: 0;
+}
+
+.farm-calendar-nav-btn:hover {
+  background: #f1f5f9;
+  border-color: #10b981;
+  color: #059669;
+}
+
+.farm-calendar-month-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+  text-align: center;
+  flex: 1;
+}
+
+.farm-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.farm-calendar-day-header {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 0;
+}
+
+.farm-calendar-cell {
+  aspect-ratio: 1 / 1;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.farm-calendar-cell--empty {
+  background: transparent;
+  border-color: transparent;
+}
+
+.farm-calendar-cell--today {
+  border-color: #10b981;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+}
+
+.farm-calendar-cell--activity-past {
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+.farm-calendar-cell--activity-future {
+  background: #fef9c3;
+  border-color: #fde68a;
+}
+
+.farm-calendar-day-num {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  line-height: 1;
+}
+
+.farm-calendar-cell--today .farm-calendar-day-num {
+  color: #059669;
+}
+
+.farm-calendar-activities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.farm-calendar-activity-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid #e2e8f0;
+}
+
+.farm-calendar-activity-chip:hover {
+  background: #e2e8f0;
+  border-color: #10b981;
+  transform: scale(1.15);
+}
+
+.farm-calendar-legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.farm-calendar-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.farm-calendar-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.farm-calendar-legend-dot--today {
+  background: #10b981;
+  border: 2px solid #059669;
+}
+
+.farm-calendar-legend-dot--active {
+  background: #a7f3d0;
+  border: 2px solid #10b981;
+}
+
+.farm-calendar-legend-dot--future {
+  background: #fde68a;
+  border: 2px solid #f59e0b;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
   .farm-page {

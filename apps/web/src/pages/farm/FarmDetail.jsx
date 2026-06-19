@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../css/farm.css';
 import FarmHeader from '../../components/FarmHeader';
+import {ChevronLeft, ChevronRight} from 'lucide-react';
 
 const activityIcons = {
   'fertilizer': '🌱',
@@ -87,6 +88,34 @@ function totalExpenses(expenses) {
   return expenses.reduce((sum, e) => sum + Number(e.amount), 0);
 }
 
+function getDaysInMonth(month, year) {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+function getFirstDayOfMonth(month, year) {
+  return new Date(year, month, 1).getDay();
+}
+
+function isDateInRange(dateStr, startDate, endDate) {
+  if (!startDate || !endDate) return false;
+  const d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(endDate);
+  end.setHours(0, 0, 0, 0);
+  return d >= start && d <= end;
+}
+
+function getActivitiesForDate(activities, dateStr) {
+  return activities.filter(a => {
+    if (!a.schedules || a.schedules.length === 0) {
+      return a.activity_date === dateStr;
+    }
+    return a.schedules.some(s => isDateInRange(dateStr, s.start_date, s.end_date));
+  });
+}
+
 export default function FarmDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -104,6 +133,11 @@ export default function FarmDetail() {
   const [schedules, setSchedules] = useState([{ start_date: '', end_date: '' }]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+
+  // Calendar modal state
+  const [showCalendarModal, setShowCalendarModal] = useState(false);
+  const [calendarMonth, setCalendarMonth] = useState(new Date().getMonth());
+  const [calendarYear, setCalendarYear] = useState(new Date().getFullYear());
 
   // Expense modal state
   const [showExpenseModal, setShowExpenseModal] = useState(false);
@@ -345,9 +379,14 @@ export default function FarmDetail() {
             <h1 style={{ marginTop: '8px' }}>{plantation?.name}</h1>
             <p>{plantation?.area_ha} Ha</p>
           </div>
-          <button className="farm-add-btn" onClick={openAddModal}>
-            + Add Activity
-          </button>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <button className="farm-btn-secondary" onClick={() => setShowCalendarModal(true)}>
+              📅 Calendar
+            </button>
+            <button className="farm-add-btn" onClick={openAddModal}>
+              + Add Activity
+            </button>
+          </div>
         </div>
 
         {/* Activity Modal */}
@@ -541,6 +580,106 @@ export default function FarmDetail() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Calendar Modal */}
+        {showCalendarModal && (
+          <div className="farm-modal-overlay" onClick={() => setShowCalendarModal(false)}>
+            <div className="farm-modal farm-calendar-modal" onClick={e => e.stopPropagation()}>
+              <div className="farm-modal-header">
+                <h2>Activity Calendar</h2>
+                <button className="farm-modal-close" onClick={() => setShowCalendarModal(false)}>&times;</button>
+              </div>
+
+              {/* Month Navigation */}
+              <div className="farm-calendar-nav">
+                <button className="farm-calendar-nav-btn" onClick={() => {
+                  if (calendarMonth === 0) {
+                    setCalendarMonth(11);
+                    setCalendarYear(calendarYear - 1);
+                  } else {
+                    setCalendarMonth(calendarMonth - 1);
+                  }
+                }}>
+                  <ChevronLeft />
+                </button>
+                <span className="farm-calendar-month-label">
+                  {new Date(calendarYear, calendarMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                </span>
+                <button className="farm-calendar-nav-btn" onClick={() => {
+                  if (calendarMonth === 11) {
+                    setCalendarMonth(0);
+                    setCalendarYear(calendarYear + 1);
+                  } else {
+                    setCalendarMonth(calendarMonth + 1);
+                  }
+                }}>
+                  <ChevronRight />
+                </button>
+              </div>
+
+              {/* Calendar Grid */}
+              <div className="farm-calendar-grid">
+                {/* Day headers */}
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+                  <div key={d} className="farm-calendar-day-header">{d}</div>
+                ))}
+
+                {/* Empty cells before first day */}
+                {Array.from({ length: getFirstDayOfMonth(calendarMonth, calendarYear) }).map((_, i) => (
+                  <div key={`empty-${i}`} className="farm-calendar-cell farm-calendar-cell--empty" />
+                ))}
+
+                {/* Day cells */}
+                {Array.from({ length: getDaysInMonth(calendarMonth, calendarYear) }).map((_, i) => {
+                  const day = i + 1;
+                  const dateStr = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                  const dayActivities = getActivitiesForDate(activities, dateStr);
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+                  const cellDate = new Date(calendarYear, calendarMonth, day);
+                  cellDate.setHours(0, 0, 0, 0);
+                  const isToday = today.getTime() === cellDate.getTime();
+                  const isPast = cellDate < today;
+                  const hasActivity = dayActivities.length > 0;
+                  const isFutureActivity = hasActivity && !isPast && !isToday;
+
+                  let cellClass = 'farm-calendar-cell';
+                  if (isToday) cellClass += ' farm-calendar-cell--today';
+                  if (hasActivity && !isFutureActivity) cellClass += ' farm-calendar-cell--activity-past';
+                  if (isFutureActivity) cellClass += ' farm-calendar-cell--activity-future';
+
+                  return (
+                    <div key={day} className={cellClass}>
+                      <span className="farm-calendar-day-num">{day}</span>
+                      {dayActivities.length > 0 && (
+                        <div className="farm-calendar-activities">
+                          {dayActivities.map(a => (
+                            <span key={a.id} className="farm-calendar-activity-chip" title={formatUppercaseFirstLetter(a.activity_type)}>
+                              {getIcon(a.activity_type)}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Legend */}
+              <div className="farm-calendar-legend">
+                <span className="farm-calendar-legend-item">
+                  <span className="farm-calendar-legend-dot farm-calendar-legend-dot--today" /> Today
+                </span>
+                <span className="farm-calendar-legend-item">
+                  <span className="farm-calendar-legend-dot farm-calendar-legend-dot--active" /> Active
+                </span>
+                <span className="farm-calendar-legend-item">
+                  <span className="farm-calendar-legend-dot farm-calendar-legend-dot--future" /> Upcoming
+                </span>
+              </div>
             </div>
           </div>
         )}
