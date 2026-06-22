@@ -5,11 +5,11 @@ applyPlugin(jsPDF);
 import '../../css/expenseledger.css';
 
 const initialExpenses = [
-  // { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
-  // { id: 2, person: 'You', productName: 'Kopi Kapal Api', price: 12000, quantity: 1, discount: 1000, date: '2026-06-02' },
-  // { id: 3, person: 'Friend', productName: 'Telur (1 kg)', price: 28000, quantity: 1, discount: 0, date: '2026-06-03' },
-  // { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
-  // { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
+  { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
+  { id: 2, person: 'You', productName: 'Kopi Kapal Api', price: 12000, quantity: 1, discount: 1000, date: '2026-06-02' },
+  { id: 3, person: 'Friend', productName: 'Telur (1 kg)', price: 28000, quantity: 1, discount: 0, date: '2026-06-03' },
+  { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
+  { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
 ];
 
 /* Deterministic color from a person's name */
@@ -540,14 +540,14 @@ export default function ExpenseLedger () {
           {filteredExpenses.length > 0 && (
             <div className="expense-table">
               <div className="expense-table-header">
-                <div>Person</div>
-                <div>Product</div>
-                <div>Price</div>
-                <div>Qty</div>
-                <div>Discount</div>
-                <div>Subtotal</div>
-                <div>Date</div>
-                <div className="col-actions"></div>
+                <div class="expense-person">Person</div>
+                <div class="expense-product">Product</div>
+                <div class="expense-price">Price</div>
+                <div class="expense-qty">Qty</div>
+                <div class="expense-discount">Discount</div>
+                <div class="expense-subtotal">Subtotal</div>
+                <div class="expense-date">Date</div>
+                <div className="expense-actions col-actions"></div>
               </div>
 
               {filteredExpenses.map((expense) => {
