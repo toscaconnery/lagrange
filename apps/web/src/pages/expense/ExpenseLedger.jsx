@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
 applyPlugin(jsPDF);
@@ -49,6 +49,10 @@ const TrashIcon = () => (
 );
 
 export default function ExpenseLedger () {
+  useEffect(() => {
+    document.title = 'Expense Ledger';
+  }, []);
+
   const [expenses, setExpenses] = useState(initialExpenses);
   const [showForm, setShowForm] = useState(false);
   const [personFilter, setPersonFilter] = useState('All');

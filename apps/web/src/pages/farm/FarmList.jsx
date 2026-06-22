@@ -18,6 +18,10 @@ export default function FarmList() {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    document.title = 'Plantation';
+  }, [])
+
   return (
     <>
       <FarmHeader />

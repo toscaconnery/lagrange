@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/farm.css';
 import FarmHeader from '../../components/FarmHeader';
@@ -39,6 +39,9 @@ export default function FarmAdd() {
     }
   };
 
+  useEffect(() => {
+    document.title = 'Plantation - Add';
+  }, [])
   return (
     <>
       <FarmHeader backTo="/farm" />

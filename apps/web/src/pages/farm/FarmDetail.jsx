@@ -160,6 +160,10 @@ export default function FarmDetail() {
       .finally(() => setLoading(false));
   }, [id, navigate]);
 
+  useEffect(() => {
+    document.title = `Plantation - ${id}`;
+  }, [id])
+
   const refreshPlantation = async () => {
     const res = await fetch(`/api/v1/plantations/${id}`);
     const data = await res.json();
