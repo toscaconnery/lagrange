@@ -261,7 +261,7 @@ export default function ExpenseLedger () {
     if (items.reduce((s, e) => s + e.discount, 0) > 0) contentHeight += lineHeight;
     contentHeight += 5 + 5;
 
-    contentHeight = Math.max(contentHeight, 50);
+    contentHeight = Math.max(contentHeight, 100);
 
     const doc = new jsPDF({
       orientation: 'portrait',
@@ -379,7 +379,7 @@ export default function ExpenseLedger () {
       : `struk-${targetPerson.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
 
     doc.save(filename);
-};
+  };
 
   return (
     <div className="budgeting-page">
