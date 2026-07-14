@@ -5,11 +5,11 @@ applyPlugin(jsPDF);
 import '../../css/expenseledger.css';
 
 const initialExpenses = [
-  { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
-  { id: 2, person: 'You', productName: 'Kopi Kapal Api', price: 12000, quantity: 1, discount: 1000, date: '2026-06-02' },
-  { id: 3, person: 'Friend', productName: 'Telur (1 kg)', price: 28000, quantity: 1, discount: 0, date: '2026-06-03' },
-  { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
-  { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
+  // { id: 1, person: 'You', productName: 'Indomie Goreng', price: 3500, quantity: 2, discount: 0, date: '2026-06-01' },
+  // { id: 2, person: 'You', productName: 'Kopi Kapal Api', price: 12000, quantity: 1, discount: 1000, date: '2026-06-02' },
+  // { id: 3, person: 'Friend', productName: 'Telur (1 kg)', price: 28000, quantity: 1, discount: 0, date: '2026-06-03' },
+  // { id: 4, person: 'Family', productName: 'Beras 5kg', price: 65000, quantity: 1, discount: 5000, date: '2026-06-05' },
+  // { id: 5, person: 'You', productName: 'Sabun Cuci Piring', price: 15000, quantity: 2, discount: 2000, date: '2026-06-07' },
 ];
 
 /* Deterministic color from a person's name */
@@ -57,6 +57,7 @@ export default function ExpenseLedger () {
   const [showForm, setShowForm] = useState(false);
   const [personFilter, setPersonFilter] = useState('All');
   const [form, setForm] = useState({
+    id: null,
     person: 'You',
     productName: '',
     price: '',
@@ -64,6 +65,9 @@ export default function ExpenseLedger () {
     discount: 0,
     date: new Date().toISOString().split('T')[0],
   });
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [formMode, setFormMode] = useState('create');
+  
 
   const filteredExpenses = personFilter === 'All'
     ? expenses
@@ -88,34 +92,88 @@ export default function ExpenseLedger () {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log('handlechange : ', name, value)
+
+    // set date so we don't have to pick the date everytime the form appears
+    if (name === 'date') {
+      setSelectedDate(value)
+    }
+
     setForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleRowClick = (expense) => {
+    console.log('>>> row clicked', expense)
+
+    setFormMode('update')
+
+    setForm({
+      id: expense.id,
+      person: expense.person,
+      productName: expense.productName,
+      price: Number(expense.price),
+      quantity: Number(expense.quantity),
+      discount: Number(expense.discount),
+      date: expense.date
+    })
+
+    setShowForm(true)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.productName || !form.price) return;
 
-    const newExpense = {
-      id: Date.now(),
-      person: form.person,
-      productName: form.productName,
-      price: Number(form.price),
-      quantity: Number(form.quantity),
-      discount: Number(form.discount) || 0,
-      date: form.date,
-    };
+    if (formMode === 'create') {
+      const newExpense = {
+        id: Date.now(),
+        person: form.person,
+        productName: form.productName,
+        price: Number(form.price),
+        quantity: Number(form.quantity),
+        discount: Number(form.discount) || 0,
+        date: form.date,
+      };
 
-    setExpenses((prev) => [newExpense, ...prev]);
+      setExpenses((prev) => [newExpense, ...prev]);
+    } else if (formMode === 'update') {
+      const editExpense = {
+        id: form.id,
+        person: form.person,
+        productName: form.productName,
+        price: Number(form.price),
+        quantity: Number(form.quantity),
+        discount: Number(form.discount) || 0,
+        date: form.date,
+      };
+
+      setExpenses((prev) =>
+        prev.map((expense) =>
+          expense.id === form.id ? editExpense : expense
+        )
+      );
+    }
+
+    closeForm();
+  };
+
+  const clearForm = () => {
     setForm({
+      id: null,
       person: '',
       productName: '',
       price: '',
       quantity: 1,
       discount: '',
-      date: new Date().toISOString().split('T')[0],
-    });
+      date: selectedDate
+    })
+  }
+
+  const closeForm = () => {
+    setFormMode('create')
     setShowForm(false);
-  };
+    clearForm();
+  }
 
   const handleDelete = (id) => {
     setExpenses((prev) => prev.filter((e) => e.id !== id));
@@ -442,7 +500,7 @@ export default function ExpenseLedger () {
 
         {/* ---- Modal overlay for add expense ---- */}
         {showForm && (
-          <div className="modal-overlay" onClick={() => setShowForm(false)}>
+          <div className="modal-overlay" onClick={() => closeForm()}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h2>Add Expense</h2>
@@ -544,20 +602,20 @@ export default function ExpenseLedger () {
           {filteredExpenses.length > 0 && (
             <div className="expense-table">
               <div className="expense-table-header">
-                <div class="expense-person">Person</div>
-                <div class="expense-product">Product</div>
-                <div class="expense-price">Price</div>
-                <div class="expense-qty">Qty</div>
-                <div class="expense-discount">Discount</div>
-                <div class="expense-subtotal">Subtotal</div>
-                <div class="expense-date">Date</div>
+                <div className="expense-person">Person</div>
+                <div className="expense-product">Product</div>
+                <div className="expense-price">Price</div>
+                <div className="expense-qty">Qty</div>
+                <div className="expense-discount">Discount</div>
+                <div className="expense-subtotal">Subtotal</div>
+                <div className="expense-date">Date</div>
                 <div className="expense-actions col-actions"></div>
               </div>
 
               {filteredExpenses.map((expense) => {
                 const subtotal = expense.price * expense.quantity - expense.discount;
                 return (
-                  <div key={expense.id} className="expense-row">
+                  <div key={expense.id} className="expense-row" onClick={() => handleRowClick(expense)}>
                     <div className="expense-person">
                       <span
                         className="person-badge"

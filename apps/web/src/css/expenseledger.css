@@ -508,20 +508,20 @@
 .expense-row {
   display: flex;
   width: 100%;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   /* background-color: orange; */
   /* grid-template-columns: 0.7fr 1.6fr 0.9fr 0.5fr 0.9fr 0.9fr 0.9fr 40px; */
   flex-direction: row;
-  border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+  /* border-bottom: 1px solid rgba(100, 116, 139, 0.1); */
   font-size: 0.88rem;
   transition: background 0.15s;
 }
 
 .expense-row:last-child {
-  border-bottom: none;
+  /* border-bottom: none; */
 }
 
-.expense-row:hover {
+.expense-table .expense-row:hover {
   background: rgba(99, 102, 241, 0.06);
 }
 
@@ -531,7 +531,7 @@
   align-items: center;
   min-width: 0;
   overflow: hidden;
-  word-break: break-word;
+  /* word-break: break-word; */
 }
 
 /* ---- Person badges (table) ---- */
