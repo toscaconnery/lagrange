@@ -72,6 +72,7 @@ export default function FarmAdd() {
               id="area"
               type="number"
               min="1"
+              step=".01"
               placeholder="e.g. 150"
               value={area}
               onChange={e => setArea(e.target.value)}
