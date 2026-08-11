@@ -8,6 +8,7 @@ import ExpenseLedger from './pages/expense/ExpenseLedger';
 import FarmList from './pages/farm/FarmList';
 import FarmAdd from './pages/farm/FarmAdd';
 import FarmDetail from './pages/farm/FarmDetail';
+import FarmEdit from './pages/farm/FarmEdit';
 import AuthLogin from './pages/auth/AuthLogin';
 import AuthRegister from './pages/auth/AuthRegister';
 import NotFound from './pages/NotFound';
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/expense-ledger" element={<ExpenseLedger />} />
         <Route path="/farm" element={<FarmList />} />
         <Route path="/farm/add" element={<FarmAdd />} />
+        <Route path="/farm/edit/:id" element={<FarmEdit />} />
         <Route path="/farm/:id" element={<FarmDetail />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/register" element={<AuthRegister />} />

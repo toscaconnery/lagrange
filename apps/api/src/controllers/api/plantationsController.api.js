@@ -196,3 +196,37 @@ export const deleteActivityExpense = async (req, res, next) => {
         next(error);
     }
 };
+
+export const updatePlantationDetail = async (req, res, next) => {
+    try {
+        const plantation_id = req.params.id;
+        const { name, area_ha } = req.body;
+        console.log(plantation_id)
+
+        // validation
+        if (
+            !String(name) ||
+            !Number(area_ha) || 
+            isNaN(area_ha) || // Ensure number is valid
+            area_ha < 0 // Area can't be negative
+        ) {
+            return res.status(400).json({ success: false, message: 'Input error' });
+        }
+
+        const plantation = await PlantationsModel.findPlantationById(plantation_id);
+
+        if (plantation === null) {
+            return res.status(404).json({ success: false, message: 'Plantation not found.' });
+        }
+
+        const affected = await PlantationsModel.updatePlantation({
+            name, area_ha, id: plantation_id
+        })
+
+
+        res.json({ success: true, plantation_id, name, area_ha, plantation, affected }); 
+
+    } catch (error) {
+        next(error);
+    }
+}

@@ -3,6 +3,7 @@ import {
     listPlantations,
     addPlantation,
     getPlantationDetail,
+    updatePlantationDetail,
     addPlantationActivity,
     updatePlantationActivity,
     addActivityExpense,
@@ -15,6 +16,7 @@ const router = Router();
 router.get('/', listPlantations);
 router.post('/', addPlantation);
 router.get('/:id', getPlantationDetail);
+router.post('/edit/:id', updatePlantationDetail);
 router.post('/:id/activities', addPlantationActivity);
 router.put('/activities/:activityId', updatePlantationActivity);
 router.post('/activities/:activityId/expenses', addActivityExpense);

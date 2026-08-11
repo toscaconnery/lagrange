@@ -83,7 +83,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 32px;
+  /* margin-bottom: 32px; */
   flex-wrap: wrap;
   gap: 16px;
 }
@@ -102,6 +102,16 @@
   font-size: 15px;
   margin: 4px 0 0;
   font-weight: 400;
+}
+
+.farm-header-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 5px;
+  /* background-color: #92f4d5; */
 }
 
 /* ---------- Buttons ---------- */

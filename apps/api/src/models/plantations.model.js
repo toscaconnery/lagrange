@@ -22,3 +22,11 @@ export const createPlantation = async ({ name, area_ha }) => {
     );
     return result.insertId;
 };
+
+export const updatePlantation = async ({ name, area_ha, id }) => {
+    const [result] = await pool.query(
+        'UPDATE plantations SET name = ?, area_ha = ? WHERE id = ?',
+        [name, area_ha, id]
+    );
+    return result.affectedRows;
+}
