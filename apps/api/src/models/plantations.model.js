@@ -16,10 +16,12 @@ export const findAllPlantations = async () => {
 };
 
 export const createPlantation = async ({ name, area_ha }) => {
+    console.log('--- -- ', name, area_ha)
     const [result] = await pool.query(
         'INSERT INTO plantations (name, area_ha) VALUES (?, ?)',
         [name, area_ha]
     );
+    console.log('check')
     return result.insertId;
 };
 
@@ -27,6 +29,14 @@ export const updatePlantation = async ({ name, area_ha, id }) => {
     const [result] = await pool.query(
         'UPDATE plantations SET name = ?, area_ha = ? WHERE id = ?',
         [name, area_ha, id]
+    );
+    return result.affectedRows;
+}
+
+export const deletePlantation = async (id) => {
+    const [result] = await pool.query(
+        'DELETE FROM plantations WHERE id = ?',
+        [id]
     );
     return result.affectedRows;
 }

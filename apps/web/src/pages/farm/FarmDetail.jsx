@@ -375,7 +375,7 @@ export default function FarmDetail() {
     <>
       <FarmHeader backTo="/farm" />
       <div className="farm-page">
-        <div className="farm-header">
+        <div className="farm-header mb-20">
           <div>
             <h1 style={{ marginTop: '8px' }}>{plantation?.name}</h1>
             <p>{plantation?.area_ha} Ha</p>
@@ -395,7 +395,7 @@ export default function FarmDetail() {
           <div className="farm-modal-overlay" onClick={closeModal}>
             <div className="farm-modal" onClick={e => e.stopPropagation()}>
               <div className="farm-modal-header">
-                <h2>{editActivity ? 'Edit Activity' : 'Add Activity'}</h2>
+                <h2>{editActivity ? 'Activity' : 'Add Activity'}</h2>
                 <button className="farm-modal-close" onClick={closeModal}>&times;</button>
               </div>
               <form className="farm-form" onSubmit={handleSubmit}>
@@ -506,7 +506,7 @@ export default function FarmDetail() {
           <div className="farm-modal-overlay" onClick={closeExpenseModal}>
             <div className="farm-modal" onClick={e => e.stopPropagation()}>
               <div className="farm-modal-header">
-                <h2>{expenseId ? 'Edit Expense' : 'Add Expense'}</h2>
+                <h2>{expenseId ? 'Edit Expense' : 'Expense'}</h2>
                 <button className="farm-modal-close" onClick={closeExpenseModal}>&times;</button>
               </div>
 

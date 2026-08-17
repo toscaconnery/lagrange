@@ -1,6 +1,9 @@
 Commands
 
+note: make sure you already inside this directory when running the migration.
+
 Create new migrations:
 npm run migrate:create -- create-office-item-table --sql-file
 
 Run migrations:
+npm run migrate

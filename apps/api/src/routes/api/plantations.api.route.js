@@ -4,6 +4,7 @@ import {
     addPlantation,
     getPlantationDetail,
     updatePlantationDetail,
+    deletePlantationDetail,
     addPlantationActivity,
     updatePlantationActivity,
     addActivityExpense,
@@ -17,6 +18,7 @@ router.get('/', listPlantations);
 router.post('/', addPlantation);
 router.get('/:id', getPlantationDetail);
 router.post('/edit/:id', updatePlantationDetail);
+router.delete('/:id', deletePlantationDetail);
 router.post('/:id/activities', addPlantationActivity);
 router.put('/activities/:activityId', updatePlantationActivity);
 router.post('/activities/:activityId/expenses', addActivityExpense);

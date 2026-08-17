@@ -191,6 +191,44 @@
   color: #0f172a;
 }
 
+.farm-mng-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 30px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.farm-mng-btn--danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.farm-mng-btn--danger:hover {
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
+}
+
+.farm-btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.farm-btn-danger:hover {
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
+}
+
 /* ---------- Stats Grid ---------- */
 .farm-stats {
   display: flex;
@@ -265,6 +303,10 @@
   color: #0f172a;
   margin: 0;
   line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .farm-card-area {
@@ -275,6 +317,14 @@
   background: #f1f5f9;
   padding: 4px 10px;
   border-radius: 6px;
+}
+
+.farm-row-div {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  gap: 6px;
 }
 
 /* ---------- Empty / Loading State ---------- */
@@ -809,6 +859,13 @@
   font-size: 20px;
   font-weight: 700;
   color: #0f172a;
+}
+
+.farm-modal-text {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 8px;
 }
 
 .farm-modal-close {

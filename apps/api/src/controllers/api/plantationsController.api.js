@@ -13,7 +13,9 @@ export const listPlantations = async (req, res, next) => {
 
 export const addPlantation = async (req, res, next) => {
     try {
+        console.log('--- creating plantation')
         const { name, area_ha } = req.body;
+        console.log('---', name, area_ha)
 
         if (!name || !name.trim()) {
             return res.status(400).json({ success: false, message: 'Name is required.' });
@@ -22,8 +24,10 @@ export const addPlantation = async (req, res, next) => {
         if (!area_ha || isNaN(area_ha) || Number(area_ha) <= 0) {
             return res.status(400).json({ success: false, message: 'Valid area (Ha) is required.' });
         }
+        console.log('--- params ok')
 
         const id = await PlantationsModel.createPlantation({ name: name.trim(), area_ha: Number(area_ha) });
+        console.log('--- createPlantation ok')
         res.status(201).json({ success: true, data: { id, name: name.trim(), area_ha: Number(area_ha) } });
     } catch (error) {
         next(error);
@@ -189,6 +193,27 @@ export const deleteActivityExpense = async (req, res, next) => {
 
         if (affected === 0) {
             return res.status(404).json({ success: false, message: 'Expense not found.' });
+        }
+
+        res.json({ success: true });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const deletePlantationDetail = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+
+        const plantation = await PlantationsModel.findPlantationById(id);
+        if (!plantation) {
+            return res.status(404).json({ success: false, message: 'Plantation not found.' });
+        }
+
+        const affected = await PlantationsModel.deletePlantation(id);
+
+        if (affected === 0) {
+            return res.status(404).json({ success: false, message: 'Plantation not found.' });
         }
 
         res.json({ success: true });
