@@ -274,6 +274,15 @@
   gap: 14px;
 }
 
+.farm-header-area-container {
+  display: flex;
+  align-items: center;
+}
+
+.farm-header-area-container p {
+  color: black;
+}
+
 .farm-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -527,6 +536,7 @@
   margin: 8px 0 0;
   padding: 3px 10px;
   border-radius: 6px;
+  margin-right: 5px;
 }
 
 /* ---------- Future Activity Indicator ---------- */

@@ -378,7 +378,16 @@ export default function FarmDetail() {
         <div className="farm-header mb-20">
           <div>
             <h1 style={{ marginTop: '8px' }}>{plantation?.name}</h1>
-            <p>{plantation?.area_ha} Ha</p>
+            <div className="farm-header-area-container">
+              <img 
+                src="/area.svg" 
+                alt="Area Icon" 
+                width={20} 
+                height={20} 
+                style={{ display: 'inline-block', marginRight: '4px', marginTop: '4px' }} 
+              />
+              <p>{plantation?.area_ha} Ha</p>
+            </div>
           </div>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             <button className="farm-btn-secondary" onClick={() => setShowCalendarModal(true)}>

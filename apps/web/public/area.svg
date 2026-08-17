@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Defs for the hatching pattern -->
+  <defs>
+    <!-- Rotate -45 to get the bottom-left to top-right diagonal lines -->
+    <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="28" height="28" patternTransform="rotate(-45)">
+      <!-- White background for the inside of the area -->
+      <rect width="28" height="28" fill="white" />
+      <!-- Thick black diagonal lines matching the icon style -->
+      <line x1="0" y1="-28" x2="0" y2="56" stroke="black" stroke-width="10" />
+    </pattern>
+  </defs>
+
+  <!-- The irregular area (skewed trapezoid) -->
+  <polygon points="50,40 160,50 170,160 30,150"
+           fill="url(#diagonalHatch)"
+           stroke="black"
+           stroke-width="12"
+           stroke-linejoin="round" />
+
+  <!-- Nodes (Circles at the corners) -->
+  <circle cx="50" cy="40" r="18" fill="white" stroke="black" stroke-width="12" />
+  <circle cx="160" cy="50" r="18" fill="white" stroke="black" stroke-width="12" />
+  <circle cx="170" cy="160" r="18" fill="white" stroke="black" stroke-width="12" />
+  <circle cx="30" cy="150" r="18" fill="white" stroke="black" stroke-width="12" />
+</svg>
