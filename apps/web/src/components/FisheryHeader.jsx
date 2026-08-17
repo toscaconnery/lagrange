@@ -1,0 +1,29 @@
+import { Link, useNavigate } from 'react-router-dom';
+import {ArrowLeft} from 'lucide-react';
+
+export default function FisheryHeader({ backTo }) {
+  const navigate = useNavigate();
+
+  return (
+    <nav className="fishery-navbar">
+      <div className="fishery-navbar-inner">
+        {backTo && (
+          <button className="fishery-navbar-back" onClick={() => navigate(backTo)}>
+            <ArrowLeft />
+          </button>
+        )}
+        <Link to="/fishery" className="fishery-navbar-brand">
+          🐟 Fishery
+        </Link>
+        {/* <div className="fishery-navbar-links">
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery')}>
+            List
+          </button>
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery/add')}>
+            + Add
+          </button>
+        </div> */}
+      </div>
+    </nav>
+  );
+}

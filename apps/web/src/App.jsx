@@ -13,6 +13,8 @@ import AuthLogin from './pages/auth/AuthLogin';
 import AuthRegister from './pages/auth/AuthRegister';
 import NotFound from './pages/NotFound';
 import { Toaster } from 'sonner';
+import FisheryList from './pages/fishery/FisheryList';
+import FisheryAdd from './pages/fishery/FisheryAdd';
 
 export default function App() {
   return (
@@ -33,6 +35,8 @@ export default function App() {
         <Route path="/farm/add" element={<FarmAdd />} />
         <Route path="/farm/edit/:id" element={<FarmEdit />} />
         <Route path="/farm/:id" element={<FarmDetail />} />
+        <Route path="/fishery" element={<FisheryList />} />
+        <Route path="/fishery/add" element={<FisheryAdd />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/register" element={<AuthRegister />} />
         <Route path="*" element={<NotFound />} />
