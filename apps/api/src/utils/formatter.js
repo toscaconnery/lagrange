@@ -13,3 +13,11 @@ export const formatDate = (date) => {
     const formattedDate = new Intl.DateTimeFormat('en-US', options).format(dateObj);
     return formattedDate
 }
+
+export const generateFormattedDateForFileName = () => {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`
+}

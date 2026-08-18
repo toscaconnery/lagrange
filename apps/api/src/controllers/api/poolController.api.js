@@ -4,7 +4,7 @@ import * as PoolUserModel from '../../models/poolUser.model.js'
 import * as PoolFishTypeModel from '../../models/poolFishType.model.js'
 import * as PoolCycleModel from '../../models/poolCycle.model.js'
 import * as PoolFeedModel from '../../models/poolFeed.model.js'
-import { capitalize, formatDate } from '../../utils/formatter.js';
+import { capitalize, formatDate, generateFormattedDateForFileName } from '../../utils/formatter.js';
 
 export const getPoolList = async (req, res, next) => {
     try {
@@ -336,12 +336,4 @@ export const addPoolFeed = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-}
-
-const generateFormattedDateForFileName = () => {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`
 }
