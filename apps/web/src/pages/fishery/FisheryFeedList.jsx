@@ -8,6 +8,7 @@ import FisheryHeader from '../../components/FisheryHeader';
 export default function FisheryFeedList() {
   const navigate = useNavigate();
   const [fisheries, setFisheries] = useState([]);
+  const [feeds, setFeeds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -16,10 +17,10 @@ export default function FisheryFeedList() {
   const [deleteError, setDeleteError] = useState('');
 
   useEffect(() => {
-    fetch('/api/v1/fishery/list')
+    fetch('/api/v1/fishery/feed/list')
       .then(res => res.json())
       .then(data => {
-        if (data.success) setFisheries(data.data);
+        if (data.success) setFeeds(data.data);
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -81,7 +82,7 @@ export default function FisheryFeedList() {
         </div>
 
         <div className="fishery-header-button">
-          <button className="fishery-add-btn" onClick={() => navigate('/fishery/add')}>
+          <button className="fishery-add-btn" onClick={() => navigate('/fishery/feed/add')}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -94,28 +95,28 @@ export default function FisheryFeedList() {
           </button>
         </div>
 
-        {!loading && fisheries.length > 0 && (
+        {!loading && feeds.length > 0 && (
           <div className="fishery-stats">
             <div className="fishery-stat-card">
-              <div className="stat-value">{fisheries.length}</div>
-              <div className="stat-label">Kolam</div>
+              <div className="stat-value">{feeds.length}</div>
+              <div className="stat-label">Pakan</div>
             </div>
           </div>
         )}
 
         {loading ? (
           <p className="fishery-empty">Loading...</p>
-        ) : fisheries.length === 0 ? (
-          <p className="fishery-empty">Belum ada kolam. Silahkan tambah kolam baru.</p>
+        ) : feeds.length === 0 ? (
+          <p className="fishery-empty">Belum ada pakan. Silahkan tambah pakan baru.</p>
         ) : (
           <div className="fishery-grid">
-            {fisheries.map(p => (
-              <div key={p.id} className="fishery-card" onClick={() => navigate(`/fishery/${p.id}`)}>
+            {feeds.map(p => (
+              <div key={p.id} className="fishery-card" onClick={() => navigate(`/fishery/feed/${p.id}`)}>
                 <h3 className="fishery-card-title">{p.name}</h3>
                 <div className="fishery-row-div">
                   {
                     !isEditing ? (
-                      <div className="fishery-card-area">xxHa</div>
+                      <div className="fishery-card-area">{p.weight}kg</div>
                     ) : <></>
                   }
                   {

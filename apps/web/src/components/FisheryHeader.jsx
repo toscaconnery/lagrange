@@ -12,11 +12,11 @@ export default function FisheryHeader({ backTo }) {
             <ArrowLeft />
           </button>
         )}
-        <Link to="/fishery" className="fishery-navbar-brand">
+        <Link to="/fishery/pool" className="fishery-navbar-brand">
           🐟 Fishery
         </Link>
         <div className="fishery-navbar-links">
-          <button className="fishery-navbar-link" onClick={() => navigate('/fishery')}>
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery/pool')}>
             Kolam
           </button>
           <button className="fishery-navbar-link" onClick={() => navigate('/fishery/feed')}>

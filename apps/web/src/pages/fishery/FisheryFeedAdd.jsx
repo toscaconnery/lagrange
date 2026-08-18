@@ -3,34 +3,54 @@ import { useNavigate } from 'react-router-dom';
 import '../../css/fishery.css';
 import FisheryHeader from '../../components/FisheryHeader';
 
-export default function FisheryAdd() {
+export default function FisheryFeedAdd() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
+  const [type, setType] = useState('sink');
+  const [weight, setWeight] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [weightError, setWeightError] = useState('');
   const [error, setError] = useState('');
+
+  const handleWeightChange = (w) => {
+    setWeight(w);
+    setWeightError('');
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim()) {
+      setError('Nama tidak boleh kosong.');
+      return;
+    } 
+
+    if (weight <= 0) {
+      setWeightError('Masukkan berat pakan.');
+      return;
+    }
 
     setSaving(true);
     setError('');
 
     try {
-      const res = await fetch('/api/v1/fishery/add-pool', {
+      const res = await fetch('/api/v1/fishery/feed/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim() }),
+        body: JSON.stringify({ 
+          name: name.trim(),
+          type: type,
+          weight: weight
+        }),
       });
 
       const data = await res.json();
 
       if (!data.success) {
-        setError(data.message || 'Gagal menambahkan kolam.');
+        setError(data.message || 'Gagal menambahkan pakan.');
         return;
       }
 
-      navigate('/fishery');
+      navigate('/fishery/feed');
     } catch (err) {
       setError('Network error. Please try again.');
     } finally {
@@ -39,23 +59,23 @@ export default function FisheryAdd() {
   };
 
   useEffect(() => {
-    document.title = 'Fishery - Add';
+    document.title = 'Tambah Pakan';
   }, [])
   return (
     <>
-      <FisheryHeader backTo="/fishery" />
+      <FisheryHeader backTo="/fishery/feed" />
       <div className="fishery-page">
         <div className="fishery-header mb-20">
           <div>
-            <h1 style={{ marginTop: '8px' }}>Tambah Kolam</h1>
-            <p>Tambahkan kolam baru untuk dikelola.</p>
+            <h1 style={{ marginTop: '8px' }}>Tambah Pakan</h1>
+            <p>Tambahkan pakan baru untuk digunakan.</p>
           </div>
         </div>
 
         <form className="fishery-form" onSubmit={handleSubmit}>
           {error && <p className="fishery-error">{error}</p>}
           <div className="fishery-form-group">
-            <label htmlFor="name">Nama kolam</label>
+            <label htmlFor="name">Nama pakan</label>
             <input
               id="name"
               type="text"
@@ -64,6 +84,24 @@ export default function FisheryAdd() {
               required
             />
           </div>
+          <div className="fishery-form-group">
+            <label htmlFor="type">Tipe</label>
+            <select>
+              <option>Tenggelam</option>
+              <option>Mengapung</option>
+            </select>
+          </div>
+          <div className="fishery-form-group">
+            <label htmlFor="weight">Berat (kg)</label>
+            <input
+              id="weight"
+              type="number"
+              value={weight}
+              onChange={e => handleWeightChange(e.target.value)}
+              required
+            />
+          </div>
+          {weightError && <p className="fishery-error">{weightError}</p>}
           <div className="fishery-form-actions">
             <button type="button" className="fishery-btn-secondary" onClick={() => navigate('/fishery')} disabled={saving}>
               Batal

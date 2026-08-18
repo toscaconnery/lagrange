@@ -5,7 +5,7 @@ import '../../css/fishery.css';
 import FisheryHeader from '../../components/FisheryHeader';
 
 
-export default function FisheryList() {
+export default function FisheryPoolList() {
   const navigate = useNavigate();
   const [fisheries, setFisheries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ export default function FisheryList() {
   const [deleteError, setDeleteError] = useState('');
 
   useEffect(() => {
-    fetch('/api/v1/fishery/list')
+    fetch('/api/v1/fishery/pool/list')
       .then(res => res.json())
       .then(data => {
         if (data.success) setFisheries(data.data);
@@ -81,7 +81,7 @@ export default function FisheryList() {
         </div>
 
         <div className="fishery-header-button">
-          <button className="fishery-add-btn" onClick={() => navigate('/fishery/add')}>
+          <button className="fishery-add-btn" onClick={() => navigate('/fishery/pool/add')}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />

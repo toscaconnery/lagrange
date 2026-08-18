@@ -13,8 +13,10 @@ import AuthLogin from './pages/auth/AuthLogin';
 import AuthRegister from './pages/auth/AuthRegister';
 import NotFound from './pages/NotFound';
 import { Toaster } from 'sonner';
-import FisheryList from './pages/fishery/FisheryList';
-import FisheryAdd from './pages/fishery/FisheryAdd';
+import FisheryPoolList from './pages/fishery/FisheryPoolList';
+import FisheryPoolAdd from './pages/fishery/FisheryPoolAdd';
+import FisheryFeedList from './pages/fishery/FisheryFeedList';
+import FisheryFeedAdd from './pages/fishery/FisheryFeedAdd';
 
 export default function App() {
   return (
@@ -35,8 +37,10 @@ export default function App() {
         <Route path="/farm/add" element={<FarmAdd />} />
         <Route path="/farm/edit/:id" element={<FarmEdit />} />
         <Route path="/farm/:id" element={<FarmDetail />} />
-        <Route path="/fishery" element={<FisheryList />} />
-        <Route path="/fishery/add" element={<FisheryAdd />} />
+        <Route path="/fishery/pool" element={<FisheryPoolList />} />
+        <Route path="/fishery/pool/add" element={<FisheryPoolAdd />} />
+        <Route path="/fishery/feed" element={<FisheryFeedList />} />
+        <Route path="/fishery/feed/add" element={<FisheryFeedAdd />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/register" element={<AuthRegister />} />
         <Route path="*" element={<NotFound />} />
