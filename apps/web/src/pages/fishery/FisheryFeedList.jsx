@@ -5,7 +5,7 @@ import '../../css/fishery.css';
 import FisheryHeader from '../../components/FisheryHeader';
 
 
-export default function FisheryList() {
+export default function FisheryFeedList() {
   const navigate = useNavigate();
   const [fisheries, setFisheries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -77,7 +77,7 @@ export default function FisheryList() {
       <FisheryHeader />
       <div className="fishery-page">
         <div className="fishery-header">
-          <h1>Kolam Ikan</h1>
+          <h1>Pakan Ikan</h1>
         </div>
 
         <div className="fishery-header-button">

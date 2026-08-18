@@ -15,14 +15,20 @@ export default function FisheryHeader({ backTo }) {
         <Link to="/fishery" className="fishery-navbar-brand">
           🐟 Fishery
         </Link>
-        {/* <div className="fishery-navbar-links">
+        <div className="fishery-navbar-links">
           <button className="fishery-navbar-link" onClick={() => navigate('/fishery')}>
-            List
+            Kolam
           </button>
-          <button className="fishery-navbar-link" onClick={() => navigate('/fishery/add')}>
-            + Add
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery/feed')}>
+            Pakan
           </button>
-        </div> */}
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery')}>
+            Biaya
+          </button>
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery')}>
+            Panen
+          </button>
+        </div>
       </div>
     </nav>
   );

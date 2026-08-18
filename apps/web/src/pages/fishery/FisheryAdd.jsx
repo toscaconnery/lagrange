@@ -11,16 +11,16 @@ export default function FisheryAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !area.trim()) return;
+    if (!name.trim()) return;
 
     setSaving(true);
     setError('');
 
     try {
-      const res = await fetch('/api/v1/fisheries', {
+      const res = await fetch('/api/v1/fishery/add-pool', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), area_ha: Number(area) }),
+        body: JSON.stringify({ name: name.trim() }),
       });
 
       const data = await res.json();
