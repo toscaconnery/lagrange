@@ -9,6 +9,23 @@ export const listFisheryPools = async () => {
     return rows
 }
 
+export const listFisheryPoolWithNoCycle = async () => {
+    const [rows] = await pool.query(`
+        SELECT p.*
+        FROM fishery_pools p
+        WHERE p.deleted_at IS NULL
+        AND NOT EXISTS (
+              SELECT 1
+              FROM fishery_pool_cycles c
+              WHERE c.pool_id = p.id
+                AND c.deleted_at IS NULL
+                AND c.status IN ('ongoing', 'partial_harvest')
+          )
+        ORDER BY p.name;
+    `)
+    return rows
+}
+
 export const createFisheryPool = async ({ name, userId}) => {
     const status = 'inactive'
 

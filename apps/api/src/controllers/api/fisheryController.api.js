@@ -7,7 +7,15 @@ import { capitalize, formatDate, generateFormattedDateForFileName } from '../../
 
 export const getFisheryPoolList = async (req, res, next) => {
     try {
-        const pools = await FisheryPoolModel.listFisheryPools()
+        const { withNoCycle } = req.query || false;
+        
+        let pools = []
+
+        if (withNoCycle) {
+            pools = await FisheryPoolModel.listFisheryPoolWithNoCycle()
+        } else {
+            pools = await FisheryPoolModel.listFisheryPools()
+        }
 
         res.json({ success: true, data: pools })
     } catch (error) {

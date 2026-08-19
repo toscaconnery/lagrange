@@ -130,10 +130,11 @@ export default function FisheryCycleAdd() {
   }, [])
 
   useEffect(() => {
-    fetch('/api/v1/fishery/pool/list')
+    fetch('/api/v1/fishery/pool/list?withNoCycle=true')
       .then(res => res.json())
       .then(data => {
         if (data.success) {
+          console.log('..... ', data)
           const poolsOptions = data.data.map( (p) => ({
             'id': p.id,
             'name': p.name
