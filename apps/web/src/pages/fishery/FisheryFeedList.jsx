@@ -7,7 +7,6 @@ import FisheryHeader from '../../components/FisheryHeader';
 
 export default function FisheryFeedList() {
   const navigate = useNavigate();
-  const [fisheries, setFisheries] = useState([]);
   const [feeds, setFeeds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -56,7 +55,6 @@ export default function FisheryFeedList() {
         return;
       }
 
-      // setFisheries(prev => prev.filter(p => p.id !== deleteTarget));
       setShowDeleteModal(false);
       setDeleteTarget(null);
       toast.success('Fishery deleted');
