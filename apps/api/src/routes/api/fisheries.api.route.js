@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
     getFisheryPoolList,
     addFisheryPool,
+    getFisheryPoolDetail,
     getFisheryFeedList,
     addFisheryFeed
 } from '../../controllers/api/fisheryController.api.js';
@@ -14,6 +15,8 @@ const router = Router();
 router.get('/pool/list', requireAuth, getFisheryPoolList);
 
 router.post('/pool/add', requireAuth, addFisheryPool);
+
+router.get('/pool/:id', requireAuth, getFisheryPoolDetail);
 
 router.get('/feed/list', requireAuth, getFisheryFeedList);
 

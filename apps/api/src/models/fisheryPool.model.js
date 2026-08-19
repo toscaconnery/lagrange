@@ -19,3 +19,11 @@ export const createFisheryPool = async ({ name, userId}) => {
 
     return result.insertId;
 }
+
+export const findPoolById = async (id) => {
+    const [rows] = await pool.query(
+        'SELECT * FROM fishery_pools WHERE id = ?',
+        [id]
+    );
+    return rows[0] ?? null;
+};

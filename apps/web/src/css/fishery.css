@@ -329,6 +329,19 @@
   border-radius: 6px;
 }
 
+.fishery-card-detail {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px 22px;
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
 .fishery-row-div {
   display: flex;
   align-items: center;

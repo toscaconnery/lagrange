@@ -110,7 +110,7 @@ export default function FisheryPoolList() {
         ) : (
           <div className="fishery-grid">
             {fisheries.map(p => (
-              <div key={p.id} className="fishery-card" onClick={() => navigate(`/fishery/${p.id}`)}>
+              <div key={p.id} className="fishery-card" onClick={() => navigate(`/fishery/pool/${p.id}`)}>
                 <h3 className="fishery-card-title">{p.name}</h3>
                 <div className="fishery-row-div">
                   {

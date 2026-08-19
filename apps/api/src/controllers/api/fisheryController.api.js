@@ -14,6 +14,17 @@ export const getFisheryPoolList = async (req, res, next) => {
     }
 }
 
+export const getFisheryPoolDetail = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const pool = await FisheryPoolModel.findPoolById(id);
+
+        res.json({ success: true, data: pool, id })
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const addFisheryPool = async (req, res, next) => {
     try {
         const { 
