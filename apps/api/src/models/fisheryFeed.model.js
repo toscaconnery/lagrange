@@ -17,3 +17,11 @@ export const createFisheryFeed = async ({ name, type, weight}) => {
 
     return result.insertId;
 }
+
+export const findFeedById = async (id) => {
+    const [rows] = await pool.query(
+        'SELECT * FROM fishery_feeds WHERE id = ?',
+        [id]
+    );
+    return rows[0] ?? null;
+};

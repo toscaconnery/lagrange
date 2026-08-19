@@ -5,7 +5,8 @@ import {
     addFisheryPool,
     getFisheryPoolDetail,
     getFisheryFeedList,
-    addFisheryFeed
+    addFisheryFeed,
+    getFisheryFeedDetail
 } from '../../controllers/api/fisheryController.api.js';
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -21,5 +22,7 @@ router.get('/pool/:id', requireAuth, getFisheryPoolDetail);
 router.get('/feed/list', requireAuth, getFisheryFeedList);
 
 router.post('/feed/add', requireAuth, addFisheryFeed);
+
+router.get('/feed/:id', requireAuth, getFisheryFeedDetail);
 
 export default router;

@@ -86,9 +86,9 @@ export default function FisheryFeedAdd() {
           </div>
           <div className="fishery-form-group">
             <label htmlFor="type">Tipe</label>
-            <select>
-              <option>Tenggelam</option>
-              <option>Mengapung</option>
+            <select onChange={e => setType(e.target.value)}>
+              <option value="sink">Tenggelam</option>
+              <option value="float">Mengapung</option>
             </select>
           </div>
           <div className="fishery-form-group">
@@ -97,6 +97,7 @@ export default function FisheryFeedAdd() {
               id="weight"
               type="number"
               value={weight}
+              min={0}
               onChange={e => handleWeightChange(e.target.value)}
               required
             />

@@ -108,3 +108,14 @@ export const addFisheryFeed = async (req, res, next) => {
         next(error)
     }
 }
+
+export const getFisheryFeedDetail = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const feed = await FisheryFeedModel.findFeedById(id);
+
+        res.json({ success: true, data: feed, id })
+    } catch (error) {
+        next(error)
+    }
+}
