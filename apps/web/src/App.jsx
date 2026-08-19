@@ -13,6 +13,7 @@ import AuthLogin from './pages/auth/AuthLogin';
 import AuthRegister from './pages/auth/AuthRegister';
 import NotFound from './pages/NotFound';
 import { Toaster } from 'sonner';
+import Fishery from './pages/fishery/Fishery';
 import FisheryCycleList from './pages/fishery/FisheryCycleList';
 import FisheryCycleAdd from './pages/fishery/FisheryCycleAdd';
 import FisheryCycleDetail from './pages/fishery/FisheryCycleDetail';
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/farm/add" element={<FarmAdd />} />
         <Route path="/farm/edit/:id" element={<FarmEdit />} />
         <Route path="/farm/:id" element={<FarmDetail />} />
+        <Route path="/fishery" element={<Fishery />} />
         <Route path="/fishery/pool" element={<FisheryPoolList />} />
         <Route path="/fishery/pool/add" element={<FisheryPoolAdd />} />
         <Route path="/fishery/pool/:id" element={<FisheryPoolDetail />} />
