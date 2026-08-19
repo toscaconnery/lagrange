@@ -38,7 +38,7 @@
 
 .fishery-navbar-links {
   display: flex;
-  gap: 4px;
+  gap: 2px;
 }
 
 .fishery-navbar-link {
@@ -48,7 +48,7 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  padding: 6px 12px;
+  padding: 6px 6px;
   border-radius: 8px;
   font-family: inherit;
   transition: all 0.15s;
@@ -237,6 +237,12 @@
   margin-bottom: 28px;
 }
 
+.fishery-stats-cycle {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
 .fishery-stat-card {
   flex: 1;
   min-width: 120px;
@@ -248,6 +254,10 @@
   transition: box-shadow 0.2s;
 }
 
+.fishery-stat-cycle-card {
+  padding: 10px 16px;
+}
+
 .fishery-stat-card:hover {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
@@ -257,6 +267,15 @@
   font-weight: 700;
   color: #0f172a;
   letter-spacing: -0.5px;
+}
+
+.fishery-stat-card .stat-cycle-label {
+  font-size: 13px;
+  color: #64748b;
+  /* margin-top: 4px; */
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .fishery-stat-card .stat-label {
@@ -1086,6 +1105,57 @@
 .fishery-calendar-legend-dot--future {
   background: #fde68a;
   border: 2px solid #f59e0b;
+}
+
+/* ---------- Detail Sections ---------- */
+.fishery-detail-section {
+  margin-bottom: 24px;
+}
+
+.fishery-detail-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 10px;
+  padding-left: 2px;
+}
+
+.fishery-info-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.fishery-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fishery-detail-row:last-child {
+  border-bottom: none;
+}
+
+.fishery-detail-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.fishery-detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
 /* ---------- Responsive ---------- */
