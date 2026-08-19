@@ -126,7 +126,7 @@ export default function FisheryCycleAdd() {
   };
 
   useEffect(() => {
-    document.title = 'Tambah Siklus';
+    document.title = 'Tambah Siklus Budidaya';
   }, [])
 
   useEffect(() => {

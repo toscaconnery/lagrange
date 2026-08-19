@@ -17,3 +17,11 @@ export const createFisheryPoolCycle = async ({ pool_id, user_id, label, seed_dat
 
     return result.insertId;
 }
+
+export const findFisheryPoolCycleById = async (id) => {
+    const [rows] = await pool.query(
+        'SELECT * FROM fishery_pool_cycles WHERE id = ?',
+        [id]
+    );
+    return rows[0] ?? null;
+};

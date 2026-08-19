@@ -12,7 +12,7 @@ export const getFisheryPoolList = async (req, res, next) => {
         let pools = []
 
         if (withNoCycle) {
-            pools = await FisheryPoolModel.listFisheryPoolWithNoCycle()
+            pools = await FisheryPoolModel.listFisheryPoolsWithNoCycle()
         } else {
             pools = await FisheryPoolModel.listFisheryPools()
         }
@@ -26,7 +26,7 @@ export const getFisheryPoolList = async (req, res, next) => {
 export const getFisheryPoolDetail = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const pool = await FisheryPoolModel.findPoolById(id);
+        const pool = await FisheryPoolModel.findFisheryPoolById(id);
 
         res.json({ success: true, data: pool, id })
     } catch (error) {
@@ -195,6 +195,17 @@ export const addFisheryPoolCycle = async (req, res, next) => {
             poolCycleId
         }})
 
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getFisheryPoolCycleDetail = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const pool = await FisheryPoolCycleModel.findFisheryPoolCycleById(id);
+
+        res.json({ success: true, data: pool, id })
     } catch (error) {
         next(error)
     }

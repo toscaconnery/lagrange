@@ -26,7 +26,7 @@ export default function FisheryFeedList() {
   }, []);
 
   useEffect(() => {
-    document.title = 'Fishery';
+    document.title = 'Daftar Pakan';
   }, [])
 
   function toggleIsEditing() {

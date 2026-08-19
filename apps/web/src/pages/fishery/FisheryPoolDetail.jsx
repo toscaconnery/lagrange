@@ -21,7 +21,7 @@ export default function FisheryPoolDetail() {
   }, [id])
 
   useEffect(() => {
-    document.title = 'Fishery';
+    document.title = 'Detail Kolam';
   }, [])
 
 

@@ -21,7 +21,7 @@ export default function FisheryCycleList() {
   }, []);
 
   useEffect(() => {
-    document.title = 'Siklus Budidaya';
+    document.title = 'Daftar Siklus Budidaya';
   }, [])
 
   return (

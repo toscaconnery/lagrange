@@ -26,7 +26,7 @@ export default function FisheryPoolList() {
   }, []);
 
   useEffect(() => {
-    document.title = 'Fishery';
+    document.title = 'Daftar Kolam';
   }, [])
 
   function toggleIsEditing() {

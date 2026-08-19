@@ -9,7 +9,7 @@ export const listFisheryPools = async () => {
     return rows
 }
 
-export const listFisheryPoolWithNoCycle = async () => {
+export const listFisheryPoolsWithNoCycle = async () => {
     const [rows] = await pool.query(`
         SELECT p.*
         FROM fishery_pools p
@@ -37,7 +37,7 @@ export const createFisheryPool = async ({ name, userId}) => {
     return result.insertId;
 }
 
-export const findPoolById = async (id) => {
+export const findFisheryPoolById = async (id) => {
     const [rows] = await pool.query(
         'SELECT * FROM fishery_pools WHERE id = ?',
         [id]

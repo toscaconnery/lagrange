@@ -15,6 +15,7 @@ import NotFound from './pages/NotFound';
 import { Toaster } from 'sonner';
 import FisheryCycleList from './pages/fishery/FisheryCycleList';
 import FisheryCycleAdd from './pages/fishery/FisheryCycleAdd';
+import FisheryCycleDetail from './pages/fishery/FisheryCycleDetail';
 import FisheryFeedList from './pages/fishery/FisheryFeedList';
 import FisheryFeedAdd from './pages/fishery/FisheryFeedAdd';
 import FisheryFeedDetail from './pages/fishery/FisheryFeedDetail';
@@ -49,6 +50,7 @@ export default function App() {
         <Route path="/fishery/feed/:id" element={<FisheryFeedDetail />} />
         <Route path="/fishery/cycle" element={<FisheryCycleList />} />
         <Route path="/fishery/cycle/add" element={<FisheryCycleAdd />} />
+        <Route path="/fishery/cycle/:id" element={<FisheryCycleDetail />} />
         <Route path="/auth/login" element={<AuthLogin />} />
         <Route path="/auth/register" element={<AuthRegister />} />
         <Route path="*" element={<NotFound />} />
