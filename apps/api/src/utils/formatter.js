@@ -14,6 +14,22 @@ export const formatDate = (date) => {
     return formattedDate
 }
 
+export const formatDateIDN = (date) => {
+    if (date === null) {
+        return '-'
+    }
+
+    const dateObj = new Date(date)
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }
+
+    const formattedDate = new Intl.DateTimeFormat('id-ID', options).format(dateObj)
+    return formattedDate
+}
+
 export const generateFormattedDateForFileName = () => {
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');

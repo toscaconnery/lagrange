@@ -51,7 +51,7 @@ export default function FisheryCycleList() {
               <div key={c.id} className="fishery-card" onClick={() => navigate(`/fishery/cycle/${p.id}`)}>
                 <h3 className="fishery-card-title">{c.label}</h3>
                 <div className="fishery-row-div">
-                  <div className="fishery-card-area">{p.status}</div>
+                  <div className="fishery-card-area">{c.status}</div>
                 </div>
               </div>
             ))}

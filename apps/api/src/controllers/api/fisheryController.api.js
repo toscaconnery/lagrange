@@ -1,6 +1,7 @@
 import ExcelJS from 'exceljs';
 import * as FisheryPoolModel from '../../models/fisheryPool.model.js';
 import * as FisheryFeedModel from '../../models/fisheryFeed.model.js';
+import * as FisheryPoolCycleModel from '../../models/fisheryPoolCycle.model.js'
 import { capitalize, formatDate, generateFormattedDateForFileName } from '../../utils/formatter.js';
 
 
@@ -91,8 +92,6 @@ export const addFisheryFeed = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'Berat pakan tidak boleh kosong.' });
         }
 
-        // const poolId = await FisheryPoolModel.createFisheryPool({name, userId})
-
         const feedId = await FisheryFeedModel.createFisheryFeed({name, type, weight});
 
         console.log('--- add pool params :', name, userId)
@@ -115,6 +114,79 @@ export const getFisheryFeedDetail = async (req, res, next) => {
         const feed = await FisheryFeedModel.findFeedById(id);
 
         res.json({ success: true, data: feed, id })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getFisheryPoolCycleList = async (req, res, next) => {
+    try {
+        const poolCycles = await FisheryPoolCycleModel.listFisheryPoolCycles()
+
+        res.json({ success: true, data: poolCycles })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const addFisheryPoolCycle = async (req, res, next) => {
+    try {
+        const { 
+            pool_id,
+            seed_date,
+            label,
+            seed_count,
+            seed_price
+        } = req.body
+
+        const status = 'ongoing';
+
+        const userId = res?.locals?.user?.id;
+
+        const endDate = null;
+
+        if (!pool_id) {
+            return res.status(400).json({ success: false, message: 'Kolam tidak boleh kosong.' });
+        }
+
+        if (!userId) {
+            return res.status(400).json({ success: false, message: 'Anda harus login.' });
+        }
+
+        if (!label) {
+            return res.status(400).json({ success: false, message: 'Label siklus tidak boleh kosong.' });
+        }
+
+        if (!seed_date) {
+            return res.status(400).json({ success: false, message: 'Tanggal masuk bibit tidak boleh kosong.' });
+        }
+
+        if (!seed_count) {
+            return res.status(400).json({ success: false, message: 'Jumlah bibit tidak boleh kosong.' });
+        }
+
+        if (!seed_price) {
+            return res.status(400).json({ success: false, message: 'Biaya bibit tidak boleh kosong.' });
+        }
+
+        const poolCycleParams = {
+            pool_id,
+            user_id: userId,
+            label,
+            seed_date,
+            seed_count,
+            seed_price,
+            status: status,
+            end_date: endDate
+        }
+
+        const poolCycleId = await FisheryPoolCycleModel.createFisheryPoolCycle(poolCycleParams)
+
+        res.json({ success: true, data: {
+            poolCycleParams,
+            poolCycleId
+        }})
+
     } catch (error) {
         next(error)
     }

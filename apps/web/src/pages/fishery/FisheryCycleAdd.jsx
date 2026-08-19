@@ -1,22 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { formatDateIDN } from '../../../../api/src/utils/formatter';
 import '../../css/fishery.css';
 import FisheryHeader from '../../components/FisheryHeader';
 
 export default function FisheryCycleAdd() {
   const navigate = useNavigate();
-  const [poolId, setPoolId] = useState(null);
+  const [poolName, setPoolName] = useState('');
+  const [selectedPool, setSelectedPool] = useState(null);
+
+  const [poolId, setPoolId] = useState('');
   const [label, setLabel] = useState('');
-  const [seedDate, setSeedDate] = useState(null);
-  const [seedCount, setSeedCount] = useState(null);
-  const [seedPrice, setSeedPrice] = useState(null);
+  const [seedDate, setSeedDate] = useState(
+    new Date().toISOString().split('T')[0]
+  );
+  const [seedCount, setSeedCount] = useState('');
+  const [seedPrice, setSeedPrice] = useState('');
 
   const [pools, setPools] = useState([]);
-  // const [status, setStatus] = useState('ongoing');
-  // const [endDate, setEndDate] = useState(null);
 
   const [seedCountError, setSeedCountError] = useState('');
   const [seedPriceError, setSeedPriceError] = useState('');
+
+  const [loading, setLoading] = useState(true);
 
   const [saving, setSaving] = useState(false);
   const [weightError, setWeightError] = useState('');
@@ -30,6 +36,24 @@ export default function FisheryCycleAdd() {
   const handleSeedPriceChange = (s) => {
     setSeedPrice(s);
     setSeedPriceError('');
+  }
+
+  const handlePoolChange = (p) => {
+    const matchedPool = pools.find((f) => (p == f.id))
+    console.log('--- selected pool: ', matchedPool)
+    setSelectedPool(matchedPool)
+    setPoolId(p)
+    const newLabel = `${matchedPool.name}${seedDate ? ' - ' + formatDateIDN(seedDate) : ''}`
+    console.log('label : ', newLabel)
+    setLabel(newLabel)
+  } 
+
+  const handleSeedDateChange = (s) => {
+    console.log('s1', s)
+    console.log('s2', formatDateIDN(s))
+    const newLabel = `${selectedPool ? selectedPool.name + ' - ' : ''}${formatDateIDN(s)}`
+    setLabel(newLabel)
+    setSeedDate(s)
   }
 
   const handleSubmit = async (e) => {
@@ -89,11 +113,11 @@ export default function FisheryCycleAdd() {
       const data = await res.json();
 
       if (!data.success) {
-        setError(data.message || 'Gagal menambahkan pakan.');
+        setError(data.message || 'Gagal menambahkan siklus.');
         return;
       }
 
-      navigate('/fishery/feed');
+      navigate('/fishery/cycle');
     } catch (err) {
       setError('Network error. Please try again.');
     } finally {
@@ -132,87 +156,85 @@ export default function FisheryCycleAdd() {
           </div>
         </div>
 
-        <form className="fishery-form" onSubmit={handleSubmit}>
-          {error && <p className="fishery-error">{error}</p>}
-          
-          <div className="fishery-form-group">
-            <label htmlFor="pool_id">Pilih Kolam</label>
-            <select name="pool_id" onChange={e => setPoolId(e.target.value)}>
-              {
-                pools.map((p) => (
-                  <option value={p.id}>{p.name}</option>
-                ))
-              }
-            </select>
-          </div>
+        {
+          loading ? 
+          (<p className="fishery-empty">Loading...</p>) 
+          : 
+          (<div>
+                <form className="fishery-form" onSubmit={handleSubmit}>
+              {error && <p className="fishery-error">{error}</p>}
+              
+              <div className="fishery-form-group">
+                <label htmlFor="pool_id">Pilih Kolam</label>
+                <select name="pool_id" onChange={e => handlePoolChange(e.target.value)}>
+                  <option></option>
+                  {
+                    pools.map((p) => (
+                      <option key={p.id} value={p.id}>{p.name}</option>
+                    ))
+                  }
+                </select>
+              </div>
 
-          <div className="fishery-form-group">
-            <label htmlFor="seed_date">Tanggal masuk bibit</label>
-            <input
-              id="seed_date"
-              type="date"
-              value={seedDate}
-              onChange={e => setDate(e.target.value)}
-              required
-            />
-          </div>
+              <div className="fishery-form-group">
+                <label htmlFor="seed_date">Tanggal masuk bibit</label>
+                <input
+                  id="seed_date"
+                  type="date"
+                  value={seedDate}
+                  onChange={e => handleSeedDateChange(e.target.value)}
+                  required
+                />
+              </div>
 
-          <div className="fishery-form-group">
-            <label htmlFor="label">Label</label>
-            <input
-              id="label"
-              type="text"
-              value={label}
-              onChange={e => setLabel(e.target.value)}
-              required
-            />
-          </div>
+              <div className="fishery-form-group">
+                <label htmlFor="label">Label</label>
+                <input
+                  id="label"
+                  type="text"
+                  value={label}
+                  onChange={e => setLabel(e.target.value)}
+                  required
+                />
+              </div>
 
-          <div className="fishery-form-group">
-            <label htmlFor="seed_count">Jumlah bibit</label>
-            <input
-              id="seed_count"
-              type="number"
-              value={seedCount}
-              min={0}
-              onChange={e => handleSeedCountChange(e.target.value)}
-              required
-            />
-          </div>
-          {seedCountError && <p className="fishery-error">{seedCountError}</p>}
+              <div className="fishery-form-group">
+                <label htmlFor="seed_count">Jumlah bibit</label>
+                <input
+                  id="seed_count"
+                  type="number"
+                  value={seedCount}
+                  min={0}
+                  onChange={e => handleSeedCountChange(e.target.value)}
+                  required
+                />
+              </div>
+              {seedCountError && <p className="fishery-error">{seedCountError}</p>}
 
-          <div className="fishery-form-group">
-            <label htmlFor="seed_count">Biaya bibit</label>
-            <input
-              id="seed_price"
-              type="number"
-              value={seedPrice}
-              min={0}
-              onChange={e => handleSeedPriceChange(e.target.value)}
-              required
-            />
-          </div>
-          {seedPriceError && <p className="fishery-error">{seedPriceError}</p>}
-          
-          {/* <div className="fishery-form-group">
-            <label htmlFor="type">Tipe</label>
-            <select onChange={e => setType(e.target.value)}>
-              <option value="sink">Tenggelam</option>
-              <option value="float">Mengapung</option>
-            </select>
-          </div> */}
+              <div className="fishery-form-group">
+                <label htmlFor="seed_count">Biaya bibit</label>
+                <input
+                  id="seed_price"
+                  type="number"
+                  value={seedPrice}
+                  min={0}
+                  onChange={e => handleSeedPriceChange(e.target.value)}
+                  required
+                />
+              </div>
+              {seedPriceError && <p className="fishery-error">{seedPriceError}</p>}
 
-          {/* {weightError && <p className="fishery-error">{weightError}</p>} */}
-
-          <div className="fishery-form-actions">
-            <button type="button" className="fishery-btn-secondary" onClick={() => navigate('/fishery')} disabled={saving}>
-              Batal
-            </button>
-            <button type="submit" className="fishery-add-btn" disabled={saving}>
-              {saving ? 'Menyimpan...' : 'Simpan'}
-            </button>
-          </div>
-        </form>
+              <div className="fishery-form-actions">
+                <button type="button" className="fishery-btn-secondary" onClick={() => navigate('/fishery')} disabled={saving}>
+                  Batal
+                </button>
+                <button type="submit" className="fishery-add-btn" disabled={saving}>
+                  {saving ? 'Menyimpan...' : 'Simpan'}
+                </button>
+              </div>
+            </form>
+          </div>)
+        }
       </div>
     </>
   );
