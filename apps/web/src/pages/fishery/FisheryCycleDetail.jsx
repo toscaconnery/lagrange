@@ -45,7 +45,7 @@ export default function FisheryCycleDetail() {
 
   return (
     <>
-      <FisheryHeader backTo="/fishery/cycle" />
+      <FisheryHeader backTo="/fishery/cycle"/>
       <div className="fishery-page">
         <div className="fishery-header mb-20">
           <h2>{cycle?.label}</h2>

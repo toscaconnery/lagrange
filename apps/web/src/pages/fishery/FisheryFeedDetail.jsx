@@ -33,7 +33,7 @@ export default function FisheryFeedDetail() {
 
   return (
     <>
-      <FisheryHeader backTo="/fishery/feed" />
+      <FisheryHeader backTo="/fishery/feed"/>
       <div className="fishery-page">
         <div className="fishery-header mb-20">
           <h1>{feed?.name}</h1>

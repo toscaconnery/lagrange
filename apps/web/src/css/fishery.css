@@ -54,28 +54,35 @@
   transition: all 0.15s;
 }
 
+.fishery-navbar-active {
+  background-color: #e4ecf8;
+}
+
 .fishery-navbar-link:hover {
   background: #f1f5f9;
   color: #0f172a;
 }
 
-.fishery-navbar-back {
+.fishery-navbar-icon {
   background: none;
   border: none;
-  color: #64748b;
+  color: #2e3239;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  padding: 6px 6px 6px 0;
+  padding: 6px 6px 6px 6px;
   font-family: inherit;
   transition: color 0.15s;
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  margin-right: 4px;
+  margin-right: 7px;
+  background-color: #dbdcdc;
+  border-radius: 4px;
 }
+/* 64748b */
 
-.fishery-navbar-back:hover {
+.fishery-navbar-icon:hover {
   color: #0f172a;
 }
 

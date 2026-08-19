@@ -27,7 +27,7 @@ export default function FisheryPoolDetail() {
 
   return (
     <>
-      <FisheryHeader backTo="/fishery/pool" />
+      <FisheryHeader backTo="/fishery/pool"/>
       <div className="fishery-page">
         <div className="fishery-header mb-20">
           <h1>{pool?.name}</h1>

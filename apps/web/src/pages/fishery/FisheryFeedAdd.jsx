@@ -63,7 +63,7 @@ export default function FisheryFeedAdd() {
   }, [])
   return (
     <>
-      <FisheryHeader backTo="/fishery/feed" />
+      <FisheryHeader backTo="/fishery/feed"/>
       <div className="fishery-page">
         <div className="fishery-header mb-20">
           <div>

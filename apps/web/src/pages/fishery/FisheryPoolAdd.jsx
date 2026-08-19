@@ -43,7 +43,7 @@ export default function FisheryPoolAdd() {
   }, [])
   return (
     <>
-      <FisheryHeader backTo="/fishery/pool" />
+      <FisheryHeader backTo="/fishery/pool"/>
       <div className="fishery-page">
         <div className="fishery-header mb-20">
           <div>
