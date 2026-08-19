@@ -22,6 +22,9 @@ export default function FisheryHeader({ backTo }) {
           <button className="fishery-navbar-link" onClick={() => navigate('/fishery/feed')}>
             Pakan
           </button>
+          <button className="fishery-navbar-link" onClick={() => navigate('/fishery/cycle')}>
+            Siklus
+          </button>
           <button className="fishery-navbar-link" onClick={() => navigate('/fishery')}>
             Biaya
           </button>

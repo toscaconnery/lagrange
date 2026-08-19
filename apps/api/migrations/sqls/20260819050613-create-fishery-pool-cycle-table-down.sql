@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS fishery_pool_cycles;
