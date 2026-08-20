@@ -44,6 +44,8 @@ export default function FisheryPoolDetail() {
         ) : (
           <p className="fishery-empty">Kolam tidak ditemukan.</p>
         )}
+
+        <div style={{color:'red'}}>Todo: add cycle list here</div>
       </div>
     </>
   );
