@@ -45,14 +45,6 @@ export default function FisheryHeader({ backTo, compact }) {
           >
             Siklus
           </button>
-          <button 
-            className={`fishery-navbar-link ${
-              currentPath.startsWith('/fishery/xxxx') ? 'fishery-navbar-active' : ''
-            }`}  
-            onClick={() => navigate('/fishery')}
-          >
-            Panen
-          </button>
         </div>
       </div>
     </nav>
