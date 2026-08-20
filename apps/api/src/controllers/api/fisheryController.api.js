@@ -64,6 +64,51 @@ export const addFisheryPool = async (req, res, next) => {
     }
 }
 
+export const editFisheryPool = async (req, res, next) => {
+    try {
+        const { 
+            name,
+        } = req.body
+
+        const poolId = req.params.id;
+
+        const userId = res?.locals?.user?.id
+
+        if (!poolId) {
+            return res.status(400).json({ success: false, message: 'Anda belum memilih kolam.' });
+        }
+
+        if (!name) {
+            return res.status(400).json({ success: false, message: 'Nama kolam tidak boleh kosong.' });
+        }
+
+        if (!userId) {
+            return res.status(400).json({ success: false, message: 'Anda harus login.' });
+        }
+
+        // check existing pool
+        const poolData = await FisheryPoolModel.findFisheryPoolById(poolId);
+        let editPoolData;
+
+        if (poolData) {
+            if (poolData.user_id !== userId) {
+                return res.status(400).json({ success: false, message: 'Anda tidak bisa mengedit kolam ini.' });
+            }
+
+            editPoolData = await FisheryPoolModel.editFisheryPool({id: poolId, name})
+        }
+
+        res.json({ success: true, data: {
+            name,
+            userId,
+            editPoolData
+        }})
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const getFisheryFeedList = async (req, res, next) => {
     try {
         const feeds = await FisheryFeedModel.listFisheryFeeds();

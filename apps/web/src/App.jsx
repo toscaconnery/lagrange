@@ -23,6 +23,7 @@ import FisheryFeedDetail from './pages/fishery/FisheryFeedDetail';
 import FisheryPoolList from './pages/fishery/FisheryPoolList';
 import FisheryPoolAdd from './pages/fishery/FisheryPoolAdd';
 import FisheryPoolDetail from './pages/fishery/FisheryPoolDetail';
+import FisheryPoolEdit from './pages/fishery/FisheryPoolEdit';
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/fishery" element={<Fishery />} />
         <Route path="/fishery/pool" element={<FisheryPoolList />} />
         <Route path="/fishery/pool/add" element={<FisheryPoolAdd />} />
+        <Route path="/fishery/pool/edit/:id" element={<FisheryPoolEdit />} />
         <Route path="/fishery/pool/:id" element={<FisheryPoolDetail />} />
         <Route path="/fishery/feed" element={<FisheryFeedList />} />
         <Route path="/fishery/feed/add" element={<FisheryFeedAdd />} />

@@ -15,11 +15,11 @@ export const listFisheryPoolsWithNoCycle = async () => {
         FROM fishery_pools p
         WHERE p.deleted_at IS NULL
         AND NOT EXISTS (
-              SELECT 1
-              FROM fishery_pool_cycles c
-              WHERE c.pool_id = p.id
-                AND c.deleted_at IS NULL
-                AND c.status IN ('ongoing', 'partial_harvest')
+                SELECT 1
+                FROM fishery_pool_cycles c
+                WHERE c.pool_id = p.id
+                    AND c.deleted_at IS NULL
+                    AND c.status IN ('ongoing', 'partial_harvest')
           )
         ORDER BY p.name;
     `)
@@ -43,4 +43,13 @@ export const findFisheryPoolById = async (id) => {
         [id]
     );
     return rows[0] ?? null;
+};
+
+export const editFisheryPool = async ({ id, name }) => {
+    const [result] = await pool.query(
+        'UPDATE fishery_pools SET name = ? WHERE id = ?',
+        [name, id]
+    );
+
+    return result.affectedRows > 0;
 };
