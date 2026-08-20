@@ -65,7 +65,7 @@ export default function FisheryPoolAdd() {
             />
           </div>
           <div className="fishery-form-actions">
-            <button type="button" className="fishery-btn-secondary" onClick={() => navigate('/fishery')} disabled={saving}>
+            <button type="button" className="fishery-btn-secondary" onClick={() => navigate('/fishery/pool')} disabled={saving}>
               Batal
             </button>
             <button type="submit" className="fishery-add-btn" disabled={saving}>

@@ -122,7 +122,7 @@ export default function FisheryPoolList() {
                     isEditing ? (
                       <button className="fishery-mng-btn" onClick={(e) => {
                         e.stopPropagation();
-                        navigate(`/fishery/edit/${p.id}`);
+                        navigate(`/fishery/pool/edit/${p.id}`);
                       }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
