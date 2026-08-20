@@ -37,3 +37,15 @@ export const generateFormattedDateForFileName = () => {
     const year = date.getFullYear();
     return `${day}-${month}-${year}`
 }
+
+export const formatDateShort = (date) => {
+    if (date === null) {
+        return '-'
+    }
+
+    return new Intl.DateTimeFormat('id-ID', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }).format(new Date(date))
+}

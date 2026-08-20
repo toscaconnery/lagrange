@@ -1,6 +1,6 @@
 /* ---------- Standard Container ---------- */
 .fishery-page {
-  max-width: 480px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 40px 28px;
   text-align: left;
@@ -297,7 +297,7 @@
 /* ---------- List Grid ---------- */
 .fishery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 14px;
 }
 
@@ -846,14 +846,76 @@
   background: #fef2f2;
 }
 
-.expense-total {
-  text-align: right;
-  font-size: 15px;
+.fishery-table-wrap {
+  overflow-x: auto;
+}
+
+.fishery-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.fishery-table th,
+.fishery-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
+}
+
+.fishery-table thead th {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.fishery-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.fishery-table-desc {
+  font-weight: 600;
+  color: #0f172a;
+  max-width: 200px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.fishery-table-date {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.fishery-table-total {
+  font-weight: 700;
+  color: #059669;
+}
+
+.fishery-table tfoot td {
+  border-top: 2px solid #e2e8f0;
+  border-bottom: none;
+  padding: 12px;
   font-weight: 700;
   color: #0f172a;
-  padding: 10px 12px;
-  border-top: 2px solid #e2e8f0;
-  margin-top: 4px;
+}
+
+.fishery-table-grand-label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.fishery-table-grand-total {
+  font-size: 15px;
+  color: #059669;
+}
+
+.text-right {
+  text-align: right !important;
 }
 
 /* ---------- Modal ---------- */
