@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  max-width: 480px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 12px 28px;
   gap: 0;
@@ -1211,6 +1211,18 @@
 /* ---------- Detail Sections ---------- */
 .fishery-detail-section {
   margin-bottom: 24px;
+}
+
+.fishery-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.fishery-section-header .fishery-detail-section-title {
+  margin: 0;
 }
 
 .fishery-detail-section-title {

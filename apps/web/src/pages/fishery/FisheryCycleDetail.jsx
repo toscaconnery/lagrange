@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { formatDateIDN, formatDateShort } from '../../../../api/src/utils/formatter';
-import { convertTimbangToKg } from '../../../../api/src/utils/converter';
 import '../../css/fishery.css';
 import FisheryHeader from '../../components/FisheryHeader';
 import FisheryCycleInfoTab from '../../components/FisheryComp/Cycle/FisheryCycleInfoTab';
@@ -70,7 +68,7 @@ export default function FisheryCycleDetail() {
                 className={`fishery-tab ${activeTab === 'biaya' ? 'fishery-tab--active' : ''}`}
                 onClick={() => setActiveTab('biaya')}
               >
-                Biaya
+                Biaya Operasional
               </button>
               <button
                 className={`fishery-tab ${activeTab === 'panen' ? 'fishery-tab--active' : ''}`}
