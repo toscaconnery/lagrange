@@ -11,6 +11,8 @@ import {
     getFisheryPoolCycleList,
     addFisheryPoolCycle,
     getFisheryPoolCycleDetail,
+    getFisheryPoolCycleExpenses,
+    addFisheryPoolCycleExpense,
 } from '../../controllers/api/fisheryController.api.js';
 
 import { requireAuth } from '../../middlewares/auth.js';
@@ -36,5 +38,9 @@ router.get('/cycle/list', requireAuth, getFisheryPoolCycleList);
 router.post('/cycle/add', requireAuth, addFisheryPoolCycle);
 
 router.get('/cycle/:id', requireAuth, getFisheryPoolCycleDetail);
+
+router.get('/cycle/expense/:id', requireAuth, getFisheryPoolCycleExpenses);
+
+router.post('/cycle/expense/add', requireAuth, addFisheryPoolCycleExpense);
 
 export default router;

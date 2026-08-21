@@ -16,7 +16,7 @@ export default function FisheryCycleDetail() {
       cycle: null,
       pool: null,
     },
-    expense: null,
+    expenses: null,
     harvest: null,
   });
 
@@ -34,6 +34,10 @@ export default function FisheryCycleDetail() {
   const handleInfoDataLoaded = useCallback((data) => {
     updateTabData('info', data);
   }, [updateTabData]);
+
+  const handleExpensesDataLoaded = useCallback((data) => {
+    updateTabData('expenses', data)
+  }, [updateTabData])
 
   return (
     <>
@@ -77,8 +81,16 @@ export default function FisheryCycleDetail() {
           </>
         )}
 
-        {activeTab === 'biaya' && (<FisheryCycleExpenseTab />)}
-        
+        {activeTab === 'biaya' && (
+          <>
+            <FisheryCycleExpenseTab
+              cycleId={id}
+              expenses={tabData.expenses}
+              onDataLoaded={handleExpensesDataLoaded}
+            />
+          </>
+        )}
+
         {activeTab === 'panen' && (<FisheryCycleHarvestTab />)}
 
       </div>

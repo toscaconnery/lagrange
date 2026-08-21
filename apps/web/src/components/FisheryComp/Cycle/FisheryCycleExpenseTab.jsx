@@ -1,14 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatDateShort } from '../../../../../api/src/utils/formatter';
 
-export default function FisheryCycleExpenseTab() {
-  const [expenses, setExpenses] = useState([
-    { id: 1, description: 'Pakan Pelet', expense_date: '2026-08-01', volume: 10, unit: 'sak', unit_price: 150000 },
-    { id: 2, description: 'Vitamin & Suplemen', expense_date: '2026-08-10', volume: 5, unit: 'bungkus', unit_price: 70000 },
-    { id: 3, description: 'Listrik Aerator', expense_date: '2026-08-15', volume: 1, unit: 'bulan', unit_price: 200000 },
-    { id: 4, description: 'Tenaga Kerja', expense_date: '2026-08-18', volume: 1, unit: 'bulan', unit_price: 750000 },
-    { id: 5, description: 'Listrik dan penyusutan mesin celup (Bulan)', expense_date: '2026-08-18', volume: 7, unit: 'bulan', unit_price: 1750000 },
-  ]);
+export default function FisheryCycleExpenseTab({cycleId, expenses, onDataLoaded}) {
+
+  const [loading, setLoading] = useState(expenses === null);
 
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
@@ -37,28 +32,80 @@ export default function FisheryCycleExpenseTab() {
     setError('');
   }
 
-  function handleSubmit(e) {
+  useEffect(() => {
+    // If we already have the data (even empty), no need to fetch again
+    if (expenses !== null) {
+      setLoading(false);
+      return;
+    }
+
+    const loadData = async () => {
+      try {
+        // Fetch expenses data
+        const expensesRes = await fetch(`/api/v1/fishery/cycle/expense/${cycleId}`);
+        const expensesJson = await expensesRes.json();
+        const fetchedExpenses = expensesJson.data;
+
+        // Pass up to the parent so it can cache them ([] means "loaded, empty")
+        onDataLoaded(fetchedExpenses || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [expenses, cycleId, onDataLoaded]);
+
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!form.description || !form.volume || !form.unit || !form.unit_price) {
       setError('Semua field harus diisi.');
       return;
     }
-    setExpenses(prev => [
-      ...prev,
-      {
-        id: Date.now(),
+
+    try {
+      const res = await fetch('/api/v1/fishery/cycle/expense/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pool_cycle_id: cycleId,
+          description: form.description,
+          expense_date: form.expense_date,
+          volume: Number(form.volume),
+          unit: form.unit,
+          unit_price: Number(form.unit_price),
+        }),
+      });
+      const json = await res.json();
+
+      if (!json.success) {
+        setError(json.message || 'Gagal menyimpan biaya.');
+        return;
+      }
+
+      // Append the new expense to the cached list
+      const newExpense = {
+        id: json.data.expenseId,
         description: form.description,
         expense_date: form.expense_date,
         volume: Number(form.volume),
         unit: form.unit,
         unit_price: Number(form.unit_price),
-      },
-    ]);
-    closeModal();
+        amount: Number(form.volume) * Number(form.unit_price),
+      };
+
+      onDataLoaded([...(expenses || []), newExpense]);
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      setError('Terjadi kesalahan. Silakan coba lagi.');
+    }
   }
 
   function totalExpenses(expenses) {
-    if (!expenses || expenses.length === 0) return 0;
+    if (!expenses || expenses?.length === 0) return 0;
     return expenses.reduce((sum, e) => sum + Number(e.volume) * Number(e.unit_price), 0);
   }
 
@@ -88,7 +135,9 @@ export default function FisheryCycleExpenseTab() {
         </div>
       </div>
       <div className="fishery-info-card">
-        {expenses.length === 0 ? (
+        {loading ? (
+          <p className="fishery-empty">Loading...</p>
+        ) : !expenses || expenses.length === 0 ? (
           <div className="fishery-detail-row">
             <span className="fishery-detail-label">Belum ada biaya tercatat.</span>
           </div>
