@@ -15,7 +15,7 @@ export const formatDate = (date) => {
 }
 
 export const formatDateIDN = (date) => {
-    if (date === null) {
+    if (date === null || date === undefined) {
         return '-'
     }
 
